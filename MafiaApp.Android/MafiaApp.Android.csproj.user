@@ -2,5 +2,6 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <SelectedDevice>nexus_5_q_10_0_-_api_29</SelectedDevice>
+    <DefaultDevice>nexus_5_q_10_0_-_api_29</DefaultDevice>
   </PropertyGroup>
 </Project>
