@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -10,7 +11,7 @@ namespace MafiaApp
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            MainPage = new NavigationPage(new StartGamePage());
         }
 
         protected override void OnStart()
