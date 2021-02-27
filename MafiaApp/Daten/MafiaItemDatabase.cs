@@ -5,7 +5,7 @@ using System.Text;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MafiaApp.Daten
+namespace MafiaApp  //vorher .Daten
 {
     public class MafiaItemDatabase
     {
@@ -34,5 +34,33 @@ namespace MafiaApp.Daten
             }
         }
 
+        public Task<List<PlayerItem>> GetItemsAsync()
+        {
+            return Database.Table<PlayerItem>().ToListAsync();
+        }
+
+        public Task<List<PlayerItem>> GetItemsNotDoneAsync()
+        {
+            // SQL queries are also possible
+            return Database.QueryAsync<PlayerItem>("SELECT * FROM [PlayerItem] WHERE Done = 0");
+        }
+
+        public Task<PlayerItem> GetItemAsync(int id)
+        {
+            return Database.Table<PlayerItem>().Where(i => i.ID == id).FirstOrDefaultAsync();
+        }
+
+        public Task<int> SaveItemAsync(PlayerItem item)
+        {
+            if (item.ID != 0)
+                return Database.UpdateAsync(item);
+            else
+                return Database.InsertAsync(item);
+        }
+
+        public Task<int> DeleteItemAsync(PlayerItem item)
+        {
+            return Database.DeleteAsync(item);
+        }
     }
 }
