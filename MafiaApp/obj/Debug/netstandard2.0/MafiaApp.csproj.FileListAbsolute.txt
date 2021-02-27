@@ -4,7 +4,6 @@ C:\Users\adria\source\repos\MafiaApp\MafiaApp\bin\Debug\netstandard2.0\ref\Mafia
 C:\Users\adria\source\repos\MafiaApp\MafiaApp\bin\Debug\netstandard2.0\MafiaApp.pdb
 C:\Users\adria\source\repos\MafiaApp\MafiaApp\obj\Debug\netstandard2.0\MafiaApp.csprojAssemblyReference.cache
 C:\Users\adria\source\repos\MafiaApp\MafiaApp\obj\Debug\netstandard2.0\App.xaml.g.cs
-C:\Users\adria\source\repos\MafiaApp\MafiaApp\obj\Debug\netstandard2.0\MainPage.xaml.g.cs
 C:\Users\adria\source\repos\MafiaApp\MafiaApp\obj\Debug\netstandard2.0\MafiaApp.AssemblyInfoInputs.cache
 C:\Users\adria\source\repos\MafiaApp\MafiaApp\obj\Debug\netstandard2.0\MafiaApp.AssemblyInfo.cs
 C:\Users\adria\source\repos\MafiaApp\MafiaApp\obj\Debug\netstandard2.0\MafiaApp.csproj.CoreCompileInputs.cache
@@ -12,3 +11,5 @@ C:\Users\adria\source\repos\MafiaApp\MafiaApp\obj\Debug\netstandard2.0\XamlC.sta
 C:\Users\adria\source\repos\MafiaApp\MafiaApp\obj\Debug\netstandard2.0\MafiaApp.dll
 C:\Users\adria\source\repos\MafiaApp\MafiaApp\obj\Debug\netstandard2.0\ref\MafiaApp.dll
 C:\Users\adria\source\repos\MafiaApp\MafiaApp\obj\Debug\netstandard2.0\MafiaApp.pdb
+C:\Users\adria\source\repos\MafiaApp\MafiaApp\obj\Debug\netstandard2.0\PlayerPage.xaml.g.cs
+C:\Users\adria\source\repos\MafiaApp\MafiaApp\obj\Debug\netstandard2.0\StartGamePage.xaml.g.cs
