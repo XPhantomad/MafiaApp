@@ -28,7 +28,7 @@ namespace MafiaApp  //vorher .Daten
             {
                 if (!Database.TableMappings.Any(m => m.MappedType.Name == typeof(PlayerItem).Name))
                 {
-                    await Database.CreateTableAsync(CreateFlags.None, typeof(PlayerItem)).ConfigureAwait(false);
+                    await Database.CreateTablesAsync(CreateFlags.None, typeof(PlayerItem)).ConfigureAwait(false);
                 }
                 initialized = true;
             }
