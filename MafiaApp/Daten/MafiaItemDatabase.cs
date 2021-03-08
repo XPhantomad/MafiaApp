@@ -34,6 +34,8 @@ namespace MafiaApp  //vorher .Daten
             }
         }
 
+        // hier dann andere Methoden um gewünschte Daten auszulesen verwenden
+
         public Task<List<PlayerItem>> GetItemsAsync()
         {
             return Database.Table<PlayerItem>().ToListAsync();
