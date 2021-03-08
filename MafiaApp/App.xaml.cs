@@ -7,7 +7,7 @@ namespace MafiaApp
 {
     public partial class App : Application
     {
-        static MafiaItemDatabase database;
+      
         public App()
         {
             InitializeComponent();
@@ -15,18 +15,7 @@ namespace MafiaApp
             MainPage = new NavigationPage(new StartGamePage());
         }
 
-        public static MafiaItemDatabase Database
-        {
-            get
-            {
-                if (database == null)
-                { 
-                    database = new MafiaItemDatabase(); 
-                }
-                return database;
-            }
-        }
-
+    
         protected override void OnStart()
         {
         }

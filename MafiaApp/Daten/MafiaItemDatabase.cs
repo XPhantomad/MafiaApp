@@ -5,23 +5,28 @@ using System.Text;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MafiaApp  //vorher .Daten
+namespace MafiaApp //vorher .Daten
 {
     public class MafiaItemDatabase
     {
-        static readonly Lazy<SQLiteAsyncConnection> lazyInitializer = new Lazy<SQLiteAsyncConnection>(() => { 
-       
-            return new SQLiteAsyncConnection(Constants.DatabasePath, Constants.Flags); 
+        static SQLiteAsyncConnection Database;
+
+        public static readonly AsyncLazyusw<MafiaItemDatabase> Instance = new AsyncLazyusw<MafiaItemDatabase>(async()=>
+        {
+           var inst = new MafiaItemDatabase();
+           CreateTableResult result = await Database.CreateTableAsync<PlayerItem>();
+           return inst;
         
         });
 
-        static SQLiteAsyncConnection Database => lazyInitializer.Value;
-        static bool initialized = false;
+        //static bool initialized = false;
 
         public MafiaItemDatabase()
         {
-            InitializeAsync().SafeFireAndForget(false);
+            //InitializeAsync().SafeFireAndForget(false);
+            Database = new SQLiteAsyncConnection(Constants.DatabasePath, Constants.Flags);
         }
+        /*
         async Task InitializeAsync()
         {
             if (!initialized)
@@ -33,6 +38,9 @@ namespace MafiaApp  //vorher .Daten
                 initialized = true;
             }
         }
+        */
+        
+
 
         // hier dann andere Methoden um gewünschte Daten auszulesen verwenden
 

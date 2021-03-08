@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MafiaApp
 {
-    class AsyncLazyusw<T> : Lazy<Task<T>>
+    public class AsyncLazyusw<T> : Lazy<Task<T>>
     {
         readonly Lazy<Task<T>> instance;
 
