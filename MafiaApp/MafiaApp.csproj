@@ -17,6 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="MainPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="PlayerPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

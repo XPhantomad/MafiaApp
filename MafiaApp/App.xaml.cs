@@ -12,7 +12,7 @@ namespace MafiaApp
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new StartGamePage());
+            MainPage = new MainPage();
         }
 
     
