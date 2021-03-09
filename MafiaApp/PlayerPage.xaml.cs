@@ -27,6 +27,7 @@ namespace MafiaApp
         async void OnPlayerAdded(object sender, EventArgs e)
         {
             string newplayer = await DisplayPromptAsync("Namen Eingeben", "hier soll keine unterschrift hin");
+            await 
         }
     }
 }

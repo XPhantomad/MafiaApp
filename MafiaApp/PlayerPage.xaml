@@ -1,8 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MafiaApp.PlayerPage" 
-             Title="Spilller">
+             x:Class="MafiaApp.PlayerPage">
 
     <StackLayout>
     <ListView x:Name="player" >
@@ -15,9 +14,8 @@
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
-        
     </ListView>
-            <Button Text="+"  Clicked="OnPlayerAdded"/>
+    <Button Text="+"  Clicked="OnPlayerAdded"/>
     </StackLayout>
 
 </ContentPage>

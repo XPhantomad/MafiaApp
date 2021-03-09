@@ -23,10 +23,21 @@ namespace MafiaApp //vorher .Daten
         {
             Database = new SQLiteAsyncConnection(Constants.DatabasePath, Constants.Flags);
         }
-       
+
         // hier dann andere Methoden um gewünschte Daten auszulesen verwenden
 
+        public Task<int> SavePlayer(string player)
+        {
+            PlayerItem item = new PlayerItem();
+            item.Name = player;
+            item.Role = "";             // hier noch rollen Datentyp einführen
+            item.Present = true;
 
+            if (item.ID != 0)
+                return Database.UpdateAsync(item);
+            else
+                return Database.InsertAsync(item);
+        }
 
 
 
