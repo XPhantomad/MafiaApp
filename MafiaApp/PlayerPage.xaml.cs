@@ -16,5 +16,12 @@ namespace MafiaApp
         {
             InitializeComponent();
         }
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+
+            MafiaItemDatabase database = await MafiaItemDatabase.Instance;
+            player.ItemsSource = await database.GetItemsAsync();
+        }
     }
 }

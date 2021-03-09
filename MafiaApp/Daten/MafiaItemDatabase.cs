@@ -19,29 +19,11 @@ namespace MafiaApp //vorher .Daten
         
         });
 
-        //static bool initialized = false;
-
         public MafiaItemDatabase()
         {
-            //InitializeAsync().SafeFireAndForget(false);
             Database = new SQLiteAsyncConnection(Constants.DatabasePath, Constants.Flags);
         }
-        /*
-        async Task InitializeAsync()
-        {
-            if (!initialized)
-            {
-                if (!Database.TableMappings.Any(m => m.MappedType.Name == typeof(PlayerItem).Name))
-                {
-                    await Database.CreateTablesAsync(CreateFlags.None, typeof(PlayerItem)).ConfigureAwait(false);
-                }
-                initialized = true;
-            }
-        }
-        */
-        
-
-
+       
         // hier dann andere Methoden um gewünschte Daten auszulesen verwenden
 
 
