@@ -10,13 +10,12 @@ using Xamarin.Forms.Xaml;
 namespace MafiaApp
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MainPage : TabbedPage
+    public partial class TabPage : TabbedPage
     {
-        public MainPage()
+        public TabPage()
         {
             InitializeComponent();
 
-            Children.Add(new StartGamePage());
         }
     }
 }

@@ -12,7 +12,7 @@ namespace MafiaApp
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            MainPage = new TabPage();
         }
 
     
