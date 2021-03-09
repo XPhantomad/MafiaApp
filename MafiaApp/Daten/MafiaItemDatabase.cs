@@ -24,6 +24,7 @@ namespace MafiaApp //vorher .Daten
             Database = new SQLiteAsyncConnection(Constants.DatabasePath, Constants.Flags);
         }
 
+
         // hier dann andere Methoden um gewünschte Daten auszulesen verwenden
 
         public Task<int> SavePlayer(string player)
@@ -37,6 +38,11 @@ namespace MafiaApp //vorher .Daten
                 return Database.UpdateAsync(item);
             else
                 return Database.InsertAsync(item);
+        }
+
+        public Task<List<PlayerItem>> GetPlayerAsync()
+        {
+            return Database.Table<PlayerItem>().ToListAsync();
         }
 
 
