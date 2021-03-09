@@ -4,7 +4,16 @@
              x:Class="MafiaApp.PlayerPage">
 
     <StackLayout>
-    <ListView x:Name="player" >
+
+        <CollectionView x:Name="player"  ItemsSource="{Binding PlayerItem}">
+            <CollectionView.ItemTemplate>
+            <DataTemplate>
+                <Label Text="{Binding Name}"/>
+            </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        
+        <ListView x:Name="player" >
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
@@ -14,8 +23,13 @@
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
-    </ListView>
-    <Button Text="+"  Clicked="OnPlayerAdded"/>
+        </ListView>
+
+        <RelativeLayout>
+            <Button Text="+"  Clicked="OnPlayerAdded"/>
+            <Button Text="del" Clicked="OnPlayerDeleted"/>
+        </RelativeLayout>
+       
     </StackLayout>
 
 </ContentPage>

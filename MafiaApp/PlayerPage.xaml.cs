@@ -31,5 +31,6 @@ namespace MafiaApp
             await db.SavePlayer(newplayer);
             player.ItemsSource = await db.GetPlayerAsync();
         }
+        
     }
 }
