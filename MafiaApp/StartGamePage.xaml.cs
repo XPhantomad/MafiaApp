@@ -52,7 +52,7 @@ namespace MafiaApp
             MafiaItemDatabase database = await MafiaItemDatabase.Instance;
             await database.DeleteItemAsync(iwas);
             await Navigation.PopAsync();
-            
+
             /*
              if (File.Exists(_fileName))
              {
