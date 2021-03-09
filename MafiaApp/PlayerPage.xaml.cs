@@ -23,5 +23,10 @@ namespace MafiaApp
             MafiaItemDatabase database = await MafiaItemDatabase.Instance;
             player.ItemsSource = await database.GetItemsAsync();
         }
+
+        async void OnPlayerAdded(object sender, EventArgs e)
+        {
+            string newplayer = await DisplayPromptAsync("Namen Eingeben", "hier soll keine unterschrift hin");
+        }
     }
 }
