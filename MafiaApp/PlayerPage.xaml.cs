@@ -15,6 +15,7 @@ namespace MafiaApp
         public PlayerPage()
         {
             InitializeComponent();
+         
         }
         protected override async void OnAppearing()
         {
