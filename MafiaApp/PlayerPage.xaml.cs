@@ -39,8 +39,19 @@ namespace MafiaApp
         
          async void OnItemsSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            MafiaItemDatabase dps = await MafiaItemDatabase.Instance;
+            MafiaItemDatabase database = await MafiaItemDatabase.Instance;
             //dps = (MafiaItemDatabase)player.SelectedItems;
+            PlayerItem pla = (PlayerItem)player.SelectedItem;
+            if (pla.Present == true)
+            {
+                present.Text = "----";
+            }
+            else
+            {
+                present.Text = "++++";
+            }
+          
+            // Knopf für Anwesenheit ändern
 
             Console.WriteLine("Items Selected");
            
@@ -58,17 +69,34 @@ namespace MafiaApp
             }
             else
             {
-                await DisplayAlert("Warnung", "Wähle zuerst eine Person aus", "Oaky");  
-            }
-           
-          
+                await DisplayAlert("Warnung", "Wähle zuerst eine Person aus", "Oaky");
+            } 
         }
+
+        async void OnPlayerPresent(object sender, EventArgs e)
+        {
+            if (player.SelectedItem != null)
+            {
+                ausgabe.Text = "Löschen Button gedrückt";
+                MafiaItemDatabase database = await MafiaItemDatabase.Instance;
+                PlayerItem pres = (PlayerItem)player.SelectedItem;
+                await database.ChangePlayerPresentAsync(pres);
+                player.ItemsSource = await database.GetPlayerAsync();
+                player.SelectedItem = null;    // damit Alert wieder eirscheint wenn nichts ausgewählt ist
+            }
+            else
+            {
+                await DisplayAlert("Warnung", "Wähle zuerst eine Person aus", "Oaky");
+            }
+        }
+
+        //mehrere Löschen Funktion dafür neue Datenbank funtkion schreiben dafür Task ansehen
         // alle abwesend funktion
         // ausgewählte anwesend funktion
 
-        
-        
 
-        
+
+
+
     }
 }

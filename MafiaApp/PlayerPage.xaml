@@ -11,8 +11,8 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <StackLayout Orientation="Horizontal">
-                        <Label Text="{Binding Name}"/>
-                        <CheckBox IsChecked="{Binding Present}" IsEnabled="false"/>
+                        <Label Text="{Binding Name}" HorizontalOptions="StartAndExpand"/>
+                        <CheckBox IsChecked="{Binding Present}" IsEnabled="false" HorizontalOptions="End" />
                     </StackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
@@ -22,6 +22,7 @@
         <StackLayout Orientation="Horizontal">
             <Button Text="+"  Clicked="OnPlayerAdded"/>
             <Button Text="del" Clicked="OnPlayerDelete"/>
+            <Button x:Name="present"  Text="++++" Clicked="OnPlayerPresent"/>
         </StackLayout>
         
         <Label x:Name="ausgabe" Text="bb"/>

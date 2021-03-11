@@ -50,7 +50,16 @@ namespace MafiaApp //vorher .Daten
             return Database.DeleteAsync(item);
         }
 
+        public Task<int> ChangePlayerPresentAsync(PlayerItem item)
+        {
+            item.Present = !(item.Present);
+            if (item.ID != 0)
+                return Database.UpdateAsync(item);
+            else
+                return Database.InsertAsync(item);
+        }
 
+        
 
 
 
