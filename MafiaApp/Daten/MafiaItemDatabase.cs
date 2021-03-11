@@ -27,7 +27,7 @@ namespace MafiaApp //vorher .Daten
 
         // hier dann andere Methoden um gewünschte Daten auszulesen verwenden
 
-        public Task<int> SavePlayer(string player)
+        public Task<int> SavePlayerAsync(string player)
         {
             PlayerItem item = new PlayerItem();
             item.Name = player;
@@ -44,6 +44,14 @@ namespace MafiaApp //vorher .Daten
         {
             return Database.Table<PlayerItem>().ToListAsync();
         }
+
+        public Task<int> DeletePlayerAsync(PlayerItem item)
+        {
+            return Database.DeleteAsync(item);
+        }
+
+
+
 
 
 
@@ -71,7 +79,6 @@ namespace MafiaApp //vorher .Daten
             else
                 return Database.InsertAsync(item);
         }
-
         public Task<int> DeleteItemAsync(PlayerItem item)
         {
             return Database.DeleteAsync(item);

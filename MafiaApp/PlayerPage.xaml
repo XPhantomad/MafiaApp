@@ -4,24 +4,28 @@
              x:Class="MafiaApp.PlayerPage">
 
     <StackLayout>
-        <ListView x:Name="player" >
-            <ListView.ItemTemplate>
+        <CollectionView x:Name="player" Margin="20,0,0,0" SelectionMode="Single" SelectionChanged="OnItemsSelected">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="10"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <ViewCell>
-                        <StackLayout Margin="20, 0, 0, 0" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                            <Label Text="{Binding Name}"    VerticalTextAlignment="Center" HorizontalOptions="StartAndExpand"/>
-                            <Button Text=" del" />
-                        </StackLayout>
-                    </ViewCell>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="{Binding Name}"/>
+                        <CheckBox IsChecked="{Binding Present}" IsEnabled="false"/>
+                    </StackLayout>
                 </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-
-        <RelativeLayout>
-            <Button Text="+"  Clicked="OnPlayerAdded"/>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
         
-        </RelativeLayout>
-       
+
+        <StackLayout Orientation="Horizontal">
+            <Button Text="+"  Clicked="OnPlayerAdded"/>
+            <Button Text="del" Clicked="OnPlayerDelete"/>
+        </StackLayout>
+        
+        <Label x:Name="ausgabe" Text="bb"/>
+
     </StackLayout>
 
 </ContentPage>
