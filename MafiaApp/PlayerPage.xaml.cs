@@ -55,7 +55,7 @@ namespace MafiaApp
 
                 // Knopf für Anwesenheit ändern
 
-                Console.WriteLine("Items Selected");
+                
             }
             else //aussehen des Knopfes für nichts ausgewählt hinzufügen
             {
@@ -66,8 +66,7 @@ namespace MafiaApp
         async void OnPlayerDelete(object sender, EventArgs e)
         {
             if (player.SelectedItem != null)
-            {
-                Console.WriteLine("Löschen Button gedrückt");
+            { 
                 MafiaItemDatabase database = await MafiaItemDatabase.Instance;
                 PlayerItem del = (PlayerItem)player.SelectedItem;
                 await database.DeletePlayerAsync(del);
@@ -84,7 +83,6 @@ namespace MafiaApp
         {
             if (player.SelectedItem != null)
             {
-                ausgabe.Text = "Löschen Button gedrückt";
                 MafiaItemDatabase database = await MafiaItemDatabase.Instance;
                 PlayerItem pres = (PlayerItem)player.SelectedItem;
                 await database.ChangePlayerPresentAsync(pres);
