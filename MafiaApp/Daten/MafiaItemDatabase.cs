@@ -40,7 +40,7 @@ namespace MafiaApp //vorher .Daten
                 return Database.InsertAsync(item);
         }
 
-        public Task<List<PlayerItem>> GetPlayerAsync()
+        public Task<List<PlayerItem>> GetPlayersAsync()
         {
             return Database.Table<PlayerItem>().ToListAsync();
         }
@@ -69,6 +69,11 @@ namespace MafiaApp //vorher .Daten
             {
                 return Database.QueryAsync<PlayerItem>("SELECT * FROM [PlayerItem] ORDER BY Name DESC");
             }
+        }
+
+        public Task<List<PlayerItem>> GetPlayersPresentAsync()
+        {
+            return Database.QueryAsync<PlayerItem>("SELECT * FROM [PlayerItem] WHERE Present = true ");
         }
 
         

@@ -13,7 +13,7 @@ namespace MafiaApp
     public partial class PlayerPage : ContentPage
     {
 
-        
+        bool presentPlayersShown = false;
 
         public PlayerPage()
         {
@@ -25,7 +25,7 @@ namespace MafiaApp
             base.OnAppearing();
 
             MafiaItemDatabase database = await MafiaItemDatabase.Instance;
-            player.ItemsSource = await database.GetPlayerAsync();
+            player.ItemsSource = await database.GetPlayersAsync();
         }
 
         async void OnPlayerAdded(object sender, EventArgs e)
@@ -34,7 +34,7 @@ namespace MafiaApp
             string newplayer = await DisplayPromptAsync("Namen Eingeben", "hier soll keine unterschrift hin");
             MafiaItemDatabase database = await MafiaItemDatabase.Instance;
             await database.SavePlayerAsync(newplayer);
-            player.ItemsSource = await database.GetPlayerAsync();
+            player.ItemsSource = await database.GetPlayersAsync();
         }
         
          async void OnItemsSelected(object sender, SelectedItemChangedEventArgs e)
@@ -71,7 +71,7 @@ namespace MafiaApp
                 MafiaItemDatabase database = await MafiaItemDatabase.Instance;
                 PlayerItem del = (PlayerItem)player.SelectedItem;
                 await database.DeletePlayerAsync(del);
-                player.ItemsSource = await database.GetPlayerAsync();
+                player.ItemsSource = await database.GetPlayersAsync();
                 player.SelectedItem = null;    // damit Alert wieder eirscheint wenn nichts ausgewählt ist
             }
             else
@@ -88,7 +88,7 @@ namespace MafiaApp
                 MafiaItemDatabase database = await MafiaItemDatabase.Instance;
                 PlayerItem pres = (PlayerItem)player.SelectedItem;
                 await database.ChangePlayerPresentAsync(pres);
-                player.ItemsSource = await database.GetPlayerAsync();
+                player.ItemsSource = await database.GetPlayersAsync();
                 player.SelectedItem = null;    // damit Alert wieder eirscheint wenn nichts ausgewählt ist
             }
             else
@@ -107,10 +107,27 @@ namespace MafiaApp
                 player.ItemsSource = await database.GetSortedPlayersAsync(false);
             }
             else if (action.Equals("Aufheben")){
-                player.ItemsSource = await database.GetPlayerAsync();
+                player.ItemsSource = await database.GetPlayersAsync();
             }
             // bei Abbrechen soll es so sortiert bleiben
-            // idee: Überladung der GetPlayerAsync Methode um den bool wert für auf und absteigend
+            // idee: Überladung der GetPlayersAsync Methode um den bool wert für auf und absteigend
+        }
+
+        async void OnShowPresentPlayers(object sender, EventArgs e)
+        {
+            MafiaItemDatabase database = await MafiaItemDatabase.Instance;
+            presentPlayersShown = !(presentPlayersShown);
+            if (presentPlayersShown == true)
+            {
+                player.ItemsSource = await database.GetPlayersPresentAsync();
+                ShowPresentPlayers.Text = "Anwesende";
+            }
+            else
+            {
+                player.ItemsSource = await database.GetPlayersAsync();
+                ShowPresentPlayers.Text = "Alle";
+            }
+            
         }
 
         // wie modus um mitspieler Festzulegen
