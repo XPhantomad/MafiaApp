@@ -22,7 +22,8 @@
         <StackLayout Orientation="Horizontal">
             <Button Text="+"  Clicked="OnPlayerAdded"/>
             <Button Text="del" Clicked="OnPlayerDelete"/>
-            <Button x:Name="present"  Text="++++" Clicked="OnPlayerPresent"/>
+            <Button x:Name="present"  Text="none" Clicked="OnPlayerPresent"/>
+            <Button Text="Sortieren"
         </StackLayout>
         
         <Label x:Name="ausgabe" Text="bb"/>

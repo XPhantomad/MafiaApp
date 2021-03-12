@@ -39,21 +39,30 @@ namespace MafiaApp
         
          async void OnItemsSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            MafiaItemDatabase database = await MafiaItemDatabase.Instance;
-            //dps = (MafiaItemDatabase)player.SelectedItems;
-            PlayerItem pla = (PlayerItem)player.SelectedItem;
-            if (pla.Present == true)
+            if (player.SelectedItem != null)
             {
-                present.Text = "----";
-            }
-            else
-            {
-                present.Text = "++++";
-            }
-          
-            // Knopf für Anwesenheit ändern
+                MafiaItemDatabase database = await MafiaItemDatabase.Instance;
+                //dps = (MafiaItemDatabase)player.SelectedItems;
+                PlayerItem pla = (PlayerItem)player.SelectedItem;
+                if (pla.Present == true)
+                {
+                    present.Text = "----";
+                }
+                else
+                {
+                    present.Text = "++++";
+                }
 
-            Console.WriteLine("Items Selected");
+                // Knopf für Anwesenheit ändern
+
+                Console.WriteLine("Items Selected");
+            }
+            else //aussehen des Knopfes für nichts ausgewählt hinzufügen
+            {
+                present.Text = "none";
+            }
+            
+            
            
         }
         async void OnPlayerDelete(object sender, EventArgs e)
