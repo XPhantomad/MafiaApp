@@ -23,7 +23,7 @@
             <Button Text="+"  Clicked="OnPlayerAdded"/>
             <Button Text="del" Clicked="OnPlayerDelete"/>
             <Button x:Name="present"  Text="none" Clicked="OnPlayerPresent"/>
-            <Button Text="Sortieren"
+            <Button Text="Sortieren" Clicked="OnPlayerSorted"/>
         </StackLayout>
         
         <Label x:Name="ausgabe" Text="bb"/>

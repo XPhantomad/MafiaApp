@@ -61,8 +61,6 @@ namespace MafiaApp
             {
                 present.Text = "none";
             }
-            
-            
            
         }
         async void OnPlayerDelete(object sender, EventArgs e)
@@ -98,6 +96,25 @@ namespace MafiaApp
                 await DisplayAlert("Warnung", "Wähle zuerst eine Person aus", "Oaky");
             }
         }
+        async void OnPlayerSorted(object sender, EventArgs e)
+        {
+            MafiaItemDatabase database = await MafiaItemDatabase.Instance;
+            string action = await DisplayActionSheet("Nach Name sortieren.", "Abbrechen", "Aufheben", "Aufsteigend", "Absteigend");
+            if (action.Equals("Aufsteigend")) {
+                player.ItemsSource = await database.GetSortedPlayersAsync(true);
+            }
+            else if (action.Equals("Absteigend")){
+                player.ItemsSource = await database.GetSortedPlayersAsync(false);
+            }
+            else if (action.Equals("Aufheben")){
+                player.ItemsSource = await database.GetPlayerAsync();
+            }
+            // bei Abbrechen soll es so sortiert bleiben
+            // idee: Überladung der GetPlayerAsync Methode um den bool wert für auf und absteigend
+        }
+
+        // wie modus um mitspieler Festzulegen
+        // knopf sagt jetzt hinzufügen, dann verändert sich was, dann bewirkt klick auf eine Person, dass status geändert wird und danach wieder ausgewählte auf null gesetzt damit man nächstes auswählen kann!!!!!
 
         //mehrere Löschen Funktion dafür neue Datenbank funtkion schreiben dafür Task ansehen
         // alle abwesend funktion

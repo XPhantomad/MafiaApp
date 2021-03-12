@@ -47,7 +47,7 @@ namespace MafiaApp //vorher .Daten
 
         public Task<int> DeletePlayerAsync(PlayerItem item)
         {
-            return Database.DeleteAsync(item);
+            return Database.DeleteAsync(item);      
         }
 
         public Task<int> ChangePlayerPresentAsync(PlayerItem item)
@@ -57,6 +57,18 @@ namespace MafiaApp //vorher .Daten
                 return Database.UpdateAsync(item);
             else
                 return Database.InsertAsync(item);
+        }
+
+        public Task<List<PlayerItem>> GetSortedPlayersAsync(bool ascending)      //ascending = ausfsteigend
+        {
+            if (ascending == true)
+            {
+                return Database.QueryAsync<PlayerItem>("SELECT * FROM [PlayerItem] ORDER BY Name ASC");
+            }
+            else
+            {
+                return Database.QueryAsync<PlayerItem>("SELECT * FROM [PlayerItem] ORDER BY Name DESC");
+            }
         }
 
         
