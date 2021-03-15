@@ -33,11 +33,11 @@ namespace MafiaApp
         async void OnChangeName(object sender, EventArgs e)
         {
             MafiaItemDatabase database = await MafiaItemDatabase.Instance;
-            string[] o = await database.GetPlayersNoRoleAndPresentAsync();
+            string[] playerNames = await database.GetPlayersNoRoleAndPresentAsync();
             //string[] m = new string[4];
             //m[1] = "name11";
             //m[2] = "name 21";
-            string selection = await DisplayActionSheet("Name Auswählen", "Abbrechen", "Keiner", o);
+            string selection = await DisplayActionSheet("Name Auswählen", "Abbrechen", "Keiner", playerNames);
             
 
         }

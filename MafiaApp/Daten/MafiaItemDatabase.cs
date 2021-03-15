@@ -42,8 +42,7 @@ namespace MafiaApp //vorher .Daten
 
         public Task<List<PlayerItem>> GetPlayersAsync()
         {
-            return Database.QueryAsync<PlayerItem>("SELECT * FROM [PlayerItem]");
-            //return Database.Table<PlayerItem>().ToListAsync();
+            return Database.Table<PlayerItem>().ToListAsync();
         }
 
         public Task<int> DeletePlayerAsync(PlayerItem item)
@@ -85,6 +84,7 @@ namespace MafiaApp //vorher .Daten
             foreach (PlayerItem aPlayerItem in names)  // vielleicht nich bessere Typkonvertierung finden
             {
                 nameList[i] = aPlayerItem.Name;
+                i++;
             }
             return nameList;
         }
