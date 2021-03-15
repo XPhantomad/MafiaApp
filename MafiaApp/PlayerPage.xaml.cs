@@ -9,7 +9,6 @@ using Xamarin.Forms.Xaml;
 
 namespace MafiaApp
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PlayerPage : ContentPage
     {
 

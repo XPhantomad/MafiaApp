@@ -4,6 +4,7 @@
             x:Class="MafiaApp.TabPage">
            
   <!--Wichtig Namespace muss oben hinzugefügt werden-->
-    <local:StartGamePage Title="Spiel"/>
     <local:PlayerPage Title="Spieler"/>
+    <local:StartGamePage Title="Spiel"/>
+ 
 </TabbedPage>

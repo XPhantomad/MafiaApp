@@ -42,7 +42,8 @@ namespace MafiaApp //vorher .Daten
 
         public Task<List<PlayerItem>> GetPlayersAsync()
         {
-            return Database.Table<PlayerItem>().ToListAsync();
+            return Database.QueryAsync<PlayerItem>("SELECT * FROM [PlayerItem]");
+            //return Database.Table<PlayerItem>().ToListAsync();
         }
 
         public Task<int> DeletePlayerAsync(PlayerItem item)
@@ -74,6 +75,18 @@ namespace MafiaApp //vorher .Daten
         public Task<List<PlayerItem>> GetPlayersPresentAsync()
         {
             return Database.QueryAsync<PlayerItem>("SELECT * FROM [PlayerItem] WHERE Present = true ");
+        }
+
+        public async Task<string[]> GetPlayersNoRoleAndPresentAsync()
+        {
+            List<PlayerItem> names = await Database.QueryAsync<PlayerItem>("SELECT Name FROM [PlayerItem] WHERE Present = true");
+            string[] nameList = new string[8];
+            int i = 0;
+            foreach (PlayerItem aPlayerItem in names)  // vielleicht nich bessere Typkonvertierung finden
+            {
+                nameList[i] = aPlayerItem.Name;
+            }
+            return nameList;
         }
 
         

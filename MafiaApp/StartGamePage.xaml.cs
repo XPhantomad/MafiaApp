@@ -13,7 +13,8 @@ namespace MafiaApp
 {
     public partial class StartGamePage : ContentPage
     {
-       
+        
+
         public StartGamePage()
         {
             InitializeComponent();
@@ -31,10 +32,13 @@ namespace MafiaApp
 
         async void OnChangeName(object sender, EventArgs e)
         {
-            var irgendwas = (PlayerItem)BindingContext;
             MafiaItemDatabase database = await MafiaItemDatabase.Instance;
-            await database.SaveItemAsync(irgendwas);
-            await Navigation.PopAsync();
+            string[] o = await database.GetPlayersNoRoleAndPresentAsync();
+            //string[] m = new string[4];
+            //m[1] = "name11";
+            //m[2] = "name 21";
+            string selection = await DisplayActionSheet("Name Auswählen", "Abbrechen", "Keiner", o);
+            
 
         }
 
@@ -43,7 +47,7 @@ namespace MafiaApp
             var iwas = (PlayerItem)BindingContext;
             MafiaItemDatabase database = await MafiaItemDatabase.Instance;
             await database.DeleteItemAsync(iwas);
-            await Navigation.PopAsync();
+            
         }
 
     }
