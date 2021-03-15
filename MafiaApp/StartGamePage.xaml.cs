@@ -29,7 +29,22 @@ namespace MafiaApp
             BindingContext = new PlayerItem();
         }
 
+        async void OnChangeName(object sender, EventArgs e)
+        {
+            var irgendwas = (PlayerItem)BindingContext;
+            MafiaItemDatabase database = await MafiaItemDatabase.Instance;
+            await database.SaveItemAsync(irgendwas);
+            await Navigation.PopAsync();
 
-       
+        }
+
+        async void OnPopout(object sender, EventArgs e)
+        {
+            var iwas = (PlayerItem)BindingContext;
+            MafiaItemDatabase database = await MafiaItemDatabase.Instance;
+            await database.DeleteItemAsync(iwas);
+            await Navigation.PopAsync();
+        }
+
     }
 }
