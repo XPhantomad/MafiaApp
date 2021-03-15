@@ -90,13 +90,13 @@ namespace MafiaApp //vorher .Daten
             return nameList;
         }
 
-        public async Task<int> SetPlayersRoleAsync(string name, roles role)
+        public async Task<int> SetPlayersRoleAsync(string name, roles role)  // besser Namens Array Übergeben
         {
             // nur mit await funtkioniert der ganze Hase
+            // Error hinzufügen, falls kein Name oder Rolle ankommt
             PlayerItem player = await Database.Table<PlayerItem>().Where(p => p.Name == name).FirstOrDefaultAsync();
             player.Role = role;
-            return await Database.UpdateAsync(player);
-           
+            return await Database.UpdateAsync(player);           
         }
 
 

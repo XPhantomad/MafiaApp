@@ -35,8 +35,15 @@ namespace MafiaApp
             MafiaItemDatabase database = await MafiaItemDatabase.Instance;
             string[] playerNames = await database.GetPlayersNoRoleAndPresentAsync();
             string selection = await DisplayActionSheet("Name Auswählen", "Abbrechen", "Keiner", playerNames);
-            amor.Text = selection;
-
+            if (selection.Equals("Keiner"))
+            {
+                amor.Text = "None";
+            }
+            else if (!selection.Equals("Abbrechen"))
+            {
+                amor.Text = selection;
+                await database.SetPlayersRoleAsync(selection, roles.Amor);
+            }
 
         }
 
