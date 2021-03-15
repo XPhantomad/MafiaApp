@@ -24,9 +24,8 @@ namespace MafiaApp //vorher .Daten
             Database = new SQLiteAsyncConnection(Constants.DatabasePath, Constants.Flags);
         }
 
-
-        // hier dann andere Methoden um gewünschte Daten auszulesen verwenden
-
+        // Daten Methoden
+        // Für PlayerPage
         public Task<int> SavePlayerAsync(string player)
         {
             PlayerItem item = new PlayerItem();
@@ -76,9 +75,11 @@ namespace MafiaApp //vorher .Daten
             return Database.QueryAsync<PlayerItem>("SELECT * FROM [PlayerItem] WHERE Present = true ");
         }
 
+        // Für StartGamePage
+
         public async Task<string[]> GetPlayersNoRoleAndPresentAsync()
         {
-            List<PlayerItem> names = await Database.QueryAsync<PlayerItem>("SELECT Name FROM [PlayerItem] WHERE Present = true");
+            List<PlayerItem> names = await Database.QueryAsync<PlayerItem>("SELECT Name FROM [PlayerItem] WHERE Present = true");  // keine Rolle noch hinzufügen
             string[] nameList = new string[8];
             int i = 0;
             foreach (PlayerItem aPlayerItem in names)  // vielleicht nich bessere Typkonvertierung finden
@@ -89,7 +90,15 @@ namespace MafiaApp //vorher .Daten
             return nameList;
         }
 
-        
+        public async Task<int> SetPlayersRoleAsync(string name, roles role)
+        {
+            // nur mit await funtkioniert der ganze Hase
+            PlayerItem player = await Database.Table<PlayerItem>().Where(p => p.Name == name).FirstOrDefaultAsync();
+            player.Role = role;
+            return await Database.UpdateAsync(player);
+           
+        }
+
 
 
 

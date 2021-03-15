@@ -34,11 +34,9 @@ namespace MafiaApp
         {
             MafiaItemDatabase database = await MafiaItemDatabase.Instance;
             string[] playerNames = await database.GetPlayersNoRoleAndPresentAsync();
-            //string[] m = new string[4];
-            //m[1] = "name11";
-            //m[2] = "name 21";
             string selection = await DisplayActionSheet("Name Auswählen", "Abbrechen", "Keiner", playerNames);
-            
+            amor.Text = selection;
+
 
         }
 
