@@ -31,7 +31,7 @@ namespace MafiaApp //vorher .Daten
         {
             PlayerItem item = new PlayerItem();
             item.Name = player;
-            item.Role = "";             // hier noch rollen Datentyp einführen
+            item.Role = roles.None;             
             item.Present = true;
 
             if (item.ID != 0)

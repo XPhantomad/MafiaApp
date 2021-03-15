@@ -10,8 +10,10 @@ namespace MafiaApp   //vorher mit .Player
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; }
         public string Name { get; set; }
-        public string Role { get; set; }        // Rollen Datentyp einführen
+        public roles Role { get; set; }        // Rollen Datentyp einführen
         public bool Present { get; set; }
         public string Liebespartner { get; set; }
+        public bool Alive { get; set; }
+
     }
 }
