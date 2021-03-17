@@ -4,13 +4,13 @@
              x:Class="MafiaApp.PlayerPage">
 
     <StackLayout>
-        <CollectionView x:Name="player" Margin="20,0,0,0" SelectionMode="Single" SelectionChanged="OnItemsSelected">
+        <CollectionView x:Name="player" Margin="0,0,0,0" SelectionMode="Single" SelectionChanged="OnItemsSelected">
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Vertical" ItemSpacing="10"/>
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <StackLayout Orientation="Horizontal" >
+                    <StackLayout Orientation="Horizontal" Margin="20,0,0,0" >
                         <Label Text="{Binding Name}" HorizontalOptions="StartAndExpand"/>
                         <CheckBox IsChecked="{Binding Present}" IsEnabled="false" HorizontalOptions="End" />
                     </StackLayout>

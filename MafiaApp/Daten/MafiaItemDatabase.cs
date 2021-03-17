@@ -32,7 +32,7 @@ namespace MafiaApp //vorher .Daten
             item.Name = player;
             item.Role = roles.None;            
             item.Present = true;
-            item.Spouse = "None";
+            item.Spouse = null;
             item.Alive = true;
             item.Victim = false;
 
@@ -83,8 +83,9 @@ namespace MafiaApp //vorher .Daten
         public async Task<string[]> GetPlayersNoRoleAndPresentAsync()
         {
             List<PlayerItem> names = await Database.QueryAsync<PlayerItem>("SELECT Name FROM [PlayerItem] WHERE Present = true AND Role = ?", roles.None);
-           // Task<int> n = Database.Table<PlayerItem>().Where(r => r.Present == true && r.Role == roles.None).CountAsync();
-            string[] nameList = new string[8];          // achtung nur 8
+            //Task<int> n = Database.Table<PlayerItem>().Where(r => r.Present == true && r.Role == roles.None).CountAsync();
+            int n = names.Count; 
+            string[] nameList = new string[n]; // achtung nur 8
             int i = 0;
             foreach (PlayerItem aPlayerItem in names)  // vielleicht nich bessere Typkonvertierung finden
             {
@@ -105,11 +106,11 @@ namespace MafiaApp //vorher .Daten
 
         public async Task<string[]> GetPlayersUnmarriedAsync(string spouse1)
         {
-            string n = null;
-            List<PlayerItem> names = await Database.QueryAsync<PlayerItem>("SELECT Name FROM [PlayerItem] WHERE Present = true AND Spouse = ?", n);  
-            string[] nameList = new string[8];          // auf die 8 aufpassen das geht nicht gut  
-            // besser vielleicht alle Spieler nach IDs einzeln auslesen und dann in Array einfügen 
-            // oder maxID irgendwie rausbekommen
+            string s = null;
+            List<PlayerItem> names = await Database.QueryAsync<PlayerItem>("SELECT Name FROM [PlayerItem] WHERE Present = true AND Spouse = ?", s);  // einfach nur Spouse ungleich berits vorhandener Namen, oder nochmal mit None probieren
+            int n = names.Count;
+            Console.WriteLine(n); // gibt hier schon 0 zurück
+            string[] nameList = new string[n];          // auf die 8 aufpassen das geht nicht gut  
             int i = 0;
             foreach (PlayerItem aPlayerItem in names)  // vielleicht nich bessere Typkonvertierung finden
             {
