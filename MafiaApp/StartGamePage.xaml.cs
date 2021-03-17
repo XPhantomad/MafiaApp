@@ -27,10 +27,10 @@ namespace MafiaApp
             base.OnAppearing();
 
             MafiaItemDatabase database = await MafiaItemDatabase.Instance;
-            BindingContext = new PlayerItem();
+            BindingContext = await database.GetPlayersAsync();
         }
 
-        async void OnChangeName(object sender, EventArgs e)
+        async void OnChangeNameAmor(object sender, EventArgs e)
         {
             MafiaItemDatabase database = await MafiaItemDatabase.Instance;
             string[] playerNames = await database.GetPlayersNoRoleAndPresentAsync();
@@ -45,6 +45,23 @@ namespace MafiaApp
                 await database.SetPlayersRoleAsync(selection, roles.Amor);
             }
 
+        }
+        async void OnSpouseChange(object sender, EventArgs e)
+        {
+            MafiaItemDatabase database = await MafiaItemDatabase.Instance;
+            string[] playerNames = await database.GetPlayersUnmarriedAsync(null);
+            string s1 = await DisplayActionSheet("Ehepartner 1 auswählen", "Abbrechen", null, playerNames);
+            if (s1.Equals("Abbrechen"))
+            {
+                return;
+            }
+            playerNames = await database.GetPlayersUnmarriedAsync(s1);
+            string s2 = await DisplayActionSheet("Ehepartner 1 auswählen", "Abbrechen", null, playerNames);
+            if (!s1.Equals("Abbrechen") && !s2.Equals("Abbrechen"))
+            {
+                await database.SetPlayerSpouseAsync(s1, s2);
+
+            }
         }
 
         async void OnPopout(object sender, EventArgs e)

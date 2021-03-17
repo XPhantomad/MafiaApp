@@ -30,8 +30,11 @@ namespace MafiaApp //vorher .Daten
         {
             PlayerItem item = new PlayerItem();
             item.Name = player;
-            item.Role = roles.None;             
+            item.Role = roles.None;            
             item.Present = true;
+            item.Spouse = "None";
+            item.Alive = true;
+            item.Victim = false;
 
             if (item.ID != 0)
                 return Database.UpdateAsync(item);
@@ -79,8 +82,8 @@ namespace MafiaApp //vorher .Daten
 
         public async Task<string[]> GetPlayersNoRoleAndPresentAsync()
         {
-            List<PlayerItem> names = await Database.QueryAsync<PlayerItem>("SELECT Name FROM [PlayerItem] WHERE Present = true");  // keine Rolle noch hinzufügen
-            string[] nameList = new string[8];
+            List<PlayerItem> names = await Database.QueryAsync<PlayerItem>("SELECT Name FROM [PlayerItem] WHERE Present = true AND Role = roles.None");  // keine Rolle noch hinzufügen
+            string[] nameList = new string[8];          // achtung nur 8
             int i = 0;
             foreach (PlayerItem aPlayerItem in names)  // vielleicht nich bessere Typkonvertierung finden
             {
@@ -90,7 +93,7 @@ namespace MafiaApp //vorher .Daten
             return nameList;
         }
 
-        public async Task<int> SetPlayersRoleAsync(string name, roles role)  // besser Namens Array Übergeben
+        public async Task<int> SetPlayersRoleAsync(string name, roles role)  
         {
             // nur mit await funtkioniert der ganze Hase
             // Error hinzufügen, falls kein Name oder Rolle ankommt
@@ -98,6 +101,52 @@ namespace MafiaApp //vorher .Daten
             player.Role = role;
             return await Database.UpdateAsync(player);           
         }
+
+        public async Task<string[]> GetPlayersUnmarriedAsync(string spouse1)
+        {
+            List<PlayerItem> names = await Database.QueryAsync<PlayerItem>("SELECT Name FROM [PlayerItem] WHERE Present = true AND Spouse = None");  
+            string[] nameList = new string[8];          // auf die 8 aufpassen das geht nicht gut  
+            // besser vielleicht alle Spieler nach IDs einzeln auslesen und dann in Array einfügen 
+            // oder maxID irgendwie rausbekommen
+            int i = 0;
+            foreach (PlayerItem aPlayerItem in names)  // vielleicht nich bessere Typkonvertierung finden
+            {
+                if (!aPlayerItem.Name.Equals(spouse1))  // bereits gesetzten Ehepartner aussortieren
+                {
+                    nameList[i] = aPlayerItem.Name;
+                    i++;
+                }
+            }
+            return nameList;
+        }
+
+        public async Task<int> SetPlayerSpouseAsync(string s1, string s2)
+        {
+            PlayerItem spouse1 = await Database.Table<PlayerItem>().Where(p => p.Name == s1).FirstOrDefaultAsync();
+            PlayerItem spouse2 = await Database.Table<PlayerItem>().Where(p => p.Name == s2).FirstOrDefaultAsync();
+            spouse1.Spouse = s2;
+            spouse2.Spouse = s1;
+            return await Database.UpdateAsync(spouse1);     //nicht wirklich aussagekräftig
+        }
+        
+
+
+        /*
+         * falls man das mal braucht
+        public async void XXXXXSetPlayersRoleAsync(string[] name, roles role)
+        {
+            // nur mit await funtkioniert der ganze Hase
+            // Error hinzufügen, falls kein Name oder Rolle ankommt
+
+            foreach (string aName in name)  // das geht schöner!!!!
+            {
+                PlayerItem player = await Database.Table<PlayerItem>().Where(p => p.Name == aName).FirstOrDefaultAsync();
+                player.Role = role;
+                await Database.UpdateAsync(player);
+            }
+            return;
+        }
+        */
 
 
 
