@@ -105,7 +105,8 @@ namespace MafiaApp //vorher .Daten
 
         public async Task<string[]> GetPlayersUnmarriedAsync(string spouse1)
         {
-            List<PlayerItem> names = await Database.QueryAsync<PlayerItem>("SELECT Name FROM [PlayerItem] WHERE Present = true AND Spouse = ?", "null" );  
+            string n = null;
+            List<PlayerItem> names = await Database.QueryAsync<PlayerItem>("SELECT Name FROM [PlayerItem] WHERE Present = true AND Spouse = ?", n);  
             string[] nameList = new string[8];          // auf die 8 aufpassen das geht nicht gut  
             // besser vielleicht alle Spieler nach IDs einzeln auslesen und dann in Array einfügen 
             // oder maxID irgendwie rausbekommen
