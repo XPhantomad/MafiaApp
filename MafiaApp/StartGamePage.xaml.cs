@@ -32,22 +32,27 @@ namespace MafiaApp
 
         async void OnChangeNameAmor(object sender, EventArgs e)
         {
+            string previous = amor.Text;
             MafiaItemDatabase database = await MafiaItemDatabase.Instance;
             string[] playerNames = await database.GetPlayersNoRoleAndPresentAsync();
             string selection = await DisplayActionSheet("Name Auswählen", "Abbrechen", "Keiner", playerNames);
             if (selection.Equals("Keiner"))
             {
                 amor.Text = "None";
+                await database.SetPlayersRoleAsync(previous, roles.None);
             }
             else if (!selection.Equals("Abbrechen"))
             {
                 amor.Text = selection;
+                await database.SetPlayersRoleAsync(previous, roles.None);
                 await database.SetPlayersRoleAsync(selection, roles.Amor);
             }
 
         }
         async void OnSpouseChange(object sender, EventArgs e)
         {
+            string prevSpouse1 = spouse1.Text;
+            string prevSpouse2 = spouse2.Text;
             MafiaItemDatabase database = await MafiaItemDatabase.Instance;
             string[] playerNames = await database.GetPlayersUnmarriedAsync(null);
             string s1 = await DisplayActionSheet("Ehepartner 1 auswählen", "Abbrechen", null, playerNames);
@@ -60,7 +65,9 @@ namespace MafiaApp
             if (!s1.Equals("Abbrechen") && !s2.Equals("Abbrechen"))
             {
                 await database.SetPlayerSpouseAsync(s1, s2);
-
+                await database.SetPlayerNotSpouseAsync(prevSpouse1, prevSpouse2);
+                spouse1.Text = s1;
+                spouse2.Text = s2;
             }
         }
 

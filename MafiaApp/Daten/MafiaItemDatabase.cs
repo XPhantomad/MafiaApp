@@ -130,7 +130,15 @@ namespace MafiaApp //vorher .Daten
             spouse2.Spouse = s1;
             return await Database.UpdateAsync(spouse1);     //nicht wirklich aussagekräftig
         }
-        
+        public async Task<int> SetPlayerNotSpouseAsync(string s1, string s2)
+        {
+            PlayerItem spouse1 = await Database.Table<PlayerItem>().Where(p => p.Name == s1).FirstOrDefaultAsync();
+            PlayerItem spouse2 = await Database.Table<PlayerItem>().Where(p => p.Name == s2).FirstOrDefaultAsync();
+            spouse1.Spouse = "None";
+            spouse2.Spouse = "None";
+            return await Database.UpdateAsync(spouse1);     //nicht wirklich aussagekräftig
+        }
+
 
 
         /*
