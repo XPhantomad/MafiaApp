@@ -100,14 +100,16 @@ namespace MafiaApp //vorher .Daten
             // nur mit await funtkioniert der ganze Hase
             // Error hinzufügen, falls kein Name oder Rolle ankommt
             PlayerItem player = await Database.Table<PlayerItem>().Where(p => p.Name == name).FirstOrDefaultAsync();
-            player.Role = role;
+            if (player != null)
+            {
+                player.Role = role;
+            }
             return await Database.UpdateAsync(player);           
         }
 
         public async Task<string[]> GetPlayersUnmarriedAsync(string spouse1)
         {
-            string s = "None";
-            List<PlayerItem> names = await Database.QueryAsync<PlayerItem>("SELECT Name FROM [PlayerItem] WHERE Present = true AND Spouse = ?", s); 
+            List<PlayerItem> names = await Database.QueryAsync<PlayerItem>("SELECT Name FROM [PlayerItem] WHERE Present = true"); 
             int n = names.Count;
             string[] nameList = new string[n];         
             int i = 0;
@@ -134,8 +136,11 @@ namespace MafiaApp //vorher .Daten
         {
             PlayerItem spouse1 = await Database.Table<PlayerItem>().Where(p => p.Name == s1).FirstOrDefaultAsync();
             PlayerItem spouse2 = await Database.Table<PlayerItem>().Where(p => p.Name == s2).FirstOrDefaultAsync();
-            spouse1.Spouse = "None";
-            spouse2.Spouse = "None";
+            if (spouse1 != null && spouse2 != null)
+            {
+                spouse1.Spouse = "None";
+                spouse2.Spouse = "None";
+            }
             return await Database.UpdateAsync(spouse1);     //nicht wirklich aussagekräftig
         }
 
