@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MafiaApp.StartGamePage">
 
-    <StackLayout Margin="10,35,10,10">
+    <StackLayout x:Name="mainStack" Margin="10,35,10,10">
         <Frame x:Name="amorFrame" BorderColor="Tomato" Padding="15" HeightRequest="200" CornerRadius="20" IsVisible="false">
             <StackLayout Orientation="Vertical">
                 <StackLayout Orientation="Horizontal">

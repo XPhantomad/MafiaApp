@@ -18,7 +18,32 @@ namespace MafiaApp
         public StartGamePage()
         {
             InitializeComponent();
-            
+            Frame witchFrame = new Frame
+            {
+                BorderColor = Color.Green,
+                Padding = 15, 
+                HeightRequest = 200,
+                CornerRadius = 20,
+            };
+
+            StackLayout one = new StackLayout
+            {
+                Orientation = StackOrientation.Vertical,
+            };
+
+            StackLayout two = new StackLayout
+            {
+                Orientation = StackOrientation.Horizontal
+            };
+            Label l = new Label
+            {
+                Text = "das wird nix",
+            };
+            witchFrame.Content = one;
+            one.Children.Add(two);
+            two.Children.Add(l);
+            mainStack.Children.Add(witchFrame);
+
         }
 
         protected override async void OnAppearing()
