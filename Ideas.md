@@ -16,3 +16,8 @@
 ## Verlauf
 - um fehler usw. nachzuvollziehen
 - Verlauf löscht sich nach neu öffnen? sonst in .txt speichern dann von dort auslesen und löschen knopf
+
+
+## Fehler
+- Rollen werden bei änderung nicht wieder auf None gesetzt
+- Bei Progammstart sind Rollennamen wieder leer
