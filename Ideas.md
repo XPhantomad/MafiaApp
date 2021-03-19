@@ -9,7 +9,11 @@
 ## Rollen
 - Auslesen und dann Fähigkeiten und verbleibende Handlungsmöglichkeiten aus ... abrufen
 - möglicherweise Seite um neue Rollen in Spiel zu integreieren, dazu aber speichern der Rollen in DB notwendig
-- 
+- erstellen der Seite durch C# Code, weil immer ungleich viele Rollen und Spieler für unterschiedliche Spieleinstelungen
+- Spieleinstellungs Button: welche Rolle mitspielen Sollen, wie viele Spieler pro Rolle 
+- ansonsten default automatik Einstellung mit nur Standardrollen und festgelegter SpielerAnzahl pro Rolle
+
+
 ## Spiel Page
 - Übersichtlich zum Aufklappen und interagieren, Tote grau färben, Opfer färben, (Rollen färben eher unübersichtlich)
 
