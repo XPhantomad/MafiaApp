@@ -19,6 +19,7 @@ namespace MafiaApp //vorher .Daten
         
         });
 
+
         public MafiaItemDatabase()
         {
             Database = new SQLiteAsyncConnection(Constants.DatabasePath, Constants.Flags);
@@ -107,21 +108,41 @@ namespace MafiaApp //vorher .Daten
             return await Database.UpdateAsync(player);           
         }
 
-        public async Task<string[]> GetPlayersUnmarriedAsync(string spouse1)
+        public async Task<string[]> GetPlayersMarriedAsync(string spouse1, bool married)
         {
-            List<PlayerItem> names = await Database.QueryAsync<PlayerItem>("SELECT Name FROM [PlayerItem] WHERE Present = true"); 
-            int n = names.Count;
-            string[] nameList = new string[n];         
-            int i = 0;
-            foreach (PlayerItem aPlayerItem in names)  // vielleicht nich bessere Typkonvertierung finden
+            if (married == false)
             {
-                if (!aPlayerItem.Name.Equals(spouse1))  // bereits gesetzten Ehepartner aussortieren
+                List<PlayerItem> names = await Database.QueryAsync<PlayerItem>("SELECT Name FROM [PlayerItem] WHERE Present = true");
+                int n = names.Count;
+                string[] nameList = new string[n];
+                int i = 0;
+                foreach (PlayerItem aPlayerItem in names)  // vielleicht nich bessere Typkonvertierung finden
                 {
-                    nameList[i] = aPlayerItem.Name;
-                    i++;
+                    if (!aPlayerItem.Name.Equals(spouse1))  // bereits gesetzten Ehepartner aussortieren
+                    {
+                        nameList[i] = aPlayerItem.Name;
+                        i++;
+                    }
                 }
+                return nameList;
             }
-            return nameList;
+            else
+            {
+                string s = "None";
+                List<PlayerItem> names = await Database.QueryAsync<PlayerItem>("SELECT Name FROM [PlayerItem] WHERE Present = true AND Spouse != ?", s);
+                int n = names.Count;
+                string[] nameList = new string[n];
+                int i = 0;
+                foreach (PlayerItem aPlayerItem in names)  // vielleicht nich bessere Typkonvertierung finden
+                {
+                    if (!aPlayerItem.Name.Equals(spouse1))  // bereits gesetzten Ehepartner aussortieren
+                    {
+                        nameList[i] = aPlayerItem.Name;
+                        i++;
+                    }
+                }
+                return nameList;
+            }
         }
 
         public async Task<int> SetPlayerSpouseAsync(string s1, string s2)
@@ -143,7 +164,6 @@ namespace MafiaApp //vorher .Daten
             }
             return await Database.UpdateAsync(spouse1);     //nicht wirklich aussagekräftig
         }
-
 
 
         /*

@@ -22,12 +22,13 @@ namespace MafiaApp
         }
 
 
-        protected override async void OnAppearing()
+        protected override  void OnAppearing()
         {
             base.OnAppearing();
 
-            MafiaItemDatabase database = await MafiaItemDatabase.Instance;
-            BindingContext = await database.GetPlayersAsync();
+           
+           
+            
         }
 
         async void OnChangeNameAmor(object sender, EventArgs e)
@@ -54,13 +55,13 @@ namespace MafiaApp
             string prevSpouse1 = spouse1.Text;
             string prevSpouse2 = spouse2.Text;
             MafiaItemDatabase database = await MafiaItemDatabase.Instance;
-            string[] playerNames = await database.GetPlayersUnmarriedAsync(null);
+            string[] playerNames = await database.GetPlayersMarriedAsync(null, false);
             string s1 = await DisplayActionSheet("Ehepartner 1 auswählen", "Abbrechen", null, playerNames);
             if (s1.Equals("Abbrechen"))
             {
                 return;
             }
-            playerNames = await database.GetPlayersUnmarriedAsync(s1);
+            playerNames = await database.GetPlayersMarriedAsync(s1, false);
             string s2 = await DisplayActionSheet("Ehepartner 1 auswählen", "Abbrechen", null, playerNames);
             if (!s1.Equals("Abbrechen") && !s2.Equals("Abbrechen"))
             {
@@ -71,13 +72,16 @@ namespace MafiaApp
             }
         }
 
-        async void OnPopout(object sender, EventArgs e)
+        void OnPopout(object sender, EventArgs e)
         {
-            var iwas = (PlayerItem)BindingContext;
-            MafiaItemDatabase database = await MafiaItemDatabase.Instance;
-            await database.DeleteItemAsync(iwas);
-            
+            if (amorFrame.HeightRequest == 50)
+            {
+                amorFrame.HeightRequest = 200;
+            }
+            else
+            {
+                amorFrame.HeightRequest = 50;
+            }  
         }
-
     }
 }

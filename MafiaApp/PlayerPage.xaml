@@ -10,8 +10,9 @@
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <StackLayout Orientation="Horizontal" Margin="20,0,0,0" >
+                    <StackLayout Orientation="Horizontal" Margin="20,0,0,0" HeightRequest="50">
                         <Label Text="{Binding Name}" HorizontalOptions="StartAndExpand"/>
+                        <Button x:Name="erweitern" Text="dropdown" Clicked="OnDropDown"/>
                         <CheckBox IsChecked="{Binding Present}" IsEnabled="false" HorizontalOptions="End" />
                     </StackLayout>
                 </DataTemplate>

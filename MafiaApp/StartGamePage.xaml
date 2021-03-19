@@ -4,7 +4,7 @@
              x:Class="MafiaApp.StartGamePage">
 
     <StackLayout Margin="10,35,10,10">
-        <Frame BorderColor="Tomato" Padding="15" HeightRequest="200" CornerRadius="20">
+        <Frame x:Name="amorFrame" BorderColor="Tomato" Padding="15" HeightRequest="200" CornerRadius="20">
             <StackLayout Orientation="Vertical">
                 <StackLayout Orientation="Horizontal">
                     <Ellipse WidthRequest="50" HeightRequest="20" Fill="Green" /> 
@@ -13,11 +13,11 @@
                     <Button Text="Erweitern" Clicked="OnPopout" HorizontalOptions="End"/>
                 </StackLayout>
                 <Label Text="Was die Rolle so macht steht hoffentlich im nicht sichtbaren Berreich"/>
-                <StackLayout Orientation="Horizontal">
+                <StackLayout Orientation="Horizontal" >
                     <Button x:Name="spouse" Text="verliebte Wählen" Clicked="OnSpouseChange"/>
-                    <Label x:Name="spouse1" Text=""/>
+                    <Label  x:Name="spouse1" Text="{Binding Spouse1}"/>
                     <Label Text="und"/>
-                    <Label x:Name="spouse2" Text=""/>
+                    <Label x:Name="spouse2" Text="{Binding Spouse2}"/>
                 </StackLayout>
             </StackLayout>
         </Frame>
@@ -25,13 +25,16 @@
             <StackLayout Orientation="Vertical">
                 <StackLayout Orientation="Horizontal">
                     <Ellipse WidthRequest="50" HeightRequest="20" Fill="Green" />
-                    <Button x:Name="mafia" Text="{Binding Name}" />
+                    <Button x:Name="mafia" Text="" />
                     <Label Text="Mafia" FontSize="Large" FontAttributes="Bold" HorizontalOptions="Center"/>
                     <Button Text="Erweitern" Clicked="OnPopout" HorizontalOptions="End"/>
                 </StackLayout>
 
                 <Label Text="Was die Rolle so macht steht hoffentlich im nicht sichtbaren Berreich"/>
             </StackLayout>
+        </Frame>
+        <Frame>
+            <Grid />
         </Frame>
 
     </StackLayout>
