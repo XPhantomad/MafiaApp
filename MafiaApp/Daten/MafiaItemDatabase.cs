@@ -32,7 +32,7 @@ namespace MafiaApp //vorher .Daten
             item.Name = player;
             item.Role = roles.None;            
             item.Present = true;
-            item.Spouse = null;
+            item.Spouse = "None";
             item.Alive = true;
             item.Victim = false;
 
@@ -106,11 +106,10 @@ namespace MafiaApp //vorher .Daten
 
         public async Task<string[]> GetPlayersUnmarriedAsync(string spouse1)
         {
-            string s = null;
-            List<PlayerItem> names = await Database.QueryAsync<PlayerItem>("SELECT Name FROM [PlayerItem] WHERE Present = true AND Spouse = ?", s);  // einfach nur Spouse ungleich berits vorhandener Namen, oder nochmal mit None probieren
+            string s = "None";
+            List<PlayerItem> names = await Database.QueryAsync<PlayerItem>("SELECT Name FROM [PlayerItem] WHERE Present = true AND Spouse = ?", s); 
             int n = names.Count;
-            Console.WriteLine(n); // gibt hier schon 0 zurück
-            string[] nameList = new string[n];          // auf die 8 aufpassen das geht nicht gut  
+            string[] nameList = new string[n];         
             int i = 0;
             foreach (PlayerItem aPlayerItem in names)  // vielleicht nich bessere Typkonvertierung finden
             {
