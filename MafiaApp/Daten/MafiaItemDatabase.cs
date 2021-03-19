@@ -53,7 +53,7 @@ namespace MafiaApp //vorher .Daten
             return Database.DeleteAsync(item);      
         }
 
-        public Task<int> ChangePlayerPresentAsync(PlayerItem item)
+        public Task<int> ChangePlayerPresentAsync(PlayerItem item)          // dabei am besten noch alle Spieldaten Rolle usw löschen
         {
             item.Present = !(item.Present);
             if (item.ID != 0)
@@ -86,7 +86,7 @@ namespace MafiaApp //vorher .Daten
             List<PlayerItem> names = await Database.QueryAsync<PlayerItem>("SELECT Name FROM [PlayerItem] WHERE Present = true AND Role = ?", roles.None);
             //Task<int> n = Database.Table<PlayerItem>().Where(r => r.Present == true && r.Role == roles.None).CountAsync();
             int n = names.Count; 
-            string[] nameList = new string[n]; // achtung nur 8
+            string[] nameList = new string[n]; 
             int i = 0;
             foreach (PlayerItem aPlayerItem in names)  // vielleicht nich bessere Typkonvertierung finden
             {
@@ -163,6 +163,20 @@ namespace MafiaApp //vorher .Daten
                 spouse2.Spouse = "None";
             }
             return await Database.UpdateAsync(spouse1);     //nicht wirklich aussagekräftig
+        }
+
+        public async Task<string[]> GetPlayersByRoleAsync(roles role)
+        {
+            List<PlayerItem> names = await Database.QueryAsync<PlayerItem>("SELECT Name FROM [PlayerItem] WHERE Present = true AND Role = ", role);
+            int n = names.Count;
+            string[] nameList = new string[n];
+            int i = 0;
+            foreach (PlayerItem aPlayerItem in names)  
+            {
+                nameList[i] = aPlayerItem.Name;
+                i++;
+            }
+            return nameList;
         }
 
 

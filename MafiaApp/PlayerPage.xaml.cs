@@ -127,12 +127,6 @@ namespace MafiaApp
             
         }
 
-
-        void OnDropDown(object sender, Pres e)
-        {
-            
-        }
-
         // wie modus um mitspieler Festzulegen
         // knopf sagt jetzt hinzufügen, dann verändert sich was, dann bewirkt klick auf eine Person, dass status geändert wird und danach wieder ausgewählte auf null gesetzt damit man nächstes auswählen kann!!!!!
 
