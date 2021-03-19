@@ -16,6 +16,9 @@
 - Spieleinstellungs Button: welche Rolle mitspielen Sollen, wie viele Spieler pro Rolle 
 - ansonsten default automatik Einstellung mit nur Standardrollen und festgelegter SpielerAnzahl pro Rolle
 
+1. Möglichkeit: Sichtbare Element nach Bedarf in C# code generieren und dann nach und nach mit Childs zusammenbauen
+2. Möglichkeit: Frames alle Vorfertigen und nur Visible / nicht Visible Schalten
+
 ## Verlauf
 - um fehler usw. nachzuvollziehen
 - Verlauf löscht sich nach neu öffnen? sonst in .txt speichern dann von dort auslesen und löschen knopf
