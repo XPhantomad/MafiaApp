@@ -7,28 +7,25 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using SQLite;
-
+using Xamarin.Forms.Shapes;
 
 namespace MafiaApp
 {
     public partial class StartGamePage : ContentPage
     {
-        
+
 
         public StartGamePage()
         {
             InitializeComponent();
-          
+            
         }
 
-
-      protected override async void OnAppearing()
+        protected override async void OnAppearing()
         {
             base.OnAppearing();
             MafiaItemDatabase database = await MafiaItemDatabase.Instance;
-            amor.Text = (await database.GetPlayersByRoleAsync(roles.Amor))[0]; // 1 von String
-           
-           
+            amor.Text = (await database.GetPlayersByRoleAsync(roles.Amor))[0]; // 1 von String 
             
         }
 

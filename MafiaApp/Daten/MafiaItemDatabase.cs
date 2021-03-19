@@ -167,7 +167,7 @@ namespace MafiaApp //vorher .Daten
 
         public async Task<string[]> GetPlayersByRoleAsync(roles role)
         {
-            List<PlayerItem> names = await Database.QueryAsync<PlayerItem>("SELECT Name FROM [PlayerItem] WHERE Present = true AND Role = ", role);
+            List<PlayerItem> names = await Database.QueryAsync<PlayerItem>("SELECT Name FROM [PlayerItem] WHERE Present = true AND Role = ?", role);
             int n = names.Count;
             string[] nameList = new string[n];
             int i = 0;
