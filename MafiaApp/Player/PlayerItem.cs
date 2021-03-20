@@ -13,7 +13,7 @@ namespace MafiaApp   //vorher mit .Player
         public roles Role { get; set; }        // Rollen Datentyp einführen
         public bool Present { get; set; }
         public string Spouse { get; set; }
-        public bool Alive { get; set; }
+        public int Lives { get; set; }
         public bool Victim { get; set; }
 
     }

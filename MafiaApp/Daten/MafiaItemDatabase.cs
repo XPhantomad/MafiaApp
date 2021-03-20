@@ -34,7 +34,7 @@ namespace MafiaApp //vorher .Daten
             item.Role = roles.None;            
             item.Present = true;
             item.Spouse = "None";
-            item.Alive = true;
+            item.Lives = 1;
             item.Victim = false;
 
             if (item.ID != 0)
@@ -169,7 +169,7 @@ namespace MafiaApp //vorher .Daten
             return await Database.UpdateAsync(spouse1);     //nicht wirklich aussagekräftig
         }
 
-        public async Task<string[]> GetPlayersByRoleAsyncSTR(roles role, int anzahl)
+        public async Task<string[]> GetPlayersByRoleAndNumberAsync(roles role, int anzahl)
         {
             List<PlayerItem> names = await Database.QueryAsync<PlayerItem>("SELECT Name FROM [PlayerItem] WHERE Present = true AND Role = ?", role);
             int n = names.Count;
@@ -191,6 +191,30 @@ namespace MafiaApp //vorher .Daten
                 i++;
             }
             return nameList;
+        }
+
+        public async Task<string[]> GetPlayersPresentAndAliveAsync()
+        {
+            List<PlayerItem> names = await Database.QueryAsync<PlayerItem>("SELECT Name FROM [PlayerItem] WHERE Present = true AND Lives > 0");
+            int n = names.Count;
+            string[] nameList = new string[n];
+            int i = 0;
+            foreach (PlayerItem aPlayerItem in names)
+            {
+                nameList[i] = aPlayerItem.Name;
+                i++;
+            }
+            return nameList;
+        }
+
+        public async Task<int> SetPlayerVictimAsync(string playerName, bool victim)
+        {
+            PlayerItem player = await Database.Table<PlayerItem>().Where(p => p.Name == playerName).FirstOrDefaultAsync();
+            if (player != null)
+            {
+                player.Victim = victim;
+            }
+            return await Database.UpdateAsync(player);
         }
 
 

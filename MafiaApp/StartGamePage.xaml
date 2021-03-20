@@ -4,7 +4,7 @@
              x:Class="MafiaApp.StartGamePage">
 
     <StackLayout x:Name="mainStack" Margin="10,35,10,10">
-        <Frame x:Name="amorFrame" BorderColor="Tomato" Padding="15" HeightRequest="200" CornerRadius="20" IsVisible="true">
+        <Frame x:Name="amorFrame" BorderColor="Tomato" Padding="15" HeightRequest="50" CornerRadius="20" IsVisible="true">
             <StackLayout Orientation="Vertical">
                 <StackLayout Orientation="Horizontal">
                     <Ellipse WidthRequest="50" HeightRequest="20" Fill="Green" />
@@ -25,7 +25,7 @@
             <StackLayout Orientation="Vertical">
                 <StackLayout Orientation="Horizontal">
                     <Ellipse WidthRequest="50" HeightRequest="20" Fill="Green" />
-                    <CollectionView x:Name="mafiaNames" Margin="0,0,0,0" SelectionMode="Single" SelectionChanged="OnMafiaSelectionChanged">
+                    <CollectionView x:Name="mafiaNames" Margin="0,0,0,0" SelectionMode="Single" SelectionChanged="OnMafiaSelectionChanged" HeightRequest="30" WidthRequest="70">
                         <CollectionView.ItemsLayout>
                             <LinearItemsLayout Orientation="Vertical" ItemSpacing="10"/>
                         </CollectionView.ItemsLayout>
@@ -41,7 +41,7 @@
                 <Label Text="Was die Rolle so macht steht hoffentlich im nicht sichtbaren Berreich"/>
                 <StackLayout Orientation="Horizontal" >
                     <Label Text="Opfer Auswählen:"/>
-                 
+                    <Button x:Name="victim" Text="" Clicked="OnVictimSelect"/>
                 </StackLayout>
             </StackLayout>
         </Frame>
