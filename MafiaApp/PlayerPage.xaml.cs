@@ -53,8 +53,7 @@ namespace MafiaApp
                 }
 
                 // Knopf für Anwesenheit ändern
-
-                
+  
             }
             else //aussehen des Knopfes für nichts ausgewählt hinzufügen
             {

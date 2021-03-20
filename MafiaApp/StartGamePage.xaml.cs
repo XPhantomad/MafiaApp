@@ -13,7 +13,8 @@ namespace MafiaApp
 {
     public partial class StartGamePage : ContentPage
     {
-        public int mafiaNumber = 3;
+        public int numberMafia = 3;
+        public int numberAmor = 1;
         public StartGamePage()
         {
             InitializeComponent();
@@ -25,29 +26,31 @@ namespace MafiaApp
             base.OnAppearing();
             MafiaItemDatabase database = await MafiaItemDatabase.Instance;
             //amorNames.ItemsSource = await database.GetPlayersByRoleAsync(roles.Amor);  
-            mafiaNames.ItemsSource = await database.GetPlayersByRoleAndNumberAsync(roles.Mafia, mafiaNumber); // gewünschte Anzahl dahinter
+            mafiaNames.ItemsSource = await database.GetPlayersByRoleAndNumberAsync(roles.Mafia, numberMafia); // gewünschte Anzahl dahinter
+            amorNames.ItemsSource = await database.GetPlayersByRoleAndNumberAsync(roles.Amor, numberAmor);
             
         }
 
-        async void OnChangeNameAmor(object sender, EventArgs e)
+        async void OnAmorSelectionChanged(object sender, EventArgs e)
         {
-            
-            string previous = amor.Text;
-            MafiaItemDatabase database = await MafiaItemDatabase.Instance;
-            string[] playerNames = await database.GetPlayersNoRoleAndPresentAsync();
-            string selection = await DisplayActionSheet("Name Auswählen", "Abbrechen", "Keiner", playerNames);
-            if (selection.Equals("Keiner"))
+            if (amorNames.SelectedItem != null)
             {
-                amor.Text = "None";
-                await database.SetPlayersRoleAsync(previous, roles.None);
+                string previous = amorNames.SelectedItem.ToString();
+                MafiaItemDatabase database = await MafiaItemDatabase.Instance;
+                string[] playerNames = await database.GetPlayersNoRoleAndPresentAsync();
+                string selection = await DisplayActionSheet("Name Auswählen", "Abbrechen", "Keiner", playerNames);
+                if (selection.Equals("Keiner"))
+                {
+                    await database.SetPlayersRoleAsync(previous, roles.None);
+                }
+                else if (!selection.Equals("Abbrechen"))
+                {
+                    await database.SetPlayersRoleAsync(previous, roles.None);
+                    await database.SetPlayersRoleAsync(selection, roles.Amor);
+                }
+                amorNames.ItemsSource = await database.GetPlayersByRoleAndNumberAsync(roles.Amor, numberAmor);
+                amorNames.SelectedItem = null;
             }
-            else if (!selection.Equals("Abbrechen"))
-            {
-                amor.Text = selection;
-                await database.SetPlayersRoleAsync(previous, roles.None);
-                await database.SetPlayersRoleAsync(selection, roles.Amor);
-            }
-
         }
         async void OnSpouseChange(object sender, EventArgs e)
         {
@@ -98,20 +101,25 @@ namespace MafiaApp
 
         async void OnMafiaSelectionChanged(object sender, EventArgs e)
         {
-            string previous = mafiaNames.SelectedItem.ToString();
-            MafiaItemDatabase database = await MafiaItemDatabase.Instance;
-            string[] playerNames = await database.GetPlayersNoRoleAndPresentAsync();
-            string selection = await DisplayActionSheet("Name Auswählen", "Abbrechen", "Keiner", playerNames);
-            if (selection.Equals("Keiner"))
+            if (mafiaNames.SelectedItem != null)
             {
-                await database.SetPlayersRoleAsync(previous, roles.None);
-            }
-            else if (!selection.Equals("Abbrechen"))
-            {
-                await database.SetPlayersRoleAsync(previous, roles.None);
-                await database.SetPlayersRoleAsync(selection, roles.Mafia);
-            }
-            mafiaNames.ItemsSource = await database.GetPlayersByRoleAndNumberAsync(roles.Mafia, mafiaNumber);
+                string previous = mafiaNames.SelectedItem.ToString();
+                MafiaItemDatabase database = await MafiaItemDatabase.Instance;
+                string[] playerNames = await database.GetPlayersNoRoleAndPresentAsync();
+                string selection = await DisplayActionSheet("Name Auswählen", "Abbrechen", "Keiner", playerNames);
+                if (selection.Equals("Keiner"))
+                {
+                    await database.SetPlayersRoleAsync(previous, roles.None);
+                }
+                else if (!selection.Equals("Abbrechen"))
+                {
+                    await database.SetPlayersRoleAsync(previous, roles.None);
+                    await database.SetPlayersRoleAsync(selection, roles.Mafia);
+                }
+                mafiaNames.ItemsSource = await database.GetPlayersByRoleAndNumberAsync(roles.Mafia, numberMafia);
+                mafiaNames.SelectedItem = null;
+            }       
+            
         }
 
         async void OnVictimSelect(object sender, EventArgs e)
@@ -130,7 +138,6 @@ namespace MafiaApp
                 await database.SetPlayerVictimAsync(prev, false);
                 victim.Text = selection;
             }
-            
         }
     }
 }

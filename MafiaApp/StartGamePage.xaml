@@ -8,9 +8,18 @@
             <StackLayout Orientation="Vertical">
                 <StackLayout Orientation="Horizontal">
                     <Ellipse WidthRequest="50" HeightRequest="20" Fill="Green" />
-                    <Button x:Name="amor" Text="{Binding Name}" Clicked="OnChangeNameAmor" HeightRequest="20"/>
+                    <CollectionView x:Name="amorNames" Margin="0,0,0,0" SelectionMode="Single" SelectionChanged="OnAmorSelectionChanged" HeightRequest="30" WidthRequest="70">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Vertical" ItemSpacing="4"/>
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Label Text="{Binding}" HorizontalOptions="StartAndExpand" TextColor="Black"/>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
                     <Label Text="Amor" FontSize="Large" FontAttributes="Bold" HorizontalOptions="Center"/>
-                    <Button x:Name="ammoorr" Text="Erweitern" Clicked="OnPopoutAmor" HorizontalOptions="End"/>
+                    <Button Text="Erweitern" Clicked="OnPopoutAmor" HorizontalOptions="End"/>
                 </StackLayout>
                 <Label Text="Was die Rolle so macht steht hoffentlich im nicht sichtbaren Berreich"/>
                 <StackLayout Orientation="Horizontal" >
@@ -27,7 +36,7 @@
                     <Ellipse WidthRequest="50" HeightRequest="20" Fill="Green" />
                     <CollectionView x:Name="mafiaNames" Margin="0,0,0,0" SelectionMode="Single" SelectionChanged="OnMafiaSelectionChanged" HeightRequest="30" WidthRequest="70">
                         <CollectionView.ItemsLayout>
-                            <LinearItemsLayout Orientation="Vertical" ItemSpacing="10"/>
+                            <LinearItemsLayout Orientation="Vertical" ItemSpacing="0"/>
                         </CollectionView.ItemsLayout>
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
