@@ -17,7 +17,15 @@
 - ansonsten default automatik Einstellung mit nur Standardrollen und festgelegter SpielerAnzahl pro Rolle
 
 1. Möglichkeit: Sichtbare Element nach Bedarf in C# code generieren und dann nach und nach mit Childs zusammenbauen
-2. Möglichkeit: Frames alle Vorfertigen und nur Visible / nicht Visible Schalten
+2. Möglichkeit: Frames alle Vorfertigen und nur Visible / nicht Visible Schalten   (einfacher
+
+
+
+## Spieleinstellungs Seite
+- über Stapellayout auf SpielSeite legen
+- Anzahl der Rollen einstellbar
+- merkt sich letzte Einstellung
+- Automatikmodus entscheidet automatisch wie viele von jeder Rolle genommen werden 
 
 ## Verlauf
 - um fehler usw. nachzuvollziehen
