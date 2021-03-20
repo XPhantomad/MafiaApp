@@ -175,13 +175,19 @@ namespace MafiaApp //vorher .Daten
             int n = names.Count;
             if (n > anzahl)
             {
-                return string[]
+                string[] err = new string[] { "Error", "Error" };
+                return err;
             }
-            string[] nameList = new string[n];
+            string[] nameList = new string[anzahl];
             int i = 0;
             foreach (PlayerItem aPlayerItem in names)  
             {
                 nameList[i] = aPlayerItem.Name;
+                i++;
+            }
+            while (i < anzahl)
+            {
+                nameList[i] = "Keiner";
                 i++;
             }
             return nameList;

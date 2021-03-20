@@ -31,12 +31,17 @@
                         </CollectionView.ItemsLayout>
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
-                                <Label Text="{Binding Name}" HorizontalOptions="StartAndExpand"/>
+                                <Label Text="{Binding}" HorizontalOptions="StartAndExpand" TextColor="Black"/>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>
                     <Label Text="Mafia" FontSize="Large" FontAttributes="Bold" HorizontalOptions="Center"/>
                     <Button Text="Erweitern" Clicked="OnPopoutMafia" HorizontalOptions="End"/>
+                </StackLayout>
+                <Label Text="Was die Rolle so macht steht hoffentlich im nicht sichtbaren Berreich"/>
+                <StackLayout Orientation="Horizontal" >
+                    <Label Text="Opfer Auswählen:"/>
+                 
                 </StackLayout>
             </StackLayout>
         </Frame>

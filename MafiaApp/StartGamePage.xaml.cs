@@ -25,8 +25,8 @@ namespace MafiaApp
             base.OnAppearing();
             MafiaItemDatabase database = await MafiaItemDatabase.Instance;
             //amorNames.ItemsSource = await database.GetPlayersByRoleAsync(roles.Amor);  
-            mafiaNames.ItemsSource = await database.GetPlayersByRoleAsyncSTR(roles.Mafia); // gewünschte Anzahl dahinter
-            mafiaNames.
+            mafiaNames.ItemsSource = await database.GetPlayersByRoleAsyncSTR(roles.Mafia, 3); // gewünschte Anzahl dahinter
+            
         }
 
         async void OnChangeNameAmor(object sender, EventArgs e)
