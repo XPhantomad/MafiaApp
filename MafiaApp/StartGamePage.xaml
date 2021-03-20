@@ -4,6 +4,7 @@
              x:Class="MafiaApp.StartGamePage">
 
     <StackLayout x:Name="mainStack" Margin="10,35,10,10">
+        <Button Text="Zahnrad" Clicked="OnSettings"/>
         <Frame x:Name="amorFrame" BorderColor="Tomato" Padding="15" HeightRequest="50" CornerRadius="20" IsVisible="true">
             <StackLayout Orientation="Vertical">
                 <StackLayout Orientation="Horizontal">
