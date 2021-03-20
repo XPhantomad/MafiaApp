@@ -14,48 +14,24 @@ namespace MafiaApp
     public partial class StartGamePage : ContentPage
     {
 
-
         public StartGamePage()
         {
             InitializeComponent();
-            Frame witchFrame = new Frame
-            {
-                BorderColor = Color.Green,
-                Padding = 15, 
-                HeightRequest = 200,
-                CornerRadius = 20,
-            };
-
-            StackLayout one = new StackLayout
-            {
-                Orientation = StackOrientation.Vertical,
-            };
-
-            StackLayout two = new StackLayout
-            {
-                Orientation = StackOrientation.Horizontal
-            };
-            Label l = new Label
-            {
-                Text = "das wird nix",
-            };
-            witchFrame.Content = one;
-            one.Children.Add(two);
-            two.Children.Add(l);
-            mainStack.Children.Add(witchFrame);
-
+            
         }
 
         protected override async void OnAppearing()
         {
             base.OnAppearing();
             MafiaItemDatabase database = await MafiaItemDatabase.Instance;
-            amor.Text = (await database.GetPlayersByRoleAsync(roles.Amor))[0]; // 1 von String 
-            
+            //amorNames.ItemsSource = await database.GetPlayersByRoleAsync(roles.Amor);  
+            mafiaNames.ItemsSource = await database.GetPlayersByRoleAsyncSTR(roles.Mafia); // gewünschte Anzahl dahinter
+            mafiaNames.
         }
 
         async void OnChangeNameAmor(object sender, EventArgs e)
         {
+            
             string previous = amor.Text;
             MafiaItemDatabase database = await MafiaItemDatabase.Instance;
             string[] playerNames = await database.GetPlayersNoRoleAndPresentAsync();
@@ -95,16 +71,48 @@ namespace MafiaApp
             }
         }
 
-        void OnPopout(object sender, EventArgs e)
+        void OnPopoutAmor(object sender, EventArgs e)
         {
-            if (amorFrame.HeightRequest == 50)
+            Frame item = amorFrame;
+            if (item.HeightRequest == 50)
             {
-                amorFrame.HeightRequest = 200;
+                item.HeightRequest = 200;
             }
             else
             {
-                amorFrame.HeightRequest = 50;
+                item.HeightRequest = 50;
             }  
+        }
+        void OnPopoutMafia(object sender, EventArgs e)
+        {
+            Frame item = mafiaFrame;
+            if (item.HeightRequest == 50)
+            {
+                item.HeightRequest = 200;
+            }
+            else
+            {
+                item.HeightRequest = 50;
+            }
+        }
+
+        async void OnMafiaSelectionChanged(object sender, EventArgs e)
+        {
+            PlayerItem pre = (PlayerItem) mafiaNames.SelectedItem;
+            string previous = pre.Name;
+            MafiaItemDatabase database = await MafiaItemDatabase.Instance;
+            string[] playerNames = await database.GetPlayersNoRoleAndPresentAsync();
+            string selection = await DisplayActionSheet("Name Auswählen", "Abbrechen", "Keiner", playerNames);
+            if (selection.Equals("Keiner"))
+            {
+                await database.SetPlayersRoleAsync(previous, roles.None);
+            }
+            else if (!selection.Equals("Abbrechen"))
+            {
+                await database.SetPlayersRoleAsync(previous, roles.None);
+                await database.SetPlayersRoleAsync(selection, roles.Amor);
+            }
+            mafiaNames.ItemsSource = await database.GetPlayersByRoleAsync(roles.Mafia);
         }
     }
 }

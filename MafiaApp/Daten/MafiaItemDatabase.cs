@@ -47,6 +47,10 @@ namespace MafiaApp //vorher .Daten
         {
             return Database.Table<PlayerItem>().ToListAsync();
         }
+        public Task<List<PlayerItem>> GetPlayersByRoleAsync(roles role)
+        {
+            return Database.Table<PlayerItem>().Where(r => r.Role == role).ToListAsync();
+        }
 
         public Task<int> DeletePlayerAsync(PlayerItem item)
         {
@@ -165,10 +169,14 @@ namespace MafiaApp //vorher .Daten
             return await Database.UpdateAsync(spouse1);     //nicht wirklich aussagekräftig
         }
 
-        public async Task<string[]> GetPlayersByRoleAsync(roles role)
+        public async Task<string[]> GetPlayersByRoleAsyncSTR(roles role, int anzahl)
         {
             List<PlayerItem> names = await Database.QueryAsync<PlayerItem>("SELECT Name FROM [PlayerItem] WHERE Present = true AND Role = ?", role);
             int n = names.Count;
+            if (n > anzahl)
+            {
+                return string[]
+            }
             string[] nameList = new string[n];
             int i = 0;
             foreach (PlayerItem aPlayerItem in names)  

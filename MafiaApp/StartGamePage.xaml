@@ -4,13 +4,13 @@
              x:Class="MafiaApp.StartGamePage">
 
     <StackLayout x:Name="mainStack" Margin="10,35,10,10">
-        <Frame x:Name="amorFrame" BorderColor="Tomato" Padding="15" HeightRequest="200" CornerRadius="20" IsVisible="false">
+        <Frame x:Name="amorFrame" BorderColor="Tomato" Padding="15" HeightRequest="200" CornerRadius="20" IsVisible="true">
             <StackLayout Orientation="Vertical">
                 <StackLayout Orientation="Horizontal">
-                    <Ellipse WidthRequest="50" HeightRequest="20" Fill="Green" /> 
-                    <Button x:Name="amor" Text="{Binding Name}" Clicked="OnChangeNameAmor"/>
+                    <Ellipse WidthRequest="50" HeightRequest="20" Fill="Green" />
+                    <Button x:Name="amor" Text="{Binding Name}" Clicked="OnChangeNameAmor" HeightRequest="20"/>
                     <Label Text="Amor" FontSize="Large" FontAttributes="Bold" HorizontalOptions="Center"/>
-                    <Button Text="Erweitern" Clicked="OnPopout" HorizontalOptions="End"/>
+                    <Button x:Name="ammoorr" Text="Erweitern" Clicked="OnPopoutAmor" HorizontalOptions="End"/>
                 </StackLayout>
                 <Label Text="Was die Rolle so macht steht hoffentlich im nicht sichtbaren Berreich"/>
                 <StackLayout Orientation="Horizontal" >
@@ -21,22 +21,27 @@
                 </StackLayout>
             </StackLayout>
         </Frame>
-        <Frame BorderColor="Tomato" Padding="15" HeightRequest="50" CornerRadius="20">
+        <Frame x:Name="mafiaFrame" BorderColor="Tomato" Padding="15" HeightRequest="50" CornerRadius="20" IsVisible="true">
             <StackLayout Orientation="Vertical">
                 <StackLayout Orientation="Horizontal">
                     <Ellipse WidthRequest="50" HeightRequest="20" Fill="Green" />
-                    <StackLayout x:Name="names" Orientation="Horizontal">
-                        <Button x:Name="mafia" Text="" />
-                    </StackLayout>
+                    <CollectionView x:Name="mafiaNames" Margin="0,0,0,0" SelectionMode="Single" SelectionChanged="OnMafiaSelectionChanged">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Vertical" ItemSpacing="10"/>
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Label Text="{Binding Name}" HorizontalOptions="StartAndExpand"/>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
                     <Label Text="Mafia" FontSize="Large" FontAttributes="Bold" HorizontalOptions="Center"/>
-                    <Button Text="Erweitern" Clicked="OnPopout" HorizontalOptions="End"/>
+                    <Button Text="Erweitern" Clicked="OnPopoutMafia" HorizontalOptions="End"/>
                 </StackLayout>
-
-                <Label Text="Was die Rolle so macht steht hoffentlich im nicht sichtbaren Berreich"/>
             </StackLayout>
         </Frame>
         <Frame>
-            <Grid />
+            
         </Frame>
 
     </StackLayout>
