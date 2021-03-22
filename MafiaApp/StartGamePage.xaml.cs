@@ -25,10 +25,14 @@ namespace MafiaApp
         {
             base.OnAppearing();
             MafiaItemDatabase database = await MafiaItemDatabase.Instance;
-            //amorNames.ItemsSource = await database.GetPlayersByRoleAsync(roles.Amor);  
-            mafiaNames.ItemsSource = await database.GetPlayersByRoleAndNumberAsync(roles.Mafia, numberMafia); // gewünschte Anzahl dahinter
+            mafiaNames.ItemsSource = await database.GetPlayersByRoleAndNumberAsync(roles.Mafia, numberMafia); 
             amorNames.ItemsSource = await database.GetPlayersByRoleAndNumberAsync(roles.Amor, numberAmor);
             
+        }
+
+        async void OnSettings(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new SettingsPage());
         }
 
         async void OnAmorSelectionChanged(object sender, EventArgs e)
