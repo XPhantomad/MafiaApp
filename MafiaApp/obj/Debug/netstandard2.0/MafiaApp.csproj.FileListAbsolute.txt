@@ -14,3 +14,4 @@ C:\Users\adria\source\repos\MafiaApp\MafiaApp\obj\Debug\netstandard2.0\MafiaApp.
 C:\Users\adria\source\repos\MafiaApp\MafiaApp\obj\Debug\netstandard2.0\PlayerPage.xaml.g.cs
 C:\Users\adria\source\repos\MafiaApp\MafiaApp\obj\Debug\netstandard2.0\StartGamePage.xaml.g.cs
 C:\Users\adria\source\repos\MafiaApp\MafiaApp\obj\Debug\netstandard2.0\TabPage.xaml.g.cs
+C:\Users\adria\source\repos\MafiaApp\MafiaApp\obj\Debug\netstandard2.0\SettingsPage.xaml.g.cs
