@@ -17,13 +17,13 @@ namespace MafiaApp
             InitializeComponent();
 
         }
-
-        public async void PlayerPresent()
+        protected override async void OnAppearing()
         {
-            MafiaItemDatabase database = await MafiaItemDatabase.Instance;
-            List<PlayerItem> names = await database.GetPlayersPresentAsync();
-            int presentPlayerNumber = names.Count;
-          
+            base.OnAppearing();
+
+            RolesItemDatabase database = await RolesItemDatabase.Instance;
+            player.ItemsSource = await database.GetPlayersAsync();
         }
+
     }
 }

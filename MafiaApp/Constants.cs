@@ -7,7 +7,8 @@ namespace MafiaApp
 {
     public static class Constants
     {
-        public const string DatabaseFilename = "MafiaSQLite.db3";
+        public const string DatabaseFilename1 = "MafiaSQLite.db3";
+        public const string DatabaseFilename2 = "RolesSQLite.db3";
         public const SQLite.SQLiteOpenFlags Flags =
              // open the database in read/write mode
              SQLite.SQLiteOpenFlags.ReadWrite |
@@ -17,12 +18,20 @@ namespace MafiaApp
              SQLite.SQLiteOpenFlags.SharedCache;
 
 
-        public static string DatabasePath
+        public static string DatabasePath1
         {
             get
             {
                 var basePath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-                return Path.Combine(basePath, DatabaseFilename);
+                return Path.Combine(basePath, DatabaseFilename1);
+            }
+        }
+        public static string DatabasePath2
+        {
+            get
+            {
+                var basePath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                return Path.Combine(basePath, DatabaseFilename2);
             }
         }
     }
