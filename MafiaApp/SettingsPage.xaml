@@ -9,7 +9,6 @@
         <StackLayout>
             <Label Text="Spieleranzahl: "/>
             <Label x:Name="playerPresentNumber"/>
-            <Label x:Name="playerPresent"
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
