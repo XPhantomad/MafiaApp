@@ -9,6 +9,20 @@
         <StackLayout>
             <Label Text="Spieleranzahl: "/>
             <Label x:Name="playerPresentNumber"/>
+            <CollectionView x:Name="player" Margin="0,0,0,0" SelectionMode="Single" SelectionChanged="OnItemsSelected">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="10"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Orientation="Horizontal" Margin="20,0,0,0" HeightRequest="50">
+                            <Label Text="{Binding Role}" HorizontalOptions="StartAndExpand"/>
+                            <Button Text="Fähigkeit anzeigen"/>
+                            <Button Text="{Binding Number}" HorizontalOptions="End"/>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
