@@ -17,5 +17,13 @@ namespace MafiaApp
             InitializeComponent();
 
         }
+
+        public async void PlayerPresent()
+        {
+            MafiaItemDatabase database = await MafiaItemDatabase.Instance;
+            List<PlayerItem> names = await database.GetPlayersPresentAsync();
+            int presentPlayerNumber = names.Count;
+            return presentPlayerNumber;
+        }
     }
 }

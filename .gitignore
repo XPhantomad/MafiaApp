@@ -1,10 +1,15 @@
 # Don't track content of these folders
 .vs/MafiaApp
-
+MafiaApp.Android/bin/Debug
+MafiaApp/bin/Debug/netstandard2.0/ref
 
 # Compiled source #
 ###################
 *.suo
+*.dll
+*.so
+*.pdb
+
 
 # Packages #
 ############

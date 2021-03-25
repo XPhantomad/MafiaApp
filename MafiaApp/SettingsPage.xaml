@@ -7,9 +7,9 @@
     <ContentPage.Content>
         
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Label Text="Spieleranzahl: "/>
+            <Label x:Name="playerPresentNumber"/>
+            <Label x:Name="playerPresent"
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
