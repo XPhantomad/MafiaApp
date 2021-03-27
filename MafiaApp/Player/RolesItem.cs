@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MafiaApp  //vorher mit Player
 {
-    class RolesItem
+    public class RolesItem
     {
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; }

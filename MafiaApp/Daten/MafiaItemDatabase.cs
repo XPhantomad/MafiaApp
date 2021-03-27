@@ -240,6 +240,64 @@ namespace MafiaApp //vorher .Daten
 
 
 
+        // Rollen Tabelle
+
+        public async Task<int> SetUp()
+        {
+            RolesItem test = await Database.Table<RolesItem>().Where(p => p.Role == roles.Amor).FirstOrDefaultAsync();
+            if (test == null)
+            {
+                RolesItem r = new RolesItem();
+                r.Role = roles.Amor;
+                //r.Number = 1;
+                await Database.InsertAsync(r);
+            }
+            test = await Database.Table<RolesItem>().Where(p => p.Role == roles.Mafia).FirstOrDefaultAsync();
+            if (test == null)
+            {
+                RolesItem r = new RolesItem();
+                r.Role = roles.Mafia;
+                //r.Number = 2;
+                await Database.InsertAsync(r);
+            }
+            test = await Database.Table<RolesItem>().Where(p => p.Role == roles.Hexe).FirstOrDefaultAsync();
+            if (test == null)
+            {
+                RolesItem r = new RolesItem();
+                r.Role = roles.Hexe;
+                //r.Number = 1;
+                await Database.InsertAsync(r);
+            }
+            test = await Database.Table<RolesItem>().Where(p => p.Role == roles.Detektiv).FirstOrDefaultAsync();
+            if (test == null)
+            {
+                RolesItem r = new RolesItem();
+                r.Role = roles.Detektiv;
+                //r.Number = 1;
+                await Database.InsertAsync(r);
+            }
+            return 1;
+        }
+
+
+        //public async void DeleteRolesTableAsync()
+        //{
+        //    for (int i = 0; i < 10; i++)
+        //    {
+        //        RolesItem mafia = new RolesItem();
+        //        mafia.ID = i;
+        //        await Database.DeleteAsync(mafia);
+        //    }
+        //}
+
+        public Task<List<RolesItem>> GetRolesAsync()
+        {
+            return Database.Table<RolesItem>().ToListAsync();
+        }
+
+
+
+
         // altes Zeug
         public Task<List<PlayerItem>> GetItemsAsync()
         {
@@ -268,5 +326,15 @@ namespace MafiaApp //vorher .Daten
         {
             return Database.DeleteAsync(item);
         }
+
+
+
+
+
+
+
+
+
+        
     }
 }

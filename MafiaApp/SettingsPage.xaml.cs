@@ -20,12 +20,12 @@ namespace MafiaApp
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-
-            RolesItemDatabase database = await RolesItemDatabase.Instance;
-            rolesView.ItemsSource = await database.GetRolesAsync();
+            MafiaItemDatabase database = await MafiaItemDatabase.Instance;
+            await database.SetUp();
+            rolesView.ItemsSource = await database.GetRolesAsync(); 
         }
 
-       void OnItemSelected(object sender, EventArgs e)
+        void OnItemSelected(object sender, EventArgs e)
         {
 
         }
