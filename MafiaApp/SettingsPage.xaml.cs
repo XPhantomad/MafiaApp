@@ -22,8 +22,12 @@ namespace MafiaApp
             base.OnAppearing();
 
             RolesItemDatabase database = await RolesItemDatabase.Instance;
-            player.ItemsSource = await database.GetPlayersAsync();
+            rolesView.ItemsSource = await database.GetRolesAsync();
         }
 
+       void OnItemSelected(object sender, EventArgs e)
+        {
+
+        }
     }
 }

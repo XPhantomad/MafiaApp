@@ -13,9 +13,10 @@ namespace MafiaApp //vorher .Daten
 
         public static readonly AsyncLazyusw<MafiaItemDatabase> Instance = new AsyncLazyusw<MafiaItemDatabase>(async()=>
         {
-           var inst = new MafiaItemDatabase();
-           CreateTableResult result = await Database.CreateTableAsync<PlayerItem>();
-           return inst;
+            var inst = new MafiaItemDatabase();
+            CreateTableResult result = await Database.CreateTableAsync<PlayerItem>();
+            CreateTableResult result1 = await Database.CreateTableAsync<RolesItem>();
+            return inst;
         
         });
 

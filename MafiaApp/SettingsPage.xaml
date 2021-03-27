@@ -9,7 +9,7 @@
         <StackLayout>
             <Label Text="Spieleranzahl: "/>
             <Label x:Name="playerPresentNumber"/>
-            <CollectionView x:Name="player" Margin="0,0,0,0" SelectionMode="Single" SelectionChanged="OnItemsSelected">
+            <CollectionView x:Name="rolesView" Margin="0,0,0,0" SelectionMode="Single" SelectionChanged="OnItemsSelected">
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout Orientation="Vertical" ItemSpacing="10"/>
                 </CollectionView.ItemsLayout>
