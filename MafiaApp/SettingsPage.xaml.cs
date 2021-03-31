@@ -12,6 +12,8 @@ namespace MafiaApp
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SettingsPage : ContentPage
     {
+        int playerPresentNumberC;
+
         public SettingsPage()
         {
             InitializeComponent();
@@ -21,8 +23,12 @@ namespace MafiaApp
         {
             base.OnAppearing();
             MafiaItemDatabase database = await MafiaItemDatabase.Instance;
+            //database.DeleteRolesTableAsync();
             await database.SetUp();
-            rolesView.ItemsSource = await database.GetRolesAsync(); 
+            playerPresentNumberC = (await database.GetPlayersPresentAsync()).Count;
+            playerPresentNumber.Text = playerPresentNumberC.ToString();
+            rolesView.ItemsSource = await database.GetRolesAsync();
+            await database.SetRoleNumbersAuto(playerPresentNumberC);
         }
 
         void OnItemSelected(object sender, EventArgs e)

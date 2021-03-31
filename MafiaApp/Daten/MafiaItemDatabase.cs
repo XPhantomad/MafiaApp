@@ -249,7 +249,7 @@ namespace MafiaApp //vorher .Daten
             {
                 RolesItem r = new RolesItem();
                 r.Role = roles.Amor;
-                //r.Number = 1;
+                r.Number = 1;
                 await Database.InsertAsync(r);
             }
             test = await Database.Table<RolesItem>().Where(p => p.Role == roles.Mafia).FirstOrDefaultAsync();
@@ -257,7 +257,7 @@ namespace MafiaApp //vorher .Daten
             {
                 RolesItem r = new RolesItem();
                 r.Role = roles.Mafia;
-                //r.Number = 2;
+                r.Number = 2;
                 await Database.InsertAsync(r);
             }
             test = await Database.Table<RolesItem>().Where(p => p.Role == roles.Hexe).FirstOrDefaultAsync();
@@ -265,7 +265,7 @@ namespace MafiaApp //vorher .Daten
             {
                 RolesItem r = new RolesItem();
                 r.Role = roles.Hexe;
-                //r.Number = 1;
+                r.Number = 1;
                 await Database.InsertAsync(r);
             }
             test = await Database.Table<RolesItem>().Where(p => p.Role == roles.Detektiv).FirstOrDefaultAsync();
@@ -273,8 +273,51 @@ namespace MafiaApp //vorher .Daten
             {
                 RolesItem r = new RolesItem();
                 r.Role = roles.Detektiv;
-                //r.Number = 1;
+                r.Number = 1;
                 await Database.InsertAsync(r);
+            }
+            test = await Database.Table<RolesItem>().Where(p => p.Role == roles.Bürger).FirstOrDefaultAsync();
+            if (test == null)
+            {
+                RolesItem r = new RolesItem();
+                r.Role = roles.Bürger;
+                r.Number = 2;
+                await Database.InsertAsync(r);
+            }
+            return 1;
+        }
+
+        public async Task<int> SetRoleNumbersAuto(int p)
+        {
+            int m;
+            switch (p)
+            {
+                case 5:
+                    m = 1;
+                    break;
+                case 6:
+                case 7:
+                case 8:
+                case 9:
+                case 10:
+                    m = 2;
+                    break;
+                case 11:
+                case 12:
+                case 13:
+                case 14:
+                case 15:
+                    m = 3;
+                    break;
+                case 16:
+                case 17:
+                case 18:
+                case 19:
+                case 20:
+                    m = 4;
+                    break;
+                default:
+                    return 0; // ERROR sollte nicht auftreten, weil vorher schon presentplayerauf >5 untersucht wird
             }
             return 1;
         }
