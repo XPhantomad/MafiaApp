@@ -26,6 +26,8 @@
 - Anzahl der Rollen einstellbar
 - merkt sich letzte Einstellung
 - Automatikmodus entscheidet automatisch wie viele von jeder Rolle genommen werden 
+- min 5 Spieler präsent prüfen
+- Zurücksetzen Button für gesamte Rollen DB falls was schief läuft!!
 
 ## Verlauf
 - um fehler usw. nachzuvollziehen
