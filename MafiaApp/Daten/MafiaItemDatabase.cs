@@ -287,10 +287,10 @@ namespace MafiaApp //vorher .Daten
             return 1;
         }
 
-        public async Task<int> SetRoleNumbersAuto(int p)
+        public async Task<int> SetRoleNumbersAuto(int player)
         {
             int m;
-            switch (p)
+            switch (player)
             {
                 case 5:
                     m = 1;
@@ -319,6 +319,9 @@ namespace MafiaApp //vorher .Daten
                 default:
                     return 0; // ERROR sollte nicht auftreten, weil vorher schon presentplayerauf >5 untersucht wird
             }
+
+            RolesItem buerger = await Database.Table<RolesItem>().Where(p => p.Role == roles.Bürger).FirstOrDefaultAsync();
+            buerger.Number = player - m - 3;   // 3 wegen Hexe, Detektiv, Amor  andere Rollen im Auomatikmodus nicht berücksichtigt
             return 1;
         }
 
