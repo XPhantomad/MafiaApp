@@ -28,6 +28,7 @@
 - Automatikmodus entscheidet automatisch wie viele von jeder Rolle genommen werden 
 - min 5 Spieler präsent prüfen
 - Zurücksetzen Button für gesamte Rollen DB falls was schief läuft!!
+- bis jetzt nur Amor, Hexe, Mafia, Bürger und Detektiv berücksichtigt
 
 ## Verlauf
 - um fehler usw. nachzuvollziehen
