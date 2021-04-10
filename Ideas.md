@@ -29,6 +29,8 @@
 - min 5 Spieler präsent prüfen
 - Zurücksetzen Button für gesamte Rollen DB falls was schief läuft!!
 - bis jetzt nur Amor, Hexe, Mafia, Bürger und Detektiv berücksichtigt
+- Sortieren, so wie Rollen auch im Spiel auftreten
+
 
 ## Verlauf
 - um fehler usw. nachzuvollziehen
