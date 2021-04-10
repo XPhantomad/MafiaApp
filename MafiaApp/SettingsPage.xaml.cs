@@ -46,10 +46,29 @@ namespace MafiaApp
                 rolesView.ItemsSource = await database.GetRolesAsync();
             }
         }
+        //async void OnAbilitiesShow(object sender, EventArgs e)
+        //{
 
-        void OnItemSelected(object sender, EventArgs e)
+        //}
+
+        async void OnIncrease(object sender, EventArgs e)
         {
+            if (rolesView.SelectedItem != null)
+            {
+                int n = ((RolesItem)rolesView.SelectedItem).Number;
+                MafiaItemDatabase database = await MafiaItemDatabase.Instance;
+                await database.GetRoleNumber(roles.Bürger);
+                await database.SetRoleNumbersManual(((RolesItem)rolesView.SelectedItem).Role, true);  // returnt Error, wenn Null Bürger sind??
 
+            }
+        }
+
+        void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            if (e.SelectedItem != null)
+            {
+
+            }
         }
     }
 }

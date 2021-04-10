@@ -340,6 +340,18 @@ namespace MafiaApp //vorher .Daten
             return Database.Table<RolesItem>().ToListAsync();
         }
 
+        public async Task<int> SetRoleNumbersManual(roles r, bool increase)
+        {
+            if (increase == false)
+                
+            return 1;
+        }
+
+        public async Task<int> GetRoleNumber(roles r)
+        {
+            RolesItem 
+        }
+
 
 
 
