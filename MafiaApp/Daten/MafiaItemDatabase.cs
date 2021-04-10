@@ -322,19 +322,18 @@ namespace MafiaApp //vorher .Daten
 
             RolesItem buerger = await Database.Table<RolesItem>().Where(p => p.Role == roles.Bürger).FirstOrDefaultAsync();
             buerger.Number = player - m - 3;   // 3 wegen Hexe, Detektiv, Amor  andere Rollen im Auomatikmodus nicht berücksichtigt
+            await Database.UpdateAsync(buerger);
+            RolesItem mafia = await Database.Table<RolesItem>().Where(p => p.Role == roles.Mafia).FirstOrDefaultAsync();
+            mafia.Number = m;
+            await Database.UpdateAsync(mafia);
             return 1;
         }
 
 
-        //public async void DeleteRolesTableAsync()
-        //{
-        //    for (int i = 0; i < 10; i++)
-        //    {
-        //        RolesItem mafia = new RolesItem();
-        //        mafia.ID = i;
-        //        await Database.DeleteAsync(mafia);
-        //    }
-        //}
+        public Task<int> DeleteRolesTableAsync(RolesItem r)
+        {
+            return Database.DeleteAsync(r);
+        }
 
         public Task<List<RolesItem>> GetRolesAsync()
         {
