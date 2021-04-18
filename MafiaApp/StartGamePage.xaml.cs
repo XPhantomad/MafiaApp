@@ -13,7 +13,7 @@ namespace MafiaApp
 {
     public partial class StartGamePage : ContentPage
     {
-        public int numberMafia = 3;
+        public int numberMafia = 2;
         public int numberAmor = 1;
         public StartGamePage()
         {
