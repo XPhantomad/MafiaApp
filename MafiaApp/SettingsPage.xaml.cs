@@ -55,32 +55,34 @@ namespace MafiaApp
         {
             if (rolesView.SelectedItem != null)
             {
-                int n = ((RolesItem)rolesView.SelectedItem).Number;
                 MafiaItemDatabase database = await MafiaItemDatabase.Instance;
                 int numbBuerger = await database.GetRoleNumber(roles.Bürger);
-                if (numbBuerger == 0)
-                    return;
+                if ((numbBuerger == 0) || ((RolesItem)rolesView.SelectedItem).Role == roles.Bürger)
+                    return;// noch Warnung einfügen
                 else
                     await database.SetRoleNumbersManual(((RolesItem)rolesView.SelectedItem).Role, true);
                 rolesView.ItemsSource = await database.GetRolesAsync();
-
             }
+            else
+                await DisplayAlert("Warnung", "Wähle zuerst eine Person aus", "Oaky");
+            rolesView.SelectedItem = null;
         }
 
         async void OnDecrease(object sender, EventArgs e) //verringern, Bürger werden automatisch mehr
         {
             if (rolesView.SelectedItem != null)
             {
-                int n = ((RolesItem)rolesView.SelectedItem).Number;
                 MafiaItemDatabase database = await MafiaItemDatabase.Instance;
                 int numbRole = await database.GetRoleNumber(((RolesItem)rolesView.SelectedItem).Role);
-                if (numbRole == 0)
-                    return;
+                if ((numbRole == 0) || ((RolesItem)rolesView.SelectedItem).Role == roles.Bürger)
+                    return; //noch eine Warnung machen
                 else
                     await database.SetRoleNumbersManual(((RolesItem)rolesView.SelectedItem).Role, false);
                 rolesView.ItemsSource = await database.GetRolesAsync();
-
             }
+            else
+                await DisplayAlert("Warnung", "Wähle zuerst eine Rolle aus", "Oaky");
+            rolesView.SelectedItem = null;
         }
 
         void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
