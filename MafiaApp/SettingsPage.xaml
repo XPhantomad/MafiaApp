@@ -25,6 +25,8 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
+            <Button Text="erhöhen" Clicked="OnIncrease"/>
+            <Button Text="verringern" Clicked="OnDecrease"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

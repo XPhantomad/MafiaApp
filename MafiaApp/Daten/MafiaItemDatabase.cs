@@ -342,14 +342,28 @@ namespace MafiaApp //vorher .Daten
 
         public async Task<int> SetRoleNumbersManual(roles r, bool increase)
         {
-            if (increase == false)
-                
+            RolesItem role = await Database.Table<RolesItem>().Where(p => p.Role == r).FirstOrDefaultAsync();
+            RolesItem buerger = await Database.Table<RolesItem>().Where(p => p.Role == roles.Bürger).FirstOrDefaultAsync();
+
+            if (increase == true)
+            {
+                role.Number++;
+                buerger.Number--;
+            }       
+            else
+            {
+                role.Number--;
+                buerger.Number++;
+            }
+            await Database.UpdateAsync(role);
+            await Database.UpdateAsync(buerger);
             return 1;
         }
 
         public async Task<int> GetRoleNumber(roles r)
         {
-            RolesItem 
+            RolesItem role = await Database.Table<RolesItem>().Where(p => p.Role == r).FirstOrDefaultAsync();
+            return role.Number;
         }
 
 

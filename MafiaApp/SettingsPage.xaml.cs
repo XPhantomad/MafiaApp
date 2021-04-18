@@ -51,14 +51,34 @@ namespace MafiaApp
 
         //}
 
-        async void OnIncrease(object sender, EventArgs e)
+        async void OnIncrease(object sender, EventArgs e) //erhöhen Bürger werden automatisch weniger
         {
             if (rolesView.SelectedItem != null)
             {
                 int n = ((RolesItem)rolesView.SelectedItem).Number;
                 MafiaItemDatabase database = await MafiaItemDatabase.Instance;
-                await database.GetRoleNumber(roles.Bürger);
-                await database.SetRoleNumbersManual(((RolesItem)rolesView.SelectedItem).Role, true);  // returnt Error, wenn Null Bürger sind??
+                int numbBuerger = await database.GetRoleNumber(roles.Bürger);
+                if (numbBuerger == 0)
+                    return;
+                else
+                    await database.SetRoleNumbersManual(((RolesItem)rolesView.SelectedItem).Role, true);
+                rolesView.ItemsSource = await database.GetRolesAsync();
+
+            }
+        }
+
+        async void OnDecrease(object sender, EventArgs e) //verringern, Bürger werden automatisch mehr
+        {
+            if (rolesView.SelectedItem != null)
+            {
+                int n = ((RolesItem)rolesView.SelectedItem).Number;
+                MafiaItemDatabase database = await MafiaItemDatabase.Instance;
+                int numbRole = await database.GetRoleNumber(((RolesItem)rolesView.SelectedItem).Role);
+                if (numbRole == 0)
+                    return;
+                else
+                    await database.SetRoleNumbersManual(((RolesItem)rolesView.SelectedItem).Role, false);
+                rolesView.ItemsSource = await database.GetRolesAsync();
 
             }
         }
