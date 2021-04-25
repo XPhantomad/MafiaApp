@@ -13,8 +13,6 @@ namespace MafiaApp
 {
     public partial class StartGamePage : ContentPage
     {
-        public int numberMafia = 2;
-        public int numberAmor = 1;
         public StartGamePage()
         {
             InitializeComponent();
@@ -76,7 +74,7 @@ namespace MafiaApp
                     await database.SetPlayersRoleAsync(previous, roles.None);
                     await database.SetPlayersRoleAsync(selection, roles.Amor);
                 }
-                amorNames.ItemsSource = await database.GetPlayersByRoleAndNumberAsync(roles.Amor, numberAmor);
+                amorNames.ItemsSource = await database.GetPlayersByRoleAndNumberAsync(roles.Amor, await database.GetRoleNumber(roles.Amor));
                 amorNames.SelectedItem = null;
             }
         }
@@ -144,7 +142,7 @@ namespace MafiaApp
                     await database.SetPlayersRoleAsync(previous, roles.None);
                     await database.SetPlayersRoleAsync(selection, roles.Mafia);
                 }
-                mafiaNames.ItemsSource = await database.GetPlayersByRoleAndNumberAsync(roles.Mafia, numberMafia);
+                mafiaNames.ItemsSource = await database.GetPlayersByRoleAndNumberAsync(roles.Mafia, await database.GetRoleNumber(roles.Amor));
                 mafiaNames.SelectedItem = null;
             }       
             
@@ -165,8 +163,28 @@ namespace MafiaApp
                 await database.SetPlayerVictimAsync(selection, true);
                 await database.SetPlayerVictimAsync(prev, false);
                 victim.Text = selection;
+                showVictim.Text = selection;
             }
         }
+
+        async void OnPopoutHexe(object sender, EventArgs e)
+        {
+            Frame item = hexeFrame;
+            if (item.HeightRequest == 50)
+            {
+                item.HeightRequest = 200;
+            }
+            else
+            {
+                item.HeightRequest = 50;
+                if (witchSaveSwitch.IsToggled == true)
+                {
+
+                }
+
+            }
+        }
+
         async void OnHexeSelectionChanged(object sender, EventArgs e)
         {
             if (hexeNames.SelectedItem != null)
