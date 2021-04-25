@@ -363,7 +363,7 @@ namespace MafiaApp //vorher .Daten
         public async Task<int> GetRoleNumber(roles r)
         {
             RolesItem role = await Database.Table<RolesItem>().Where(p => p.Role == r).FirstOrDefaultAsync();
-            return role.Number;
+            return role.Number;   //besser Array von der Datenbank Spalte zurückgeben
         }
 
 

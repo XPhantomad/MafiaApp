@@ -25,9 +25,33 @@ namespace MafiaApp
         {
             base.OnAppearing();
             MafiaItemDatabase database = await MafiaItemDatabase.Instance;
-            mafiaNames.ItemsSource = await database.GetPlayersByRoleAndNumberAsync(roles.Mafia, numberMafia); 
-            amorNames.ItemsSource = await database.GetPlayersByRoleAndNumberAsync(roles.Amor, numberAmor);
-            
+            int numberMafia = await database.GetRoleNumber(roles.Mafia);
+            int numberAmor = await database.GetRoleNumber(roles.Amor);
+            int numberHexe = await database.GetRoleNumber(roles.Hexe);
+            int numberDetektiv = await database.GetRoleNumber(roles.Detektiv);
+            int numberBuerger = await database.GetRoleNumber(roles.Bürger);
+            if (numberAmor == 0)
+                amorFrame.IsVisible = false;
+            else
+            {
+                amorFrame.IsVisible = true;
+                amorNames.ItemsSource = await database.GetPlayersByRoleAndNumberAsync(roles.Amor, numberAmor);
+            }
+            if (numberMafia == 0)
+                mafiaFrame.IsVisible = false;
+            else
+            {
+                mafiaFrame.IsVisible = true;
+                mafiaNames.ItemsSource = await database.GetPlayersByRoleAndNumberAsync(roles.Mafia, numberMafia);
+            }
+            if (numberHexe == 0)
+                hexeFrame.IsVisible = false;
+            else
+            {
+                hexeFrame.IsVisible = true;
+                hexeNames.ItemsSource = await database.GetPlayersByRoleAndNumberAsync(roles.Hexe, numberHexe);
+            }
+
         }
 
         async void OnSettings(object sender, EventArgs e)
@@ -141,6 +165,27 @@ namespace MafiaApp
                 await database.SetPlayerVictimAsync(selection, true);
                 await database.SetPlayerVictimAsync(prev, false);
                 victim.Text = selection;
+            }
+        }
+        async void OnHexeSelectionChanged(object sender, EventArgs e)
+        {
+            if (hexeNames.SelectedItem != null)
+            {
+                string previous = hexeNames.SelectedItem.ToString();
+                MafiaItemDatabase database = await MafiaItemDatabase.Instance;
+                string[] playerNames = await database.GetPlayersNoRoleAndPresentAsync();
+                string selection = await DisplayActionSheet("Name Auswählen", "Abbrechen", "Keiner", playerNames);
+                if (selection.Equals("Keiner"))
+                {
+                    await database.SetPlayersRoleAsync(previous, roles.None);
+                }
+                else if (!selection.Equals("Abbrechen"))
+                {
+                    await database.SetPlayersRoleAsync(previous, roles.None);
+                    await database.SetPlayersRoleAsync(selection, roles.Hexe);
+                }
+                hexeNames.ItemsSource = await database.GetPlayersByRoleAndNumberAsync(roles.Hexe, await database.GetRoleNumber(roles.Hexe));
+                hexeNames.SelectedItem = null;
             }
         }
     }

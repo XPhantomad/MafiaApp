@@ -56,6 +56,35 @@
                 </StackLayout>
             </StackLayout>
         </Frame>
+        <Frame x:Name="hexeFrame" BorderColor="Tomato" Padding="15" HeightRequest="50" CornerRadius="20" IsVisible="true">
+            <StackLayout Orientation="Vertical">
+                <StackLayout Orientation="Horizontal">
+                    <Ellipse WidthRequest="50" HeightRequest="20" Fill="Green" />
+                    <CollectionView x:Name="hexeNames" Margin="0,0,0,0" SelectionMode="Single" SelectionChanged="OnHexeSelectionChanged" HeightRequest="30" WidthRequest="70">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Vertical" ItemSpacing="0"/>
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Label Text="{Binding}" HorizontalOptions="StartAndExpand" TextColor="Black"/>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                    <Label Text="Hexe" FontSize="Large" FontAttributes="Bold" HorizontalOptions="Center"/>
+                    <Button Text="Erweitern" Clicked="OnPopoutHexe" HorizontalOptions="End"/>
+                </StackLayout>
+                <Label Text="Was die Rolle so macht steht hoffentlich im nicht sichtbaren Berreich"/>
+                <StackLayout Orientation="Horizontal" >
+                    <Label Text="Opfer:"/>
+                    <Label x:Name="showVictim"/>
+                    <Switch x:Name="witchSaveSwitch" IsToggled="false"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="noch jemanden Töten?"/>
+                    <Switch x:Name="witchKillSwitch" IsToggled="false"/>
+                </StackLayout>
+            </StackLayout>
+        </Frame>
         <Frame>
             
         </Frame>

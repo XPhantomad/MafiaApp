@@ -58,7 +58,10 @@ namespace MafiaApp
                 MafiaItemDatabase database = await MafiaItemDatabase.Instance;
                 int numbBuerger = await database.GetRoleNumber(roles.Bürger);
                 if ((numbBuerger == 0) || ((RolesItem)rolesView.SelectedItem).Role == roles.Bürger)
+                {
+                    rolesView.SelectedItem = null;
                     return;// noch Warnung einfügen
+                }
                 else
                     await database.SetRoleNumbersManual(((RolesItem)rolesView.SelectedItem).Role, true);
                 rolesView.ItemsSource = await database.GetRolesAsync();
@@ -75,7 +78,10 @@ namespace MafiaApp
                 MafiaItemDatabase database = await MafiaItemDatabase.Instance;
                 int numbRole = await database.GetRoleNumber(((RolesItem)rolesView.SelectedItem).Role);
                 if ((numbRole == 0) || ((RolesItem)rolesView.SelectedItem).Role == roles.Bürger)
+                {
+                    rolesView.SelectedItem = null;
                     return; //noch eine Warnung machen
+                }
                 else
                     await database.SetRoleNumbersManual(((RolesItem)rolesView.SelectedItem).Role, false);
                 rolesView.ItemsSource = await database.GetRolesAsync();
@@ -89,7 +95,7 @@ namespace MafiaApp
         {
             if (e.SelectedItem != null)
             {
-
+                
             }
         }
     }
