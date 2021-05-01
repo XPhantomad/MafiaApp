@@ -13,6 +13,7 @@ namespace MafiaApp
 {
     public partial class StartGamePage : ContentPage
     {
+        public bool witchCanSave = true;
         public StartGamePage()
         {
             InitializeComponent();
@@ -50,7 +51,7 @@ namespace MafiaApp
                 hexeNames.ItemsSource = await database.GetPlayersByRoleAndNumberAsync(roles.Hexe, numberHexe);
             }
 
-        }
+    }
 
         async void OnSettings(object sender, EventArgs e)
         {
@@ -169,6 +170,7 @@ namespace MafiaApp
 
         async void OnPopoutHexe(object sender, EventArgs e)
         {
+            MafiaItemDatabase database = await MafiaItemDatabase.Instance;
             Frame item = hexeFrame;
             if (item.HeightRequest == 50)
             {
@@ -177,12 +179,39 @@ namespace MafiaApp
             else
             {
                 item.HeightRequest = 50;
-                if (witchSaveSwitch.IsToggled == true)
+                if (witchSaveSwitch.IsToggled == true && witchSaveSwitch.IsEnabled == true)
                 {
-
+                    await database.SetPlayerVictimAsync(showVictim.Text, false);
+                    witchSaveSwitch.IsEnabled = false;
+                }
+                else
+                {
+                    await database.SetPlayerLiveDown(showVictim.Text);      // sterben des Spielers in log
+                    await database.SetPlayerVictimAsync(showVictim.Text, false);
                 }
 
+                if (witchKill.Text != null)
+                {
+                    await database.SetPlayerLiveDown(witchKill.Text);
+                    witchKill.IsEnabled = false;
+                }
             }
+        }
+        async void OnWitchKill(object sender, EventArgs e)
+        {
+
+            MafiaItemDatabase database = await MafiaItemDatabase.Instance;
+            string[] playerNames = await database.GetPlayersNoRoleAndPresentAsync();
+            string selection = await DisplayActionSheet("Name Auswählen", "Abbrechen", "Keiner", playerNames);
+            if (selection.Equals("Keiner"))
+            {
+                witchKill.Text = null;
+            }
+            else if (!selection.Equals("Abbrechen"))
+            {
+                witchKill.Text = selection;
+            }
+
         }
 
         async void OnHexeSelectionChanged(object sender, EventArgs e)

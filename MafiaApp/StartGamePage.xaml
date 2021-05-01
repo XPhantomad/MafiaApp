@@ -77,11 +77,11 @@
                 <StackLayout Orientation="Horizontal" >
                     <Label Text="Opfer:"/>
                     <Label x:Name="showVictim"/>
-                    <Switch x:Name="witchSaveSwitch" IsToggled="false" Toggled="OnSaveToggled"/>
+                    <Switch x:Name="witchSaveSwitch" IsToggled="false" IsEnabled="True"/>
                 </StackLayout>
                 <StackLayout Orientation="Horizontal">
                     <Label Text="noch jemanden Töten?"/>
-                    <Switch x:Name="witchKillSwitch" IsToggled="false" Toggled="OnKillToggled"/>
+                    <Button x:Name="witchKill" Clicked="OnWitchKill" IsEnabled="True"/>
                 </StackLayout>
             </StackLayout>
         </Frame>
