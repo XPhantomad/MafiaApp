@@ -143,7 +143,7 @@ namespace MafiaApp
                     await database.SetPlayersRoleAsync(previous, roles.None);
                     await database.SetPlayersRoleAsync(selection, roles.Mafia);
                 }
-                mafiaNames.ItemsSource = await database.GetPlayersByRoleAndNumberAsync(roles.Mafia, await database.GetRoleNumber(roles.Amor));
+                mafiaNames.ItemsSource = await database.GetPlayersByRoleAndNumberAsync(roles.Mafia, await database.GetRoleNumber(roles.Mafia));
                 mafiaNames.SelectedItem = null;
             }       
             

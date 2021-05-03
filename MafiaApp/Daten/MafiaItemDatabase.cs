@@ -105,6 +105,8 @@ namespace MafiaApp //vorher .Daten
         {
             // nur mit await funtkioniert der ganze Hase
             // Error hinzufügen, falls kein Name oder Rolle ankommt
+
+            // Leben für Spieler setzen
             PlayerItem player = await Database.Table<PlayerItem>().Where(p => p.Name == name).FirstOrDefaultAsync();
             if (player != null)
             {
