@@ -36,7 +36,6 @@ namespace MafiaApp //vorher .Daten
             item.Present = true;
             item.Spouse = "None";
             item.Lives = 1;
-            item.Victim = false;
 
             if (item.ID != 0)
                 return Database.UpdateAsync(item);
@@ -210,12 +209,12 @@ namespace MafiaApp //vorher .Daten
             return nameList;
         }
 
-        public async Task<int> SetPlayerVictimAsync(string playerName, bool victim)
+        public async Task<int> SetPlayerLivesAsync(string playerName, double number)
         {
             PlayerItem player = await Database.Table<PlayerItem>().Where(p => p.Name == playerName).FirstOrDefaultAsync();
             if (player != null)
             {
-                player.Victim = victim;
+                player.Lives = player.Lives + number;
             }
             return await Database.UpdateAsync(player);
         }

@@ -122,6 +122,7 @@ namespace MafiaApp
             }
             else
             {
+                // Warnung, wenn kein Opfer ausgewählt wurde!
                 item.HeightRequest = 50;
             }
         }
@@ -161,8 +162,8 @@ namespace MafiaApp
             }
             else
             {
-                await database.SetPlayerVictimAsync(selection, true);
-                await database.SetPlayerVictimAsync(prev, false);
+                await database.SetPlayerLivesAsync(selection, -0.5);
+                await database.SetPlayerLivesAsync(prev, 0.5);
                 victim.Text = selection;
                 showVictim.Text = selection;
             }
@@ -181,18 +182,18 @@ namespace MafiaApp
                 item.HeightRequest = 50;
                 if (witchSaveSwitch.IsToggled == true && witchSaveSwitch.IsEnabled == true)
                 {
-                    await database.SetPlayerVictimAsync(showVictim.Text, false);
+                    await database.SetPlayerLivesAsync(showVictim.Text, 0.5);
                     witchSaveSwitch.IsEnabled = false;
                 }
                 else
                 {
-                    await database.SetPlayerLiveDown(showVictim.Text);      // sterben des Spielers in log
-                    await database.SetPlayerVictimAsync(showVictim.Text, false);
+                    // sterben des Spielers in log
+                    await database.SetPlayerLivesAsync(showVictim.Text, -0.5);
                 }
 
                 if (witchKill.Text != null)
                 {
-                    await database.SetPlayerLiveDown(witchKill.Text);
+                    await database.SetPlayerLivesAsync(witchKill.Text, -1);
                     witchKill.IsEnabled = false;
                 }
             }
