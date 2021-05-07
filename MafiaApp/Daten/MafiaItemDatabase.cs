@@ -367,17 +367,6 @@ namespace MafiaApp //vorher .Daten
             return role.Number;   //besser Array von der Datenbank Spalte zurückgeben
         }
 
-        public async Task<int> SetPlayerLiveDown(String name)
-        {
-            PlayerItem player = await Database.Table<PlayerItem>().Where(p => p.Name == name).FirstOrDefaultAsync();
-            if (player.Lives < 1)
-            {
-                player.Lives--;
-                return 1;
-            }
-            return 0; // führt zu Error in StartGamePage
-
-        }
 
 
 

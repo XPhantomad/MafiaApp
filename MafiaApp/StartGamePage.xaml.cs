@@ -58,6 +58,14 @@ namespace MafiaApp
             await Navigation.PushAsync(new SettingsPage());
         }
 
+        async void OnResetGame(object sender, EventArgs e)
+        {
+            //Leben zurücksetzen
+            MafiaItemDatabase database = await MafiaItemDatabase.Instance;
+            database.
+        }
+
+
         async void OnAmorSelectionChanged(object sender, EventArgs e)
         {
             if (amorNames.SelectedItem != null)

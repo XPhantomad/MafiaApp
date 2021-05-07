@@ -13,6 +13,7 @@ namespace MafiaApp  //vorher mit Player
         public int Number { get; set; }
         public string Ability { get; set; }
         public int Lives { get; set; }
+        public bool Active { get; set; }
 
     }
 }
