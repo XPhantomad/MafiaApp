@@ -367,6 +367,23 @@ namespace MafiaApp //vorher .Daten
             return role.Number;   //besser Array von der Datenbank Spalte zurückgeben
         }
 
+        public async Task<int> SetRoleActive(roles r, bool b)
+        {
+            RolesItem role = await Database.Table<RolesItem>().Where(p => p.Role == r).FirstOrDefaultAsync();
+            role.Active = b;
+            await Database.UpdateAsync(role);
+            return 1;
+        }
+
+        public async Task<int> SetRoleActive(roles r)
+        {
+            List<RolesItem> rolesList = await Database.QueryAsync<RolesItem>("SELECT Active FROM [RolesItem] WHERE Active = false");
+            foreach (RolesItem aRolesItem in rolesList)
+            {
+                aRolesItem.Active = true;
+            }
+            return 1;
+        }
 
 
 

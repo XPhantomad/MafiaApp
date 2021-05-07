@@ -60,9 +60,10 @@ namespace MafiaApp
 
         async void OnResetGame(object sender, EventArgs e)
         {
-            //Leben zurücksetzen
+            // Leben zurücksetzen
+            // Active zurücksetzen
             MafiaItemDatabase database = await MafiaItemDatabase.Instance;
-            database.
+              
         }
 
 
@@ -109,7 +110,7 @@ namespace MafiaApp
             }
         }
 
-        void OnPopoutAmor(object sender, EventArgs e)
+        async void OnPopoutAmor(object sender, EventArgs e)
         {
             Frame item = amorFrame;
             if (item.HeightRequest == 50)
@@ -119,7 +120,9 @@ namespace MafiaApp
             else
             {
                 item.HeightRequest = 50;
-            }  
+                MafiaItemDatabase database = await MafiaItemDatabase.Instance;
+                await database.SetRoleActive(roles.Amor, false);
+            }
         }
         void OnPopoutMafia(object sender, EventArgs e)
         {
