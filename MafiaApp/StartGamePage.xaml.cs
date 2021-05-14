@@ -63,10 +63,17 @@ namespace MafiaApp
             MafiaItemDatabase database = await MafiaItemDatabase.Instance;
             // Active zurücksetzen
             await database.SetRoleActive();
-            // Leben zurücksetzen
-            await database.SetPlayerLivesAsync();
-            // Liebespaar zurücksetzen
-            await database.SetPlayerNotSpouseAsync();
+            // Rollenzuweisung, Leben, Liebespaar zurücksetzen
+            await database.ResetPlayerItems();
+            
+            //// Rollenzuweisung zurücksetzen
+            //await database.SetPlayersRoleAsync();
+            //// Leben zurücksetzen
+            //await database.SetPlayerLivesAsync();
+            //// Liebespaar zurücksetzen
+            //await database.SetPlayerNotSpouseAsync();
+
+            OnAppearing();
         }
 
 

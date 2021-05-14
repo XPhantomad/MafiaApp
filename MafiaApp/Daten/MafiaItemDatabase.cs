@@ -42,6 +42,7 @@ namespace MafiaApp //vorher .Daten
             else
                 return Database.InsertAsync(item);
         }
+        
 
         public Task<List<PlayerItem>> GetPlayersAsync()
         {
@@ -85,6 +86,19 @@ namespace MafiaApp //vorher .Daten
 
         // Für StartGamePage
 
+        public async Task<int> ResetPlayerItems()
+        {
+            List<PlayerItem> playerList = await Database.QueryAsync<PlayerItem>("SELECT Name FROM [PlayerItem]");
+            foreach (PlayerItem aPlayerItem in playerList)
+            {
+                aPlayerItem.Role = roles.None;
+                aPlayerItem.Lives = 1;
+                aPlayerItem.Spouse = "None";
+                await Database.UpdateAsync(aPlayerItem);
+            }
+            return 1;
+        }
+
         public async Task<string[]> GetPlayersNoRoleAndPresentAsync()
         {
             List<PlayerItem> names = await Database.QueryAsync<PlayerItem>("SELECT Name FROM [PlayerItem] WHERE Present = true AND Role = ?", roles.None);
@@ -113,6 +127,17 @@ namespace MafiaApp //vorher .Daten
             }
             return await Database.UpdateAsync(player);           
         }
+
+        //public async Task<int> SetPlayersRoleAsync()
+        //{
+        //    List<PlayerItem> playerList = await Database.QueryAsync<PlayerItem>("SELECT Name FROM [PlayerItem] WHERE Present = true AND Role !=", roles.None);
+        //    foreach (PlayerItem aPlayerItem in playerList)
+        //    {
+        //        aPlayerItem.Role = roles.None;
+        //        await Database.UpdateAsync(aPlayerItem);
+        //    }
+        //    return 1;
+        //}
 
         public async Task<string[]> GetPlayersMarriedAsync(string spouse1, bool married)
         {
@@ -157,12 +182,8 @@ namespace MafiaApp //vorher .Daten
             PlayerItem spouse2 = await Database.Table<PlayerItem>().Where(p => p.Name == s2).FirstOrDefaultAsync();
             spouse1.Spouse = s2;
             spouse2.Spouse = s1;
-
-            //List<PlayerItem> spouseList = new List<PlayerItem>();
-            //spouseList.Add(spouse1);
-            //spouseList.Add(spouse2);
-
-            return await Database.UpdateAsync(spouse1);  
+            await Database.UpdateAsync(spouse1);
+            return await Database.UpdateAsync(spouse2);
         }
         public async Task<int> SetPlayerNotSpouseAsync(string s1, string s2)
         {
@@ -173,11 +194,8 @@ namespace MafiaApp //vorher .Daten
                 spouse1.Spouse = "None";
                 spouse2.Spouse = "None";
             }
-            //List<PlayerItem> spouseList = new List<PlayerItem>();
-            //spouseList.Add(spouse1);
-            //spouseList.Add(spouse2);
-
-            return await Database.UpdateAsync(spouse1);
+            await Database.UpdateAsync(spouse1);
+            return await Database.UpdateAsync(spouse2);
         }
 
         public async Task<int> SetPlayerNotSpouseAsync()
@@ -186,8 +204,9 @@ namespace MafiaApp //vorher .Daten
             foreach (PlayerItem aPlayerItem in marriedList)
             {
                 aPlayerItem.Spouse = "None";
+                await Database.UpdateAsync(aPlayerItem);
             }
-            return await Database.UpdateAsync(marriedList);
+            return 1;
         }
 
         public async Task<string[]> GetPlayersByRoleAndNumberAsync(roles role, int anzahl)
@@ -244,8 +263,9 @@ namespace MafiaApp //vorher .Daten
             foreach (PlayerItem aPlayerItem in playerList)
             {
                 aPlayerItem.Lives = 1;
+                await Database.UpdateAsync(aPlayerItem);
             }
-            return await Database.UpdateAsync(playerList);
+            return 1;
         }
 
 
@@ -410,8 +430,9 @@ namespace MafiaApp //vorher .Daten
             foreach (RolesItem aRolesItem in rolesList)
             {
                 aRolesItem.Active = true;
+                await Database.UpdateAsync(aRolesItem);
             }
-            return await Database.UpdateAsync(rolesList);
+            return 1;
         }
 
 
