@@ -157,26 +157,37 @@ namespace MafiaApp //vorher .Daten
             PlayerItem spouse2 = await Database.Table<PlayerItem>().Where(p => p.Name == s2).FirstOrDefaultAsync();
             spouse1.Spouse = s2;
             spouse2.Spouse = s1;
-            List<PlayerItem> spouseList = new List<PlayerItem>();
-            spouseList.Add(spouse1);
-            spouseList.Add(spouse2);
 
-            return await Database.UpdateAsync(spouseList);    //nicht wirklich aussagekräftig
+            //List<PlayerItem> spouseList = new List<PlayerItem>();
+            //spouseList.Add(spouse1);
+            //spouseList.Add(spouse2);
+
+            return await Database.UpdateAsync(spouse1);  
         }
         public async Task<int> SetPlayerNotSpouseAsync(string s1, string s2)
         {
-            PlayerItem spouse1 = await Database.Table<PlayerItem>().Where(p => p.Name == s1).FirstOrDefaultAsync();
+            PlayerItem spouse1 = await Database.Table<PlayerItem>().Where(p => p.Name == s1).FirstOrDefaultAsync();  // leiber gleich hier schon in liste machen
             PlayerItem spouse2 = await Database.Table<PlayerItem>().Where(p => p.Name == s2).FirstOrDefaultAsync();
             if (spouse1 != null && spouse2 != null)
             {
                 spouse1.Spouse = "None";
                 spouse2.Spouse = "None";
             }
-            List<PlayerItem> spouseList = new List<PlayerItem>();
-            spouseList.Add(spouse1);
-            spouseList.Add(spouse2);
+            //List<PlayerItem> spouseList = new List<PlayerItem>();
+            //spouseList.Add(spouse1);
+            //spouseList.Add(spouse2);
 
-            return await Database.UpdateAsync(spouseList);
+            return await Database.UpdateAsync(spouse1);
+        }
+
+        public async Task<int> SetPlayerNotSpouseAsync()
+        {
+            List<PlayerItem> marriedList = await Database.QueryAsync<PlayerItem>("SELECT Active FROM [RolesItem] WHERE Active = false");
+            foreach (PlayerItem aPlayerItem in marriedList)
+            {
+                aPlayerItem.Spouse = "None";
+            }
+            return await Database.UpdateAsync(marriedList);
         }
 
         public async Task<string[]> GetPlayersByRoleAndNumberAsync(roles role, int anzahl)

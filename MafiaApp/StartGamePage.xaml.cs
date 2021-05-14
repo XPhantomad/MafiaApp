@@ -65,7 +65,8 @@ namespace MafiaApp
             await database.SetRoleActive();
             // Leben zurücksetzen
             await database.SetPlayerLivesAsync();
-
+            // Liebespaar zurücksetzen
+            await database.SetPlayerNotSpouseAsync();
         }
 
 
