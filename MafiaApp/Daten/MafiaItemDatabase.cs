@@ -157,7 +157,11 @@ namespace MafiaApp //vorher .Daten
             PlayerItem spouse2 = await Database.Table<PlayerItem>().Where(p => p.Name == s2).FirstOrDefaultAsync();
             spouse1.Spouse = s2;
             spouse2.Spouse = s1;
-            return await Database.UpdateAsync(spouse1);     //nicht wirklich aussagekräftig
+            List<PlayerItem> spouseList = new List<PlayerItem>();
+            spouseList.Add(spouse1);
+            spouseList.Add(spouse2);
+
+            return await Database.UpdateAsync(spouseList);    //nicht wirklich aussagekräftig
         }
         public async Task<int> SetPlayerNotSpouseAsync(string s1, string s2)
         {
@@ -168,7 +172,11 @@ namespace MafiaApp //vorher .Daten
                 spouse1.Spouse = "None";
                 spouse2.Spouse = "None";
             }
-            return await Database.UpdateAsync(spouse1);     //nicht wirklich aussagekräftig
+            List<PlayerItem> spouseList = new List<PlayerItem>();
+            spouseList.Add(spouse1);
+            spouseList.Add(spouse2);
+
+            return await Database.UpdateAsync(spouseList);
         }
 
         public async Task<string[]> GetPlayersByRoleAndNumberAsync(roles role, int anzahl)
@@ -217,6 +225,16 @@ namespace MafiaApp //vorher .Daten
                 player.Lives = player.Lives + number;
             }
             return await Database.UpdateAsync(player);
+        }
+
+        public async Task<int> SetPlayerLivesAsync()
+        {
+            List<PlayerItem> playerList = await Database.QueryAsync<PlayerItem>("SELECT Lives FROM [PlayerItem]");
+            foreach (PlayerItem aPlayerItem in playerList)
+            {
+                aPlayerItem.Lives = 1;
+            }
+            return await Database.UpdateAsync(playerList);
         }
 
 
@@ -375,14 +393,14 @@ namespace MafiaApp //vorher .Daten
             return 1;
         }
 
-        public async Task<int> SetRoleActive(roles r)
+        public async Task<int> SetRoleActive()
         {
             List<RolesItem> rolesList = await Database.QueryAsync<RolesItem>("SELECT Active FROM [RolesItem] WHERE Active = false");
             foreach (RolesItem aRolesItem in rolesList)
             {
                 aRolesItem.Active = true;
             }
-            return 1;
+            return await Database.UpdateAsync(rolesList);
         }
 
 

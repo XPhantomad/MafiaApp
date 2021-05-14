@@ -60,10 +60,12 @@ namespace MafiaApp
 
         async void OnResetGame(object sender, EventArgs e)
         {
-            // Leben zurücksetzen
-            // Active zurücksetzen
             MafiaItemDatabase database = await MafiaItemDatabase.Instance;
-              
+            // Active zurücksetzen
+            await database.SetRoleActive();
+            // Leben zurücksetzen
+            await database.SetPlayerLivesAsync();
+
         }
 
 
