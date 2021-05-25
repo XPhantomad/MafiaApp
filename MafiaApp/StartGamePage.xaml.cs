@@ -137,7 +137,7 @@ namespace MafiaApp
                 await database.SetRoleActive(roles.Amor, false);
             }
         }
-        void OnPopoutMafia(object sender, EventArgs e)
+        async void OnPopoutMafia(object sender, EventArgs e)
         {
             Frame item = mafiaFrame;
             if (item.HeightRequest == 50)
@@ -146,7 +146,14 @@ namespace MafiaApp
             }
             else
             {
-                // Warnung, wenn kein Opfer ausgewählt wurde!
+                if (victim.Text == "")
+                {
+                    bool conti = await DisplayAlert("Warnung", "Du hast noch kein Opfer ausgewählt", "Fortfahren", "Abbrechen");
+                    if (conti == false)
+                    {
+                        return;
+                    }
+                }
                 item.HeightRequest = 50;
             }
         }
