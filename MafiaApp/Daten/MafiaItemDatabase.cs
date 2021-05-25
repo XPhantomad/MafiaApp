@@ -128,17 +128,6 @@ namespace MafiaApp //vorher .Daten
             return await Database.UpdateAsync(player);           
         }
 
-        //public async Task<int> SetPlayersRoleAsync()
-        //{
-        //    List<PlayerItem> playerList = await Database.QueryAsync<PlayerItem>("SELECT Name FROM [PlayerItem] WHERE Present = true AND Role !=", roles.None);
-        //    foreach (PlayerItem aPlayerItem in playerList)
-        //    {
-        //        aPlayerItem.Role = roles.None;
-        //        await Database.UpdateAsync(aPlayerItem);
-        //    }
-        //    return 1;
-        //}
-
         public async Task<string[]> GetPlayersMarriedAsync(string spouse1, bool married)
         {
             if (married == false)
@@ -198,17 +187,6 @@ namespace MafiaApp //vorher .Daten
             return await Database.UpdateAsync(spouse2);
         }
 
-        public async Task<int> SetPlayerNotSpouseAsync()
-        {
-            List<PlayerItem> marriedList = await Database.QueryAsync<PlayerItem>("SELECT Active FROM [RolesItem] WHERE Active = false");
-            foreach (PlayerItem aPlayerItem in marriedList)
-            {
-                aPlayerItem.Spouse = "None";
-                await Database.UpdateAsync(aPlayerItem);
-            }
-            return 1;
-        }
-
         public async Task<string[]> GetPlayersByRoleAndNumberAsync(roles role, int anzahl)
         {
             List<PlayerItem> names = await Database.QueryAsync<PlayerItem>("SELECT Name FROM [PlayerItem] WHERE Present = true AND Role = ?", role);
@@ -256,36 +234,6 @@ namespace MafiaApp //vorher .Daten
             }
             return await Database.UpdateAsync(player);
         }
-
-        public async Task<int> SetPlayerLivesAsync()
-        {
-            List<PlayerItem> playerList = await Database.QueryAsync<PlayerItem>("SELECT Lives FROM [PlayerItem]");
-            foreach (PlayerItem aPlayerItem in playerList)
-            {
-                aPlayerItem.Lives = 1;
-                await Database.UpdateAsync(aPlayerItem);
-            }
-            return 1;
-        }
-
-
-        /*
-         * falls man das mal braucht
-        public async void XXXXXSetPlayersRoleAsync(string[] name, roles role)
-        {
-            // nur mit await funtkioniert der ganze Hase
-            // Error hinzufügen, falls kein Name oder Rolle ankommt
-
-            foreach (string aName in name)  // das geht schöner!!!!
-            {
-                PlayerItem player = await Database.Table<PlayerItem>().Where(p => p.Name == aName).FirstOrDefaultAsync();
-                player.Role = role;
-                await Database.UpdateAsync(player);
-            }
-            return;
-        }
-        */
-
 
 
 
