@@ -17,7 +17,10 @@ namespace MafiaApp
         public PlayerPage()
         {
             InitializeComponent();
-         
+            //Wenn die Button angetippt wird, wird die OnButtonClicked - Methode ausgeführt.Das - 
+            //    sender Argument ist das Button für dieses Ereignis verantwortliche Objekt.Sie 
+            //    können dies verwenden, um auf das Button Objekt zuzugreifen, oder um zwischen 
+            //    mehreren Objekten zu unterscheiden, Button die dasselbe Clicked Ereignis verwenden.
         }
         protected override async void OnAppearing()
         {
@@ -30,7 +33,7 @@ namespace MafiaApp
         async void OnPlayerAdded(object sender, EventArgs e)
         {
 
-            string newplayer = await DisplayPromptAsync("Namen Eingeben", "hier soll keine unterschrift hin");
+            string newplayer = await DisplayPromptAsync("Namen Eingeben", null);
             MafiaItemDatabase database = await MafiaItemDatabase.Instance;
             await database.SavePlayerAsync(newplayer);
             player.ItemsSource = await database.GetPlayersAsync();

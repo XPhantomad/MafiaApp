@@ -50,8 +50,16 @@ namespace MafiaApp
                 hexeFrame.IsVisible = true;
                 hexeNames.ItemsSource = await database.GetPlayersByRoleAndNumberAsync(roles.Hexe, numberHexe);
             }
+            if (numberDetektiv == 0)
+                detektivFrame.IsVisible = false;
+            else
+            {
+                detektivFrame.IsVisible = true;
+                detektivNames.ItemsSource = await database.GetPlayersByRoleAndNumberAsync(roles.Detektiv, numberDetektiv);
+            }
 
-    }
+
+        }
 
         async void OnSettings(object sender, EventArgs e)
         {
@@ -66,14 +74,34 @@ namespace MafiaApp
             // Rollenzuweisung, Leben, Liebespaar zurücksetzen
             await database.ResetPlayerItems();
             
-            //// Rollenzuweisung zurücksetzen
-            //await database.SetPlayersRoleAsync();
-            //// Leben zurücksetzen
-            //await database.SetPlayerLivesAsync();
-            //// Liebespaar zurücksetzen
-            //await database.SetPlayerNotSpouseAsync();
+            //Hexe fähigkeiten zurücksetzen
 
+           
             OnAppearing();
+        }
+
+        async Task<int> CloseAllFrames()
+        {
+            int c = 1;
+            object o = new object();
+            EventArgs e = new EventArgs();
+            if (amorFrame.HeightRequest == 200)
+            {
+                OnPopoutAmor(o, e);
+            }
+            if (mafiaFrame.HeightRequest == 200)
+            {
+                c = await OnPopoutMafia2(o, e);
+            }
+            if (hexeFrame.HeightRequest == 200)
+            {
+                OnPopoutHexe(o, e);
+            }
+            if (detektivFrame.HeightRequest == 200)
+            {
+                OnPopoutDetektiv(o, e);
+            }
+            return c;
         }
 
 
@@ -128,7 +156,11 @@ namespace MafiaApp
             Frame item = amorFrame;
             if (item.HeightRequest == 50)
             {
-                item.HeightRequest = 200;
+                int ok = await CloseAllFrames();
+                if (ok == 1)
+                {
+                    item.HeightRequest = 200;
+                }
             }
             else
             {
@@ -139,10 +171,19 @@ namespace MafiaApp
         }
         async void OnPopoutMafia(object sender, EventArgs e)
         {
+            await OnPopoutMafia2(sender, e);
+        }
+
+        async Task<int> OnPopoutMafia2(object sender, EventArgs e)
+        {
             Frame item = mafiaFrame;
             if (item.HeightRequest == 50)
             {
-                item.HeightRequest = 200;
+                int ok = await CloseAllFrames();
+                if (ok == 1)
+                {
+                    item.HeightRequest = 200;
+                }
             }
             else
             {
@@ -151,11 +192,12 @@ namespace MafiaApp
                     bool conti = await DisplayAlert("Warnung", "Du hast noch kein Opfer ausgewählt", "Fortfahren", "Abbrechen");
                     if (conti == false)
                     {
-                        return;
+                        return 0;
                     }
                 }
                 item.HeightRequest = 50;
             }
+            return 1;
         }
 
         async void OnMafiaSelectionChanged(object sender, EventArgs e)
@@ -190,16 +232,20 @@ namespace MafiaApp
             MafiaItemDatabase database = await MafiaItemDatabase.Instance;
             string[] playerNames = await database.GetPlayersPresentAndAliveAsync();
             string selection = await DisplayActionSheet("Opfer Auswählen", "Abbrechen", null, playerNames);
-            if (selection.Equals("Abbrechen"))
+            if (selection != null)
             {
-                return;
-            }
-            else
-            {
-                await database.SetPlayerLivesAsync(selection, -0.5);
-                await database.SetPlayerLivesAsync(prev, 0.5);
-                victim.Text = selection;
-                showVictim.Text = selection;
+
+                if (selection.Equals("Abbrechen"))
+                {
+                    return;
+                }
+                else
+                {
+                    await database.SetPlayerLivesAsync(selection, -0.5);
+                    await database.SetPlayerLivesAsync(prev, 0.5);
+                    victim.Text = selection;
+                    showVictim.Text = selection;
+                }
             }
         }
 
@@ -209,7 +255,11 @@ namespace MafiaApp
             Frame item = hexeFrame;
             if (item.HeightRequest == 50)
             {
-                item.HeightRequest = 200;
+                int ok = await CloseAllFrames();
+                if (ok == 1)
+                {
+                    item.HeightRequest = 200;
+                }
             }
             else
             {
@@ -273,6 +323,49 @@ namespace MafiaApp
                 }
                 hexeNames.ItemsSource = await database.GetPlayersByRoleAndNumberAsync(roles.Hexe, await database.GetRoleNumber(roles.Hexe));
                 hexeNames.SelectedItem = null;
+            }
+        }
+
+        async void OnDetektivSelectionChanged(object sender, EventArgs e)
+        {
+            if (detektivNames.SelectedItem != null)
+            {
+                string previous = detektivNames.SelectedItem.ToString();
+                MafiaItemDatabase database = await MafiaItemDatabase.Instance;
+                string[] playerNames = await database.GetPlayersNoRoleAndPresentAsync();
+                string selection = await DisplayActionSheet("Name Auswählen", "Abbrechen", "Keiner", playerNames);
+                if (selection != null)
+                {
+                    if (selection.Equals("Keiner"))
+                    {
+                        await database.SetPlayersRoleAsync(previous, roles.None);
+                    }
+                    else if (!selection.Equals("Abbrechen"))
+                    {
+                        await database.SetPlayersRoleAsync(previous, roles.None);
+                        await database.SetPlayersRoleAsync(selection, roles.Detektiv);
+                    }
+                }
+                detektivNames.ItemsSource = await database.GetPlayersByRoleAndNumberAsync(roles.Detektiv, await database.GetRoleNumber(roles.Detektiv));
+                detektivNames.SelectedItem = null;
+            }
+        }
+        async void OnPopoutDetektiv(object sender, EventArgs e)
+        {
+            Frame item = detektivFrame;
+            if (item.HeightRequest == 50)
+            {
+                int ok = await CloseAllFrames();
+                if (ok == 1)
+                {
+                    item.HeightRequest = 200;
+                }
+            }
+            else
+            {
+                item.HeightRequest = 50;
+                MafiaItemDatabase database = await MafiaItemDatabase.Instance;
+                await database.SetRoleActive(roles.Detektiv, false);
             }
         }
     }
