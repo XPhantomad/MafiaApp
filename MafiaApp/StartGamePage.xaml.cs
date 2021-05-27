@@ -23,6 +23,13 @@ namespace MafiaApp
         protected override async void OnAppearing()
         {
             base.OnAppearing();
+            await SetUp();
+
+
+        }
+
+        async Task<int> SetUp()
+        {
             MafiaItemDatabase database = await MafiaItemDatabase.Instance;
             int numberMafia = await database.GetRoleNumber(roles.Mafia);
             int numberAmor = await database.GetRoleNumber(roles.Amor);
@@ -58,7 +65,7 @@ namespace MafiaApp
                 detektivNames.ItemsSource = await database.GetPlayersByRoleAndNumberAsync(roles.Detektiv, numberDetektiv);
             }
 
-
+            return 1;
         }
 
         async void OnSettings(object sender, EventArgs e)
@@ -77,7 +84,7 @@ namespace MafiaApp
             //Hexe fähigkeiten zurücksetzen
 
            
-            OnAppearing();
+            await SetUp();
         }
 
         async Task<int> CloseAllFrames()
