@@ -88,7 +88,7 @@ namespace MafiaApp //vorher .Daten
 
         public async Task<int> ResetPlayerItems()
         {
-            List<PlayerItem> playerList = await Database.QueryAsync<PlayerItem>("SELECT Name FROM [PlayerItem]");
+            List<PlayerItem> playerList = await Database.QueryAsync<PlayerItem>("SELECT * FROM [PlayerItem]");
             foreach (PlayerItem aPlayerItem in playerList)
             {
                 aPlayerItem.Role = roles.None;
