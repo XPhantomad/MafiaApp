@@ -375,5 +375,17 @@ namespace MafiaApp
                 await database.SetRoleActive(roles.Detektiv, false);
             }
         }
+
+        async void OnChoosePerson(object sender, EventArgs e)
+        {
+            MafiaItemDatabase database = await MafiaItemDatabase.Instance;
+            string[] playerNames = await database.GetPlayersPresentAndAliveAsync();
+            string selection = await DisplayActionSheet("Name Auswählen", "Abbrechen", null, playerNames);
+            if (selection != null && !selection.Equals("Abbrechen"))
+            {
+                name.Text = selection;
+                role.Text = (await database.GetPlayersRole(selection)).ToString();
+            }
+        }
     }
 }

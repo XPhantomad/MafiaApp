@@ -234,6 +234,11 @@ namespace MafiaApp //vorher .Daten
             }
             return await Database.UpdateAsync(player);
         }
+        public async Task<roles> GetPlayersRole(String playerName)
+        {
+            PlayerItem player = await Database.Table<PlayerItem>().Where(p => p.Name == playerName).FirstOrDefaultAsync();
+            return player.Role;
+        }
 
 
 

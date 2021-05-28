@@ -105,12 +105,12 @@
                         <Button Text="Erweitern" Clicked="OnPopoutDetektiv" HorizontalOptions="End"/>
                     </StackLayout>
                     <Label Text="Was die Rolle so macht steht hoffentlich im nicht sichtbaren Berreich"/>
-                    <!--<StackLayout Orientation="Horizontal" >
+                    <StackLayout Orientation="Horizontal" >
                         <Button x:Name="choosePerson" Text="Person Wählen" Clicked="OnChoosePerson"/>
                         <Label  x:Name="name" Text="" FontAttributes="Bold"/>
                         <Label Text=":"/>
                         <Label x:Name="role" Text="" FontAttributes="Bold"/>
-                    </StackLayout>-->
+                    </StackLayout>
                 </StackLayout>
             </Frame>
             <!--<Frame x:Name="buergerFrame" BorderColor="Tomato" Padding="15" HeightRequest="50" CornerRadius="20" IsVisible="true">
