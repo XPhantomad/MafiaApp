@@ -82,7 +82,6 @@ namespace MafiaApp
             await database.ResetPlayerItems();
             
             //Hexe fähigkeiten zurücksetzen
-
            
             await SetUp();
         }
@@ -107,6 +106,11 @@ namespace MafiaApp
             if (detektivFrame.HeightRequest == 200)
             {
                 OnPopoutDetektiv(o, e);
+            }
+            if (buergerFrame.HeightRequest == 200)
+            {
+                // zurückgeben ob abstimmung fertig ist 
+                OnPopoutBuerger(o, e);
             }
             return c;
         }
@@ -385,6 +389,39 @@ namespace MafiaApp
             {
                 name.Text = selection;
                 role.Text = (await database.GetPlayersRole(selection)).ToString();
+            }
+        }
+
+        async void OnPopoutBuerger(object sender, EventArgs e)
+        {
+            Frame item = buergerFrame;
+            if (item.HeightRequest == 50)
+            {
+                MafiaItemDatabase database = await MafiaItemDatabase.Instance;
+                int ok = await CloseAllFrames();
+                if (ok == 1 )
+                {
+                    if ((await database.GetPlayersNoRoleAndPresentAsync()).Length == await database.GetRoleNumber(roles.Bürger))  // Wenn alle anderen Rollen festgelgt sind
+                    {
+                        if (await database.GetBuergerInitialized())
+                        {
+                            await database.SetBuerger();
+                        }
+                        buergerNames.ItemsSource = await database.GetPlayersByRoleAndNumberAsync(roles.Bürger,(await database.GetRoleNumber(roles.Bürger)));
+                        item.HeightRequest = 200;
+                    }
+                    else
+                    {
+                        await DisplayAlert("Warnung", "Du hast noch nicht alle Namen zugewiesen",null, "OK");
+                    }
+                }
+                
+            }
+            else
+            {
+                item.HeightRequest = 50;
+                MafiaItemDatabase database = await MafiaItemDatabase.Instance;
+                await database.SetRoleActive(roles.Bürger, false);
             }
         }
     }

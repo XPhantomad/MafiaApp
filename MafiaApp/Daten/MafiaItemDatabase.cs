@@ -239,6 +239,23 @@ namespace MafiaApp //vorher .Daten
             PlayerItem player = await Database.Table<PlayerItem>().Where(p => p.Name == playerName).FirstOrDefaultAsync();
             return player.Role;
         }
+        public async Task<bool> GetBuergerInitialized()
+        {
+            roles r = roles.Bürger;
+            List<PlayerItem> players = await Database.QueryAsync<PlayerItem>("SELECT * FROM [PlayerItem] WHERE Present = true AND Role = ?", r);
+            return players.Count() == 0;  
+        }
+
+        public async Task<int> SetBuerger()
+        {
+            List<PlayerItem> players = await Database.QueryAsync<PlayerItem>("SELECT * FROM [PlayerItem] WHERE Present = true AND Role = ?", roles.None);
+            foreach(PlayerItem aplayerItem in players)
+            {
+                aplayerItem.Role = roles.Bürger;
+                await Database.UpdateAsync(aplayerItem);
+            }
+            return 1;
+        }
 
 
 
