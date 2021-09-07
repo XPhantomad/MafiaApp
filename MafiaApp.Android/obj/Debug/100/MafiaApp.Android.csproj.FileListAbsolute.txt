@@ -10,7 +10,6 @@ C:\Users\adria\source\repos\MafiaApp\MafiaApp.Android\bin\Debug\MafiaApp.pdb
 C:\Users\adria\source\repos\MafiaApp\MafiaApp.Android\obj\Debug\100\MonoAndroid,Version=v10.0.AssemblyAttributes.cs
 C:\Users\adria\source\repos\MafiaApp\MafiaApp.Android\obj\Debug\100\build.props
 C:\Users\adria\source\repos\MafiaApp\MafiaApp.Android\obj\Debug\100\adb.props
-C:\Users\adria\source\repos\MafiaApp\MafiaApp.Android\obj\Debug\100\MafiaApp.Android.csprojAssemblyReference.cache
 C:\Users\adria\source\repos\MafiaApp\MafiaApp.Android\obj\Debug\100\stamp\_BuildLibraryImportsCache.stamp
 C:\Users\adria\source\repos\MafiaApp\MafiaApp.Android\obj\Debug\100\res.flag
 C:\Users\adria\source\repos\MafiaApp\MafiaApp.Android\obj\Debug\100\lp\42\jl\files.cache
@@ -546,3 +545,4 @@ C:\Users\adria\source\repos\MafiaApp\MafiaApp.Android\obj\Debug\100\stamp\_Conve
 C:\Users\adria\source\repos\MafiaApp\MafiaApp.Android\obj\Debug\100\stamp\_GenerateJavaStubs.stamp
 C:\Users\adria\source\repos\MafiaApp\MafiaApp.Android\obj\Debug\100\stamp\_GeneratePackageManagerJava.stamp
 C:\Users\adria\source\repos\MafiaApp\MafiaApp.Android\obj\Debug\100\stamp\_ResolveLibraryProjectImports.stamp
+C:\Users\adria\source\repos\MafiaApp\MafiaApp.Android\obj\Debug\100\MafiaApp.Android.csproj.AssemblyReference.cache
