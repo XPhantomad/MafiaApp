@@ -22,29 +22,31 @@ namespace MafiaApp
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            MafiaItemDatabase database = await MafiaItemDatabase.Instance;
             //await database.DeleteRolesTableAsync();
-            await database.SetUp();
-            playerPresentNumberC = (await database.GetPlayersPresentAsync()).Count;
-            playerPresentNumber.Text = playerPresentNumberC.ToString();
-            rolesView.ItemsSource = await database.GetRolesAsync();
+            if((await App.RolesDatabase.GetRolesAsync()).Count == 0)
+            {
+                await RolesInitializer.Initialize();
+            }
+
+            playerPresentNumber.Text = (await App.PlayerDatabase.GetPlayersAsync()).Count.ToString();
+            rolesView.ItemsSource = await App.RolesDatabase.GetRolesAsync();
         }
 
         async void OnAutoSwitch(object sender, EventArgs e)
         {
-            MafiaItemDatabase database = await MafiaItemDatabase.Instance;
-            await database.SetRoleNumbersAuto(playerPresentNumberC);
-            rolesView.ItemsSource = await database.GetRolesAsync();
+            //MafiaItemDatabase database = await MafiaItemDatabase.Instance;
+            //await database.SetRoleNumbersAuto();
+            //rolesView.ItemsSource = await database.GetRolesAsync();
         }
 
         async void OnReset(object sender, EventArgs e)
         {
-            if (rolesView.SelectedItem != null)
-            {
-                MafiaItemDatabase database = await MafiaItemDatabase.Instance;
-                await database.DeleteRolesTableAsync((RolesItem)rolesView.SelectedItem);
-                rolesView.ItemsSource = await database.GetRolesAsync();
-            }
+            //if (rolesView.SelectedItem != null)
+            //{
+            //    MafiaItemDatabase database = await MafiaItemDatabase.Instance;
+            //    await database.DeleteRolesTableAsync((RolesItem)rolesView.SelectedItem);
+            //    rolesView.ItemsSource = await database.GetRolesAsync();
+            //}
         }
         //async void OnAbilitiesShow(object sender, EventArgs e)
         //{
@@ -53,49 +55,49 @@ namespace MafiaApp
 
         async void OnIncrease(object sender, EventArgs e) //erhöhen Bürger werden automatisch weniger
         {
-            if (rolesView.SelectedItem != null)
-            {
-                MafiaItemDatabase database = await MafiaItemDatabase.Instance;
-                int numbBuerger = await database.GetRoleNumber(roles.Bürger);
-                if ((numbBuerger == 0) || ((RolesItem)rolesView.SelectedItem).Role == roles.Bürger)
-                {
-                    rolesView.SelectedItem = null;
-                    return;// noch Warnung einfügen
-                }
-                else
-                    await database.SetRoleNumbersManual(((RolesItem)rolesView.SelectedItem).Role, true);
-                rolesView.ItemsSource = await database.GetRolesAsync();
-            }
-            else
-                await DisplayAlert("Warnung", "Wähle zuerst eine Person aus", "Oaky");
-            rolesView.SelectedItem = null;
+            //if (rolesView.SelectedItem != null)
+            //{
+            //    MafiaItemDatabase database = await MafiaItemDatabase.Instance;
+            //    int numbBuerger = await database.GetRoleNumber(roles.Bürger);
+            //    if ((numbBuerger == 0) || ((RolesItem)rolesView.SelectedItem).Role == roles.Bürger)
+            //    {
+            //        rolesView.SelectedItem = null;
+            //        return;// noch Warnung einfügen
+            //    }
+            //    else
+            //        await database.SetRoleNumbersManual(((RolesItem)rolesView.SelectedItem).Role, true);
+            //    rolesView.ItemsSource = await database.GetRolesAsync();
+            //}
+            //else
+            //    await DisplayAlert("Warnung", "Wähle zuerst eine Person aus", "Okay");
+            //rolesView.SelectedItem = null;
         }
 
         async void OnDecrease(object sender, EventArgs e) //verringern, Bürger werden automatisch mehr
         {
-            if (rolesView.SelectedItem != null)
-            {
-                MafiaItemDatabase database = await MafiaItemDatabase.Instance;
-                int numbRole = await database.GetRoleNumber(((RolesItem)rolesView.SelectedItem).Role);
-                if ((numbRole == 0) || ((RolesItem)rolesView.SelectedItem).Role == roles.Bürger)
-                {
-                    rolesView.SelectedItem = null;
-                    return; //noch eine Warnung machen
-                }
-                else
-                    await database.SetRoleNumbersManual(((RolesItem)rolesView.SelectedItem).Role, false);
-                rolesView.ItemsSource = await database.GetRolesAsync();
-            }
-            else
-                await DisplayAlert("Warnung", "Wähle zuerst eine Rolle aus", "Oaky");
-            rolesView.SelectedItem = null;
+        //    if (rolesView.SelectedItem != null)
+        //    {
+        //        MafiaItemDatabase database = await MafiaItemDatabase.Instance;
+        //        int numbRole = await database.GetRoleNumber(((RolesItem)rolesView.SelectedItem).Role);
+        //        if ((numbRole == 0) || ((RolesItem)rolesView.SelectedItem).Role == roles.Bürger)
+        //        {
+        //            rolesView.SelectedItem = null;
+        //            return; //noch eine Warnung machen
+        //        }
+        //        else
+        //            await database.SetRoleNumbersManual(((RolesItem)rolesView.SelectedItem).Role, false);
+        //        rolesView.ItemsSource = await database.GetRolesAsync();
+        //    }
+        //    else
+        //        await DisplayAlert("Warnung", "Wähle zuerst eine Rolle aus", "Okay");
+        //    rolesView.SelectedItem = null;
         }
 
         void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             if (e.SelectedItem != null)
             {
-                
+
             }
         }
     }

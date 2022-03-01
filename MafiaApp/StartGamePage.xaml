@@ -8,7 +8,7 @@
         <StackLayout x:Name="mainStack" Margin="10,35,10,10">
             <Button Text="Zahnrad" Clicked="OnSettings"/>
             <Button Text="Zurücksetzen" Clicked="OnResetGame"/>
-            <Frame x:Name="amorFrame" BorderColor="Tomato" Padding="15" HeightRequest="50" CornerRadius="20" IsVisible="true">
+            <!--<Frame x:Name="amorFrame" BorderColor="Tomato" Padding="15" HeightRequest="50" CornerRadius="20" IsVisible="true">
                 <StackLayout Orientation="Vertical">
                     <StackLayout Orientation="Horizontal">
                         <Ellipse WidthRequest="50" HeightRequest="20" Fill="Green" />
@@ -131,17 +131,17 @@
                         <Button Text="Erweitern" Clicked="OnPopoutBuerger" HorizontalOptions="End"/>
                     </StackLayout>
                     <Label Text="Was die Rolle so macht steht hoffentlich im nicht sichtbaren Berreich"/>
-                    <!--<StackLayout Orientation="Horizontal" >
+                    <StackLayout Orientation="Horizontal" >
                         <Button x:Name="spouse" Text="verliebte Wählen" Clicked="OnSpouseChange"/>
                         <Label  x:Name="spouse1" Text="{Binding Spouse1}" FontAttributes="Bold"/>
                         <Label Text="und"/>
                         <Label x:Name="spouse2" Text="{Binding Spouse2}" FontAttributes="Bold"/>
-                    </StackLayout>-->
+                    </StackLayout>
                 </StackLayout>
             </Frame>
             <Frame>
 
-            </Frame>
+            </Frame>-->
 
         </StackLayout>
     </ScrollView>

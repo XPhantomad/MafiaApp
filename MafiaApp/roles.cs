@@ -3,7 +3,7 @@
     public enum roles
     {
         None,
-        Amor, 
+        Amor,
         Mafia,
         Detektiv,
         Hexe,

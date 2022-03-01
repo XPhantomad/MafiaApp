@@ -7,7 +7,35 @@ namespace MafiaApp
 {
     public partial class App : Application
     {
-      
+
+        static PlayerDatabase playerDatabase;
+
+        public static PlayerDatabase PlayerDatabase
+        {
+            get
+            {
+                if (playerDatabase == null)
+                {
+                    playerDatabase = new PlayerDatabase(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "players.db3"));
+                }
+                return playerDatabase;
+            }
+        }
+
+        static RolesDatabase rolesDatabase;
+
+        public static RolesDatabase RolesDatabase
+        {
+            get
+            {
+                if (rolesDatabase == null)
+                {
+                    rolesDatabase = new RolesDatabase(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "roles.db3"));
+                }
+                return rolesDatabase;
+            }
+        }
+
         public App()
         {
             InitializeComponent();
