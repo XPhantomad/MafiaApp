@@ -8,7 +8,7 @@
         
         <StackLayout>
             <Label Text="Spieleranzahl: "/>
-            <Label x:Name="playerPresentNumber"/>
+            <Label x:Name="playersPresentNumberDisp"/>
             <Button x:Name="autoSwitch" Text="Auto" Clicked="OnAutoSwitch"/>
             <Button Text="Delete Selection !!!" Clicked="OnReset"/>
             <CollectionView x:Name="rolesView" Margin="0,0,0,0" SelectionMode="Single" >

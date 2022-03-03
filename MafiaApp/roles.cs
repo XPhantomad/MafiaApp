@@ -1,6 +1,6 @@
 ﻿namespace MafiaApp
 {
-    public enum roles
+    public enum Roles
     {
         None,
         Amor,

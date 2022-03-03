@@ -20,6 +20,12 @@ namespace MafiaApp
         {
             return _database.Table<RolesItem>().ToListAsync();
         }
+
+        public Task<RolesItem> GetRoleAsync(Roles role)
+        {
+           return _database.Table<RolesItem>().Where(p => p.Role == role).FirstOrDefaultAsync();
+        }
+
         public Task<int> SaveRoleAsync(RolesItem role)
         {
             return _database.InsertAsync(role);

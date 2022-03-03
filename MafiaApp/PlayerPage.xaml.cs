@@ -43,7 +43,7 @@ namespace MafiaApp
                 await App.PlayerDatabase.SavePlayerAsync(new PlayerItem
                 {
                     Name = name,
-                    Role = roles.None,
+                    RoleId = 0,
                     Present = true,
                     SpouseId = 0,
                     Lives = 1
