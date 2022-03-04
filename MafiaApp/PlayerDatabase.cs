@@ -26,7 +26,7 @@ namespace MafiaApp
             return _database.QueryAsync<PlayerItem>("SELECT * FROM [PlayerItem] WHERE Present = true");
         }
 
-        public Task<List<PlayerItem>> GetPlayersByRoleAsync(Roles role)
+        public Task<List<PlayerItem>> GetPlayersPresentByRoleAsync(Roles role)
         {
             return _database.QueryAsync<PlayerItem>("SELECT Name FROM [PlayerItem] WHERE Present = true AND Role = ?", role);
         }

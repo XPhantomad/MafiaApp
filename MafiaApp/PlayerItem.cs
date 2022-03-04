@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using SQLite;
+﻿using SQLite;
 
 namespace MafiaApp   
 {
@@ -12,13 +9,14 @@ namespace MafiaApp
         public string Name { get; set; }
         public Roles Role { get; set; }
         public bool Present { get; set; }
-        public int SpouseId { get; set; }
+        public string Spouse { get; set; }
         public double Lives { get; set; }
         //public List<string> Abiities { get; set; }
 
         public void TogglePresent()
         {
             Present = !Present;
+            Role = Roles.None;
         }
     }
 }

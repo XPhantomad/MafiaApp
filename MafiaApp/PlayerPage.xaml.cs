@@ -45,7 +45,7 @@ namespace MafiaApp
                     Name = name,
                     Role = Roles.None,
                     Present = true,
-                    SpouseId = 0,
+                    Spouse = null,
                     Lives = 1
                 });
                 player.ItemsSource = await App.PlayerDatabase.GetPlayersAsync();
