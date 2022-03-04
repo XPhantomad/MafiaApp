@@ -34,7 +34,7 @@ namespace MafiaApp
         {
             string name = await DisplayPromptAsync("Namen Eingeben", null);
             // rejects equal names
-            if (await App.PlayerDatabase.ContainsPlayerAsync(name))
+            if ((await App.PlayerDatabase.GetPlayerAsync(name)) != null)
             {
                 await DisplayAlert("Warnung", "Der Name ist bereits vergeben", "Okay");
             }
@@ -43,7 +43,7 @@ namespace MafiaApp
                 await App.PlayerDatabase.SavePlayerAsync(new PlayerItem
                 {
                     Name = name,
-                    RoleId = 0,
+                    Role = Roles.None,
                     Present = true,
                     SpouseId = 0,
                     Lives = 1

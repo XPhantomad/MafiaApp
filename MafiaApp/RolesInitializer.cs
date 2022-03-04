@@ -85,9 +85,18 @@ namespace MafiaApp
             }
             if(playerNumber != rolesNumber)
             {
-                RolesItem buerger = await App.RolesDatabase.GetRoleAsync(Roles.Bürger);
-                buerger.Number = playerNumber;
-                await App.RolesDatabase.UpdateRolesAsync(buerger);
+                foreach(RolesItem aRolesItem in roles)
+                {
+                    if (aRolesItem.Role.Equals(Roles.Bürger))
+                    {
+                        aRolesItem.Number = playerNumber;
+                    }
+                    else
+                    {
+                        aRolesItem.Number = 0;
+                    }
+                    await App.RolesDatabase.UpdateRolesAsync(aRolesItem);
+                }
             }
             return 1;
         }

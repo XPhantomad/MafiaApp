@@ -19,14 +19,16 @@
                     <DataTemplate>
                         <StackLayout Orientation="Horizontal" Margin="20,0,0,0" HeightRequest="50">
                             <Label Text="{Binding Role}" HorizontalOptions="StartAndExpand"/>
-                            <Button Text="Fähigkeit anzeigen"/>
-                            <Button Text="{Binding Number}" HorizontalOptions="End"/>
+                            <Button Text="{Binding Number}" HorizontalOptions="End" IsEnabled="False"/>
                         </StackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-            <Button Text="erhöhen" Clicked="OnIncrease"/>
-            <Button Text="verringern" Clicked="OnDecrease"/>
+            <StackLayout Orientation="Horizontal" Margin="0,0,0,0" Spacing="1" >
+                <Button Text="+" Clicked="OnIncrease"/>
+                <Button Text="-" Clicked="OnDecrease"/>
+                <Button Text="Fähigkeit anzeigen" Clicked="OnAbilitiesShow"/>
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -20,6 +20,17 @@ namespace MafiaApp
         {
             return _database.Table<PlayerItem>().ToListAsync();
         }
+
+        public Task<List<PlayerItem>> GetPlayersPresentAsync()
+        {
+            return _database.QueryAsync<PlayerItem>("SELECT * FROM [PlayerItem] WHERE Present = true");
+        }
+
+        public Task<List<PlayerItem>> GetPlayersByRoleAsync(Roles role)
+        {
+            return _database.QueryAsync<PlayerItem>("SELECT Name FROM [PlayerItem] WHERE Present = true AND Role = ?", role);
+        }
+
         public Task<int> SavePlayerAsync(PlayerItem player)
         {
             return _database.InsertAsync(player);
@@ -30,17 +41,17 @@ namespace MafiaApp
             return _database.UpdateAsync(player);
         }
 
-        public async Task<bool> ContainsPlayerAsync(string name)
+        public Task<PlayerItem> GetPlayerAsync(string name)
         {
-            List<PlayerItem> players = await _database.Table<PlayerItem>().ToListAsync();
-            foreach (PlayerItem aPlayer in players)
-            {
-                if (aPlayer.Name.Equals(name))
-                {
-                    return true;
-                }
-            }
-            return false;
+            //List<PlayerItem> players = await _database.Table<PlayerItem>().ToListAsync();
+            //foreach (PlayerItem aPlayer in players)
+            //{
+            //    if (aPlayer.Name.Equals(name))
+            //    {
+            //        return true;
+            //    }
+            //}
+            return _database.Table<PlayerItem>().Where(p => p.Name == name).FirstOrDefaultAsync(); ;
         }
 
         public Task<int> DeletePlayerAsync(PlayerItem player)

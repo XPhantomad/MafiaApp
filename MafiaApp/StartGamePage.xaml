@@ -7,8 +7,8 @@
     <ScrollView>
         <StackLayout x:Name="mainStack" Margin="10,35,10,10">
             <Button Text="Zahnrad" Clicked="OnSettings"/>
-            <!--<Button Text="Zurücksetzen" Clicked="OnResetGame"/>-->
-            <!--<Frame x:Name="amorFrame" BorderColor="Tomato" Padding="15" HeightRequest="50" CornerRadius="20" IsVisible="true">
+            <Button Text="Zurücksetzen" Clicked="OnResetGame"/>
+            <Frame x:Name="amorFrame" BorderColor="Tomato" Padding="15" HeightRequest="50" CornerRadius="20" IsVisible="true">
                 <StackLayout Orientation="Vertical">
                     <StackLayout Orientation="Horizontal">
                         <Ellipse WidthRequest="50" HeightRequest="20" Fill="Green" />
@@ -26,19 +26,19 @@
                         <Button Text="Erweitern" Clicked="OnPopoutAmor" HorizontalOptions="End"/>
                     </StackLayout>
                     <Label Text="Was die Rolle so macht steht hoffentlich im nicht sichtbaren Berreich"/>
-                    <StackLayout Orientation="Horizontal" >
+                    <!--<StackLayout Orientation="Horizontal" >
                         <Button x:Name="spouse" Text="verliebte Wählen" Clicked="OnSpouseChange"/>
                         <Label  x:Name="spouse1" Text="{Binding Spouse1}" FontAttributes="Bold"/>
                         <Label Text="und"/>
                         <Label x:Name="spouse2" Text="{Binding Spouse2}" FontAttributes="Bold"/>
-                    </StackLayout>
+                    </StackLayout>-->
                 </StackLayout>
             </Frame>
             <Frame x:Name="mafiaFrame" BorderColor="Tomato" Padding="15" HeightRequest="50" CornerRadius="20" IsVisible="true">
                 <StackLayout Orientation="Vertical">
                     <StackLayout Orientation="Horizontal">
                         <Ellipse WidthRequest="50" HeightRequest="20" Fill="Green" />
-                        <CollectionView x:Name="mafiaNames" Margin="0,0,0,0" SelectionMode="Single" SelectionChanged="OnMafiaSelectionChanged" HeightRequest="30" WidthRequest="70">
+                        <!--<CollectionView x:Name="mafiaNames" Margin="0,0,0,0" SelectionMode="Single" SelectionChanged="OnMafiaSelectionChanged" HeightRequest="30" WidthRequest="70">
                             <CollectionView.ItemsLayout>
                                 <LinearItemsLayout Orientation="Vertical" ItemSpacing="0"/>
                             </CollectionView.ItemsLayout>
@@ -47,22 +47,22 @@
                                     <Label Text="{Binding}" HorizontalOptions="StartAndExpand" TextColor="Black"/>
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
-                        </CollectionView>
+                        </CollectionView>-->
                         <Label Text="Mafia" FontSize="Large" FontAttributes="Bold" HorizontalOptions="Center"/>
                         <Button Text="Erweitern" Clicked="OnPopoutMafia" HorizontalOptions="End"/>
                     </StackLayout>
                     <Label Text="Was die Rolle so macht steht hoffentlich im nicht sichtbaren Berreich"/>
-                    <StackLayout Orientation="Horizontal" >
+                    <!--<StackLayout Orientation="Horizontal" >
                         <Label Text="Opfer Auswählen:"/>
                         <Button x:Name="victim" Text="" Clicked="OnVictimSelect"/>
-                    </StackLayout>
+                    </StackLayout>-->
                 </StackLayout>
             </Frame>
             <Frame x:Name="hexeFrame" BorderColor="Tomato" Padding="15" HeightRequest="50" CornerRadius="20" IsVisible="true">
                 <StackLayout Orientation="Vertical">
                     <StackLayout Orientation="Horizontal">
                         <Ellipse WidthRequest="50" HeightRequest="20" Fill="Green" />
-                        <CollectionView x:Name="hexeNames" Margin="0,0,0,0" SelectionMode="Single" SelectionChanged="OnHexeSelectionChanged" HeightRequest="30" WidthRequest="70">
+                        <!--<CollectionView x:Name="hexeNames" Margin="0,0,0,0" SelectionMode="Single" SelectionChanged="OnHexeSelectionChanged" HeightRequest="30" WidthRequest="70">
                             <CollectionView.ItemsLayout>
                                 <LinearItemsLayout Orientation="Vertical" ItemSpacing="0"/>
                             </CollectionView.ItemsLayout>
@@ -71,12 +71,12 @@
                                     <Label Text="{Binding}" HorizontalOptions="StartAndExpand" TextColor="Black"/>
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
-                        </CollectionView>
+                        </CollectionView>-->
                         <Label Text="Hexe" FontSize="Large" FontAttributes="Bold" HorizontalOptions="Center"/>
                         <Button Text="Erweitern" Clicked="OnPopoutHexe" HorizontalOptions="End"/>
                     </StackLayout>
                     <Label Text="Was die Rolle so macht steht hoffentlich im nicht sichtbaren Berreich"/>
-                    <StackLayout Orientation="Horizontal" >
+                    <!--<StackLayout Orientation="Horizontal" >
                         <Label Text="Opfer:"/>
                         <Label x:Name="showVictim"/>
                         <Switch x:Name="witchSaveSwitch" IsToggled="false" IsEnabled="True"/>
@@ -84,14 +84,14 @@
                     <StackLayout Orientation="Horizontal">
                         <Label Text="noch jemanden Töten?"/>
                         <Button x:Name="witchKill" Clicked="OnWitchKill" IsEnabled="True"/>
-                    </StackLayout>
+                    </StackLayout>-->
                 </StackLayout>
             </Frame>
             <Frame x:Name="detektivFrame" BorderColor="Tomato" Padding="15" HeightRequest="50" CornerRadius="20" IsVisible="true">
                 <StackLayout Orientation="Vertical">
                     <StackLayout Orientation="Horizontal">
                         <Ellipse WidthRequest="50" HeightRequest="20" Fill="Green" />
-                        <CollectionView x:Name="detektivNames" Margin="0,0,0,0" SelectionMode="Single" SelectionChanged="OnDetektivSelectionChanged" HeightRequest="30" WidthRequest="70">
+                        <!--<CollectionView x:Name="detektivNames" Margin="0,0,0,0" SelectionMode="Single" SelectionChanged="OnDetektivSelectionChanged" HeightRequest="30" WidthRequest="70">
                             <CollectionView.ItemsLayout>
                                 <LinearItemsLayout Orientation="Vertical" ItemSpacing="4"/>
                             </CollectionView.ItemsLayout>
@@ -100,17 +100,17 @@
                                     <Label Text="{Binding}" HorizontalOptions="StartAndExpand" TextColor="Black"/>
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
-                        </CollectionView>
+                        </CollectionView>-->
                         <Label Text="Detektiv" FontSize="Large" FontAttributes="Bold" HorizontalOptions="Center"/>
                         <Button Text="Erweitern" Clicked="OnPopoutDetektiv" HorizontalOptions="End"/>
                     </StackLayout>
                     <Label Text="Was die Rolle so macht steht hoffentlich im nicht sichtbaren Berreich"/>
-                    <StackLayout Orientation="Horizontal" >
+                    <!--<StackLayout Orientation="Horizontal" >
                         <Button x:Name="choosePerson" Text="Person Wählen" Clicked="OnChoosePerson"/>
                         <Label  x:Name="name" Text="" FontAttributes="Bold"/>
                         <Label Text=":"/>
                         <Label x:Name="role" Text="" FontAttributes="Bold"/>
-                    </StackLayout>
+                    </StackLayout>-->
                 </StackLayout>
             </Frame>
             <Frame x:Name="buergerFrame" BorderColor="Tomato" Padding="15" HeightRequest="50" CornerRadius="20" IsVisible="true">
@@ -131,17 +131,17 @@
                         <Button Text="Erweitern" Clicked="OnPopoutBuerger" HorizontalOptions="End"/>
                     </StackLayout>
                     <Label Text="Was die Rolle so macht steht hoffentlich im nicht sichtbaren Berreich"/>
-                    <StackLayout Orientation="Horizontal" >
+                    <!--<StackLayout Orientation="Horizontal" >
                         <Button x:Name="spouse" Text="verliebte Wählen" Clicked="OnSpouseChange"/>
                         <Label  x:Name="spouse1" Text="{Binding Spouse1}" FontAttributes="Bold"/>
                         <Label Text="und"/>
                         <Label x:Name="spouse2" Text="{Binding Spouse2}" FontAttributes="Bold"/>
-                    </StackLayout>
+                    </StackLayout>-->
                 </StackLayout>
             </Frame>
             <Frame>
 
-            </Frame>-->
+            </Frame>
 
         </StackLayout>
     </ScrollView>
