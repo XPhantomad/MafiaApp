@@ -38,7 +38,7 @@
                 <StackLayout Orientation="Vertical">
                     <StackLayout Orientation="Horizontal">
                         <Ellipse WidthRequest="50" HeightRequest="20" Fill="Green" />
-                        <!--<CollectionView x:Name="mafiaNames" Margin="0,0,0,0" SelectionMode="Single" SelectionChanged="OnMafiaSelectionChanged" HeightRequest="30" WidthRequest="70">
+                        <CollectionView x:Name="mafiaNames" Margin="0,0,0,0" SelectionMode="Single" SelectionChanged="OnMafiaSelectionChanged" HeightRequest="30" WidthRequest="70">
                             <CollectionView.ItemsLayout>
                                 <LinearItemsLayout Orientation="Vertical" ItemSpacing="0"/>
                             </CollectionView.ItemsLayout>
@@ -47,7 +47,7 @@
                                     <Label Text="{Binding}" HorizontalOptions="StartAndExpand" TextColor="Black"/>
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
-                        </CollectionView>-->
+                        </CollectionView>
                         <Label Text="Mafia" FontSize="Large" FontAttributes="Bold" HorizontalOptions="Center"/>
                         <Button Text="Erweitern" Clicked="OnPopoutMafia" HorizontalOptions="End"/>
                     </StackLayout>
@@ -62,7 +62,7 @@
                 <StackLayout Orientation="Vertical">
                     <StackLayout Orientation="Horizontal">
                         <Ellipse WidthRequest="50" HeightRequest="20" Fill="Green" />
-                        <!--<CollectionView x:Name="hexeNames" Margin="0,0,0,0" SelectionMode="Single" SelectionChanged="OnHexeSelectionChanged" HeightRequest="30" WidthRequest="70">
+                        <CollectionView x:Name="hexeNames" Margin="0,0,0,0" SelectionMode="Single" SelectionChanged="OnHexeSelectionChanged" HeightRequest="30" WidthRequest="70">
                             <CollectionView.ItemsLayout>
                                 <LinearItemsLayout Orientation="Vertical" ItemSpacing="0"/>
                             </CollectionView.ItemsLayout>
@@ -71,7 +71,7 @@
                                     <Label Text="{Binding}" HorizontalOptions="StartAndExpand" TextColor="Black"/>
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
-                        </CollectionView>-->
+                        </CollectionView>
                         <Label Text="Hexe" FontSize="Large" FontAttributes="Bold" HorizontalOptions="Center"/>
                         <Button Text="Erweitern" Clicked="OnPopoutHexe" HorizontalOptions="End"/>
                     </StackLayout>
@@ -91,7 +91,7 @@
                 <StackLayout Orientation="Vertical">
                     <StackLayout Orientation="Horizontal">
                         <Ellipse WidthRequest="50" HeightRequest="20" Fill="Green" />
-                        <!--<CollectionView x:Name="detektivNames" Margin="0,0,0,0" SelectionMode="Single" SelectionChanged="OnDetektivSelectionChanged" HeightRequest="30" WidthRequest="70">
+                        <CollectionView x:Name="detektivNames" Margin="0,0,0,0" SelectionMode="Single" SelectionChanged="OnDetektivSelectionChanged" HeightRequest="30" WidthRequest="70">
                             <CollectionView.ItemsLayout>
                                 <LinearItemsLayout Orientation="Vertical" ItemSpacing="4"/>
                             </CollectionView.ItemsLayout>
@@ -100,7 +100,7 @@
                                     <Label Text="{Binding}" HorizontalOptions="StartAndExpand" TextColor="Black"/>
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
-                        </CollectionView>-->
+                        </CollectionView>
                         <Label Text="Detektiv" FontSize="Large" FontAttributes="Bold" HorizontalOptions="Center"/>
                         <Button Text="Erweitern" Clicked="OnPopoutDetektiv" HorizontalOptions="End"/>
                     </StackLayout>
