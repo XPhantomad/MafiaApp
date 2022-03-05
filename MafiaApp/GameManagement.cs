@@ -9,7 +9,7 @@ namespace MafiaApp
     {
         public static async Task<List<PlayerItem>> GetPlayersAsync(Roles role, int number)
         {
-            List<PlayerItem> player = await App.PlayerDatabase.GetPlayersPresentByRoleAsync(role);
+            List<PlayerItem> player = await App.PlayerDatabase.GetPlayersPresentAliveByRoleAsync(role);
             int n = player.Count;
             if (n > number)
             {
@@ -19,14 +19,14 @@ namespace MafiaApp
             // Fill up with "Keiner"
             for (int i = 0; i < (number - n); i++)
             {
-                player.Add(new PlayerItem { Name = "Keiner", Lives = 0});
+                player.Add(new PlayerItem { Name = "Keiner"});
             }
             return player;
         }
         // returns List of Playernames with number Elements, Fills up with Keiner
         public static async Task<List<string>> GetPlayerNamesAsync(Roles role, int number)
         {
-            List<PlayerItem> player = await App.PlayerDatabase.GetPlayersPresentByRoleAsync(role);
+            List<PlayerItem> player = await App.PlayerDatabase.GetPlayersPresentAliveByRoleAsync(role);
             int n = player.Count;
             if (n > number)
             {
@@ -47,7 +47,7 @@ namespace MafiaApp
         }
         public static async Task<List<string>> GetPlayerNamesAsync(Roles role)
         {
-            List<PlayerItem> player = await App.PlayerDatabase.GetPlayersPresentByRoleAsync(role);
+            List<PlayerItem> player = await App.PlayerDatabase.GetPlayersPresentAliveByRoleAsync(role);
 
             List<string> result = new List<string>();
             foreach (PlayerItem aPlayerItem in player)
@@ -58,7 +58,7 @@ namespace MafiaApp
         }
         public static async Task<List<string>> GetPlayerNamesAsync()
         {
-            List<PlayerItem> player = await App.PlayerDatabase.GetPlayersPresentAsync();
+            List<PlayerItem> player = await App.PlayerDatabase.GetPlayersPresentAliveAsync();
 
             List<string> result = new List<string>();
             foreach (PlayerItem aPlayerItem in player)
@@ -67,41 +67,47 @@ namespace MafiaApp
             }
             return result;
         }
+
         public static async Task<int> SetPlayersRoleAsync(string name, Roles role)
         {
             PlayerItem player = await App.PlayerDatabase.GetPlayerAsync(name);
             if(player != null)
             {
                 player.Role = role;
+                if (!role.Equals(Roles.None))
+                {
+                    player.Lives = (await App.RolesDatabase.GetRoleAsync(role)).Lives;
+                }
                 await App.PlayerDatabase.UpdatePlayerAsync(player);
                 return 1;
             }
             return 0;           
         }
-        public static async Task<int> SetPlayersSpouseAsync(string name1, string name2, string prevName1, string prevName2)
+        public static async Task<int> SetPlayersSpouseAsync(string name1, string name2)
         {
-            // Reset old Spouse
-            PlayerItem prevSpouse1 = await App.PlayerDatabase.GetPlayerAsync(prevName1);
-            PlayerItem prevSpouse2 = await App.PlayerDatabase.GetPlayerAsync(prevName2);
-            if(prevSpouse1 != null)
+            // Reset all Spouse
+            List<PlayerItem> player = await App.PlayerDatabase.GetPlayersPresentAliveAsync();
+
+            List<string> result = new List<string>();
+            foreach (PlayerItem aPlayerItem in player)
             {
-                prevSpouse1.Spouse = null;
-                await App.PlayerDatabase.UpdatePlayerAsync(prevSpouse1);
-            }
-            if(prevSpouse2 != null)
-            {
-                prevSpouse2.Spouse = null;
-                await App.PlayerDatabase.UpdatePlayerAsync(prevSpouse2);
+                aPlayerItem.Spouse = null;
+                await App.PlayerDatabase.UpdatePlayerAsync(aPlayerItem);
             }
 
             // Set new Spouse
             PlayerItem spouse1 = await App.PlayerDatabase.GetPlayerAsync(name1);
             PlayerItem spouse2 = await App.PlayerDatabase.GetPlayerAsync(name2);
-            //TODO:  Not null check
-            spouse1.Spouse = name1;
-            spouse2.Spouse = name2;
-            await App.PlayerDatabase.UpdatePlayerAsync(spouse1);
-            await App.PlayerDatabase.UpdatePlayerAsync(spouse2);
+            if(spouse1 != null)
+            {
+                spouse1.Spouse = name1;
+                await App.PlayerDatabase.UpdatePlayerAsync(spouse1);
+            }
+            if (spouse2 != null)
+            {
+                spouse2.Spouse = name2;
+                await App.PlayerDatabase.UpdatePlayerAsync(spouse2);
+            }
             return 1;
         }
 

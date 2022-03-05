@@ -41,6 +41,7 @@ namespace MafiaApp
             InitializeComponent();
 
             MainPage = new TabPage();
+            
         }
 
     

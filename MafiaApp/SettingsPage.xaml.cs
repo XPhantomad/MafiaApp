@@ -29,12 +29,16 @@ namespace MafiaApp
             {
                 await RolesInitializer.Initialize();
             }
-            int playersPresentNumber = (await App.PlayerDatabase.GetPlayersPresentAsync()).Count;
+            int playersPresentNumber = (await App.PlayerDatabase.GetPlayersPresentAliveAsync()).Count;
             playersPresentNumberDisp.Text = playersPresentNumber.ToString();
 
             await RolesInitializer.SetNumbersAuto(playersPresentNumber);
             rolesView.ItemsSource = await App.RolesDatabase.GetRolesAsync();
 
+        }
+        async void OnStartGame(object sender, EventArgs e)
+        {
+            await Navigation.PushModalAsync(new StartGamePage());
         }
 
         async void OnAutoSwitch(object sender, EventArgs e)

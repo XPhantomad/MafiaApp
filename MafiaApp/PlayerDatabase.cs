@@ -21,14 +21,14 @@ namespace MafiaApp
             return _database.Table<PlayerItem>().ToListAsync();
         }
 
-        public Task<List<PlayerItem>> GetPlayersPresentAsync()
+        public Task<List<PlayerItem>> GetPlayersPresentAliveAsync()
         {
-            return _database.QueryAsync<PlayerItem>("SELECT * FROM [PlayerItem] WHERE Present = true");
+            return _database.QueryAsync<PlayerItem>("SELECT * FROM [PlayerItem] WHERE Present = true AND Lives >= 1");
         }
 
-        public Task<List<PlayerItem>> GetPlayersPresentByRoleAsync(Roles role)
+        public Task<List<PlayerItem>> GetPlayersPresentAliveByRoleAsync(Roles role)
         {
-            return _database.QueryAsync<PlayerItem>("SELECT Name FROM [PlayerItem] WHERE Present = true AND Role = ?", role);
+            return _database.QueryAsync<PlayerItem>("SELECT * FROM [PlayerItem] WHERE Present = true AND Lives >= 1 AND Role = ?", role);
         }
 
         public Task<int> SavePlayerAsync(PlayerItem player)

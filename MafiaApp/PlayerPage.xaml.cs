@@ -26,7 +26,7 @@ namespace MafiaApp
         {
             base.OnAppearing();
 
-           
+
             player.ItemsSource = await App.PlayerDatabase.GetPlayersAsync();
         }
 
@@ -34,9 +34,9 @@ namespace MafiaApp
         {
             string name = await DisplayPromptAsync("Namen Eingeben", null);
             // rejects equal names
-            if ((await App.PlayerDatabase.GetPlayerAsync(name)) != null)
+            if ((await App.PlayerDatabase.GetPlayerAsync(name)) != null || name =="")
             {
-                await DisplayAlert("Warnung", "Der Name ist bereits vergeben", "Okay");
+                await DisplayAlert("Warnung", "Der Name ist leer oder bereits vergeben", "Okay");
             }
             else
             {
@@ -125,6 +125,8 @@ namespace MafiaApp
 
         async void OnShowPresentPlayers(object sender, EventArgs e)
         {
+            //TODO presentAlive nehmen, da in der Ansicht alle Spieler Leben 1
+
             //MafiaItemDatabase database = await MafiaItemDatabase.Instance;
             //presentPlayersShown = !(presentPlayersShown);
             //if (presentPlayersShown == true)

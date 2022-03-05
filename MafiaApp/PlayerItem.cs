@@ -10,13 +10,12 @@ namespace MafiaApp
         public Roles Role { get; set; }
         public bool Present { get; set; }
         public string Spouse { get; set; }
-        public double Lives { get; set; }
+        public int Lives { get; set; }
         //public List<string> Abiities { get; set; }
 
         public void TogglePresent()
         {
             Present = !Present;
-            Role = Roles.None;
         }
     }
 }

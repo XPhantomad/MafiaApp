@@ -13,8 +13,10 @@ namespace MafiaApp
 {
     public partial class StartGamePage : ContentPage
     {
-        public int round = 1;
-        public bool witchCanSave = true;
+        int round = 1;
+        bool witchCanSave = true;
+        int numberAmor, numberMafia, numberHexe, numberBuerger, numberDetektiv;
+        
         public StartGamePage()
         {
             InitializeComponent();
@@ -26,13 +28,20 @@ namespace MafiaApp
             await SetUp();
         }
 
+        protected override bool OnBackButtonPressed()
+        {
+            Navigation.PopModalAsync();
+            //TODO: Reset all
+            return true;
+        }
+
         private async Task<int> SetUp()
         {
-            int numberMafia = (await App.RolesDatabase.GetRoleAsync(Roles.Mafia)).Number;
-            int numberAmor = (await App.RolesDatabase.GetRoleAsync(Roles.Amor)).Number;
-            int numberHexe = (await App.RolesDatabase.GetRoleAsync(Roles.Hexe)).Number;
-            int numberDetektiv = (await App.RolesDatabase.GetRoleAsync(Roles.Detektiv)).Number;
-            int numberBuerger = (await App.RolesDatabase.GetRoleAsync(Roles.Bürger)).Number;
+            numberMafia = (await App.RolesDatabase.GetRoleAsync(Roles.Mafia)).Number;
+            numberAmor = (await App.RolesDatabase.GetRoleAsync(Roles.Amor)).Number;
+            numberHexe = (await App.RolesDatabase.GetRoleAsync(Roles.Hexe)).Number;
+            numberDetektiv = (await App.RolesDatabase.GetRoleAsync(Roles.Detektiv)).Number;
+            numberBuerger = (await App.RolesDatabase.GetRoleAsync(Roles.Bürger)).Number;
             if (numberAmor == 0)
             {
                 amorFrame.IsVisible = false;
@@ -72,10 +81,7 @@ namespace MafiaApp
             return 1;
         }
 
-        async void OnSettings(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new SettingsPage());
-        }
+
 
         async void OnResetGame(object sender, EventArgs e)
         {
@@ -157,26 +163,43 @@ namespace MafiaApp
         async void OnPopoutAmor(object sender, EventArgs e)
         {
             Frame item = amorFrame;
+            // open
             if (item.HeightRequest == 50)
             {
-                int ok = await CloseAllFrames();
-                if (ok == 1)
+                //List<PlayerItem> names = ((List<PlayerItem>)amorNames.ItemsSource);
+                //bool containsKeiner = names.Last<PlayerItem>().Name.Equals("Keiner");
+                await CloseAllFrames();
+                if (((List<PlayerItem>)amorNames.ItemsSource).Last().Name.Equals("Keiner"))
+                {
+                    await DisplayAlert("Warnung", "Du hast noch nicht alle Spieler für diese Rolle eingetragen.", "Okay");
+                }
+                else
                 {
                     item.HeightRequest = 200;
                 }
             }
+            // close
             else
             {
+                if (spouse1.Text != null)
+                {
+                    item.BackgroundColor = Color.Gold;
+                }
+                else
+                {
+                    bool input = await DisplayAlert("Warnung", "Du hast noch kein Liebespaar ausgewählt", "Fortfahren", "Abbrechen");
+                    if (input == false)
+                    {
+                        return;
+                    }
+                }
                 item.HeightRequest = 50;
-                //MafiaItemDatabase database = await MafiaItemDatabase.Instance;
-                //await database.SetRoleActive(roles.Amor, false);
+
             }
         }
 
         async void OnSpouseChange(object sender, EventArgs e)
         {
-            string prevSpouse1 = spouse1.Text;
-            string prevSpouse2 = spouse2.Text;
             List<string> playerNames = await GameManagement.GetPlayerNamesAsync();
             string s1 = await DisplayActionSheet("Ehepartner 1 auswählen", "Abbrechen", null, playerNames.ToArray());
             if (s1.Equals("Abbrechen"))
@@ -188,74 +211,80 @@ namespace MafiaApp
             string s2 = await DisplayActionSheet("Ehepartner 2 auswählen", "Abbrechen", null, playerNames.ToArray());
             if (!s1.Equals("Abbrechen") && !s2.Equals("Abbrechen"))
             {
-                await GameManagement.SetPlayersSpouseAsync(s1, s2, prevSpouse1, prevSpouse2);
+                await GameManagement.SetPlayersSpouseAsync(s1, s2);
                 spouse1.Text = s1;
                 spouse2.Text = s2;
+                
             }
         }
-
-
-        //async void OnPopoutMafia(object sender, EventArgs e)
-        //{
-        //    await OnPopoutMafia2(sender, e);
-        //}
 
         async void OnPopoutMafia(object sender, EventArgs e)
         {
             Frame item = mafiaFrame;
+            //open
             if (item.HeightRequest == 50)
             {
-                int ok = await CloseAllFrames();
-                if (ok == 1)
+                await CloseAllFrames();
+                if (((List<PlayerItem>)mafiaNames.ItemsSource).Last().Name.Equals("Keiner"))
+                {
+                    await DisplayAlert("Warnung", "Du hast noch nicht alle Spieler für diese Rolle eingetragen.", "Okay");
+                }
+                else
                 {
                     item.HeightRequest = 200;
                 }
             }
+            //close
             else
             {
-                //if (victim.Text == "")
-                //{
-                //    bool conti = await DisplayAlert("Warnung", "Du hast noch kein Opfer ausgewählt", "Fortfahren", "Abbrechen");
-                //    if (conti == false)
-                //    {
-                //        return 0;
-                //    }
-                //}
+                if (victim.Text != "")
+                {
+                    item.BackgroundColor = Color.Gold;
+                }
+                else 
+                { 
+                    bool input = await DisplayAlert("Warnung", "Du hast noch kein Opfer ausgewählt", "Fortfahren", "Abbrechen");
+                    if (input == false)
+                    {
+                        return;
+                    }
+                }
                 item.HeightRequest = 50;
             }
         }
 
-       
-        //async void OnVictimSelect(object sender, EventArgs e)
-        //{
-        //    string prev = victim.Text;
-        //    MafiaItemDatabase database = await MafiaItemDatabase.Instance;
-        //    string[] playerNames = await database.GetPlayersPresentAndAliveAsync();
-        //    string selection = await DisplayActionSheet("Opfer Auswählen", "Abbrechen", null, playerNames);
-        //    if (selection != null)
-        //    {
 
-        //        if (selection.Equals("Abbrechen"))
-        //        {
-        //            return;
-        //        }
-        //        else
-        //        {
-        //            await database.SetPlayerLivesAsync(selection, -0.5);
-        //            await database.SetPlayerLivesAsync(prev, 0.5);
-        //            victim.Text = selection;
-        //            showVictim.Text = selection;
-        //        }
-        //    }
-        //}
+        async void OnVictimSelect(object sender, EventArgs e)
+        {
+            string prev = victim.Text;
+
+            List<string> playerNames = await GameManagement.GetPlayerNamesAsync();
+            string selection = await DisplayActionSheet("Opfer Auswählen", "Abbrechen", null, playerNames.ToArray());
+            if (selection != null)
+            {
+                if (selection.Equals("Abbrechen"))
+                {
+                    return;
+                }
+                else
+                {
+                    victim.Text = selection;
+                    //showVictim.Text = selection;
+                }
+            }
+        }
 
         async void OnPopoutHexe(object sender, EventArgs e)
         {
             Frame item = hexeFrame;
             if (item.HeightRequest == 50)
             {
-                int ok = await CloseAllFrames();
-                if (ok == 1)
+                await CloseAllFrames();
+                if (((List<PlayerItem>)hexeNames.ItemsSource).Last().Name.Equals("Keiner"))
+                {
+                    await DisplayAlert("Warnung", "Du hast noch nicht alle Spieler für diese Rolle eingetragen.", "Okay");
+                }
+                else
                 {
                     item.HeightRequest = 200;
                 }
@@ -306,8 +335,12 @@ namespace MafiaApp
             Frame item = detektivFrame;
             if (item.HeightRequest == 50)
             {
-                int ok = await CloseAllFrames();
-                if (ok == 1)
+                await CloseAllFrames();
+                if (((List<PlayerItem>)detektivNames.ItemsSource).Last().Name.Equals("Keiner"))
+                {
+                    await DisplayAlert("Warnung", "Du hast noch nicht alle Spieler für diese Rolle eingetragen.", "Okay");
+                }
+                else
                 {
                     item.HeightRequest = 200;
                 }

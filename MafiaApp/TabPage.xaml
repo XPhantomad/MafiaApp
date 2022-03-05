@@ -6,10 +6,7 @@
   <!--Wichtig Namespace muss oben hinzugefügt werden-->
 
     <local:PlayerPage Title="Spieler"/>
-    <NavigationPage Title="Spiel">
-        <x:Arguments>
-            <local:StartGamePage/>
-        </x:Arguments>
-    </NavigationPage>
+    <local:SettingsPage Title="Rollen"/>
+
 
 </TabbedPage>

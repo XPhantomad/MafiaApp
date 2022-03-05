@@ -1,8 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MafiaApp.SettingsPage"
-             Title="Einstellungen">
+             x:Class="MafiaApp.SettingsPage">
     
     <ContentPage.Content>
         
@@ -29,6 +28,7 @@
                 <Button Text="-" Clicked="OnDecrease"/>
                 <Button Text="Fähigkeit anzeigen" Clicked="OnAbilitiesShow"/>
             </StackLayout>
+            <Button Text="Spiel starten" Clicked="OnStartGame"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

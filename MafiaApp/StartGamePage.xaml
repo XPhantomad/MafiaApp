@@ -6,7 +6,6 @@
 
     <ScrollView>
         <StackLayout x:Name="mainStack" Margin="10,35,10,10">
-            <Button Text="Zahnrad" Clicked="OnSettings"/>
             <Button Text="Zurücksetzen" Clicked="OnResetGame"/>
             <Frame x:Name="amorFrame" BorderColor="Tomato" Padding="15" HeightRequest="50" CornerRadius="20" IsVisible="true">
                 <StackLayout Orientation="Vertical">
@@ -18,7 +17,10 @@
                             </CollectionView.ItemsLayout>
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
-                                    <Label Text="{Binding Name}" HorizontalOptions="StartAndExpand" TextColor="Black"/>
+                                    <StackLayout Orientation="Horizontal" >
+                                        <Label Text="{Binding Name}" HorizontalOptions="StartAndExpand" TextColor="Black"/>
+                                        <Label Text="{Binding Lives}" HorizontalOptions="End" TextColor="Black"/>
+                                    </StackLayout>
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
                         </CollectionView>
@@ -27,7 +29,7 @@
                     </StackLayout>
                     <Label Text="Was die Rolle so macht steht hoffentlich im nicht sichtbaren Berreich"/>
                     <StackLayout Orientation="Horizontal" >
-                        <Button x:Name="spouse" Text="verliebte Wählen" Clicked="OnSpouseChange"/>
+                        <Button x:Name="spouse" Text="Liebespaar wählen" Clicked="OnSpouseChange"/>
                         <Label  x:Name="spouse1" Text="{Binding Spouse1}" FontAttributes="Bold"/>
                         <Label Text="und"/>
                         <Label x:Name="spouse2" Text="{Binding Spouse2}" FontAttributes="Bold"/>
@@ -44,7 +46,10 @@
                             </CollectionView.ItemsLayout>
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
-                                    <Label Text="{Binding Name}" HorizontalOptions="StartAndExpand" TextColor="Black"/>
+                                    <StackLayout Orientation="Horizontal" >
+                                        <Label Text="{Binding Name}" HorizontalOptions="StartAndExpand" TextColor="Black"/>
+                                        <Label Text="{Binding Lives}" HorizontalOptions="End" TextColor="Black"/>
+                                    </StackLayout>
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
                         </CollectionView>
@@ -52,10 +57,10 @@
                         <Button Text="Erweitern" Clicked="OnPopoutMafia" HorizontalOptions="End"/>
                     </StackLayout>
                     <Label Text="Was die Rolle so macht steht hoffentlich im nicht sichtbaren Berreich"/>
-                    <!--<StackLayout Orientation="Horizontal" >
+                    <StackLayout Orientation="Horizontal" >
                         <Label Text="Opfer Auswählen:"/>
                         <Button x:Name="victim" Text="" Clicked="OnVictimSelect"/>
-                    </StackLayout>-->
+                    </StackLayout>
                 </StackLayout>
             </Frame>
             <Frame x:Name="hexeFrame" BorderColor="Tomato" Padding="15" HeightRequest="50" CornerRadius="20" IsVisible="true">
@@ -68,7 +73,10 @@
                             </CollectionView.ItemsLayout>
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
-                                    <Label Text="{Binding Name}" HorizontalOptions="StartAndExpand" TextColor="Black"/>
+                                    <StackLayout Orientation="Horizontal" >
+                                        <Label Text="{Binding Name}" HorizontalOptions="StartAndExpand" TextColor="Black"/>
+                                        <Label Text="{Binding Lives}" HorizontalOptions="End" TextColor="Black"/>
+                                    </StackLayout>
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
                         </CollectionView>
@@ -97,7 +105,10 @@
                             </CollectionView.ItemsLayout>
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
-                                    <Label Text="{Binding Name}" HorizontalOptions="StartAndExpand" TextColor="Black"/>
+                                    <StackLayout Orientation="Horizontal" >
+                                        <Label Text="{Binding Name}" HorizontalOptions="StartAndExpand" TextColor="Black"/>
+                                        <Label Text="{Binding Lives}" HorizontalOptions="End" TextColor="Black"/>
+                                    </StackLayout>
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
                         </CollectionView>
@@ -123,7 +134,10 @@
                             </CollectionView.ItemsLayout>
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
-                                    <Label Text="{Binding}" HorizontalOptions="StartAndExpand" TextColor="Black"/>
+                                    <StackLayout Orientation="Horizontal" >
+                                        <Label Text="{Binding Name}" HorizontalOptions="StartAndExpand" TextColor="Black"/>
+                                        <Label Text="{Binding Lives}" HorizontalOptions="End" TextColor="Black"/>
+                                    </StackLayout>
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
                         </CollectionView>
