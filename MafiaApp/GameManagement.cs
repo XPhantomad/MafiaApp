@@ -9,7 +9,7 @@ namespace MafiaApp
     {
         public static async Task<List<PlayerItem>> GetPlayersAsync(Roles role, int number)
         {
-            List<PlayerItem> player = await App.PlayerDatabase.GetPlayersPresentAliveByRoleAsync(role);
+            List<PlayerItem> player = await App.PlayerDatabase.GetPlayersPresentByRoleAsync(role);
             int n = player.Count;
             if (n > number)
             {
@@ -23,31 +23,31 @@ namespace MafiaApp
             }
             return player;
         }
-        // returns List of Playernames with number Elements, Fills up with Keiner
-        public static async Task<List<string>> GetPlayerNamesAsync(Roles role, int number)
-        {
-            List<PlayerItem> player = await App.PlayerDatabase.GetPlayersPresentAliveByRoleAsync(role);
-            int n = player.Count;
-            if (n > number)
-            {
-                //TODO:  to much players with this Role --> reset all 
-               return new List<string>{ "Error", "Error"};
-            }
-            List<string> result = new List<string>();
-            foreach (PlayerItem aPlayerItem in player)
-            {
-                result.Add(aPlayerItem.Name);
-            }
-            // Fill up with "Keiner"
-            for(int i=0; i<(number-n); i++)
-            {
-                result.Add("Keiner");
-            }
-            return result;
-        }
+        //// returns List of Playernames with number Elements, Fills up with Keiner
+        //public static async Task<List<string>> GetPlayerNamesAsync(Roles role, int number)
+        //{
+        //    List<PlayerItem> player = await App.PlayerDatabase.GetPlayersPresentAliveByRoleAsync(role);
+        //    int n = player.Count;
+        //    if (n > number)
+        //    {
+        //        //TODO:  to much players with this Role --> reset all 
+        //       return new List<string>{ "Error", "Error"};
+        //    }
+        //    List<string> result = new List<string>();
+        //    foreach (PlayerItem aPlayerItem in player)
+        //    {
+        //        result.Add(aPlayerItem.Name);
+        //    }
+        //    // Fill up with "Keiner"
+        //    for(int i=0; i<(number-n); i++)
+        //    {
+        //        result.Add("Keiner");
+        //    }
+        //    return result;
+        //}
         public static async Task<List<string>> GetPlayerNamesAsync(Roles role)
         {
-            List<PlayerItem> player = await App.PlayerDatabase.GetPlayersPresentAliveByRoleAsync(role);
+            List<PlayerItem> player = await App.PlayerDatabase.GetPlayersPresentByRoleAsync(role);
 
             List<string> result = new List<string>();
             foreach (PlayerItem aPlayerItem in player)
@@ -81,7 +81,15 @@ namespace MafiaApp
                 await App.PlayerDatabase.UpdatePlayerAsync(player);
                 return 1;
             }
-            return 0;           
+            return 0;       
+        }
+        public static async Task<int> SetPlayersRoleAsync(List<string> names, Roles role)
+        {
+            foreach(string aName in names)
+            {
+                await SetPlayersRoleAsync(aName, role);
+            }
+            return 1;
         }
         public static async Task<int> SetPlayersSpouseAsync(string name1, string name2)
         {
@@ -100,19 +108,58 @@ namespace MafiaApp
             PlayerItem spouse2 = await App.PlayerDatabase.GetPlayerAsync(name2);
             if(spouse1 != null)
             {
-                spouse1.Spouse = name1;
+                spouse1.Spouse = name2;
                 await App.PlayerDatabase.UpdatePlayerAsync(spouse1);
             }
             if (spouse2 != null)
             {
-                spouse2.Spouse = name2;
+                spouse2.Spouse = name1;
                 await App.PlayerDatabase.UpdatePlayerAsync(spouse2);
             }
             return 1;
         }
 
+        //public static async Task<int> SetPlayersDeathAsync(string playerName)
+        //{
+        //    PlayerItem player = await App.PlayerDatabase.GetPlayerAsync(playerName);
+        //    if(player != null)
+        //    {
+        //        player.Lives
+        //    }
+        //    return 0;
+        //}
+
+
+        public static async Task<HashSet<string>> GetSetPlayersDeathAsync(HashSet<string> playerNames)
+        {
+            HashSet<string> result = new HashSet<string>();
+            foreach(string aName in playerNames)
+            {
+                PlayerItem player = await App.PlayerDatabase.GetPlayerAsync(aName);
+                player.Lives -= 1;
+                if (player.Spouse != null)
+                {
+                    result.Add(player.Spouse);
+                    PlayerItem spouse = await App.PlayerDatabase.GetPlayerAsync(player.Spouse);
+                    spouse.Lives -= 1;
+                    await App.PlayerDatabase.UpdatePlayerAsync(spouse);
+                }
+                await App.PlayerDatabase.UpdatePlayerAsync(player);
+            }
+            result.UnionWith(playerNames);
+            return result;
+        }
+
         public static async Task<int> ResetGameAsync()
         {
+            List<PlayerItem> players = await App.PlayerDatabase.GetPlayersAsync();
+            foreach(PlayerItem aPlayer in players)
+            {
+                aPlayer.Role = Roles.None;
+                aPlayer.Spouse = null;
+                aPlayer.Lives = 1;
+                await App.PlayerDatabase.UpdatePlayerAsync(aPlayer);
+            }
             //Liebespaar, Rollen, Leben, Fähigkeiten
             return 1;
         }

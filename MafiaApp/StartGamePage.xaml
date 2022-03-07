@@ -59,7 +59,7 @@
                     <Label Text="Was die Rolle so macht steht hoffentlich im nicht sichtbaren Berreich"/>
                     <StackLayout Orientation="Horizontal" >
                         <Label Text="Opfer Auswählen:"/>
-                        <Button x:Name="victim" Text="" Clicked="OnVictimSelect"/>
+                        <Button x:Name="victim" Clicked="OnVictimSelect"/>
                     </StackLayout>
                 </StackLayout>
             </Frame>
@@ -84,15 +84,15 @@
                         <Button Text="Erweitern" Clicked="OnPopoutHexe" HorizontalOptions="End"/>
                     </StackLayout>
                     <Label Text="Was die Rolle so macht steht hoffentlich im nicht sichtbaren Berreich"/>
-                    <!--<StackLayout Orientation="Horizontal" >
+                    <StackLayout Orientation="Horizontal" >
                         <Label Text="Opfer:"/>
                         <Label x:Name="showVictim"/>
                         <Switch x:Name="witchSaveSwitch" IsToggled="false" IsEnabled="True"/>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal">
                         <Label Text="noch jemanden Töten?"/>
-                        <Button x:Name="witchKill" Clicked="OnWitchKill" IsEnabled="True"/>
-                    </StackLayout>-->
+                        <Button x:Name="witchVictim" Clicked="OnWitchKill" IsEnabled="True"/>
+                    </StackLayout>
                 </StackLayout>
             </Frame>
             <Frame x:Name="detektivFrame" BorderColor="Tomato" Padding="15" HeightRequest="50" CornerRadius="20" IsVisible="true">
@@ -116,15 +116,15 @@
                         <Button Text="Erweitern" Clicked="OnPopoutDetektiv" HorizontalOptions="End"/>
                     </StackLayout>
                     <Label Text="Was die Rolle so macht steht hoffentlich im nicht sichtbaren Berreich"/>
-                    <!--<StackLayout Orientation="Horizontal" >
+                    <StackLayout Orientation="Horizontal" >
                         <Button x:Name="choosePerson" Text="Person Wählen" Clicked="OnChoosePerson"/>
-                        <Label  x:Name="name" Text="" FontAttributes="Bold"/>
+                        <Label  x:Name="name" FontAttributes="Bold"/>
                         <Label Text=":"/>
-                        <Label x:Name="role" Text="" FontAttributes="Bold"/>
-                    </StackLayout>-->
+                        <Label x:Name="role" FontAttributes="Bold"/>
+                    </StackLayout>
                 </StackLayout>
             </Frame>
-            <Frame x:Name="buergerFrame" BorderColor="Tomato" Padding="15" HeightRequest="50" CornerRadius="20" IsVisible="true">
+            <Frame x:Name="electionFrame" BorderColor="Tomato" Padding="15" HeightRequest="50" CornerRadius="20" IsVisible="true">
                 <StackLayout Orientation="Vertical">
                     <StackLayout Orientation="Horizontal">
                         <Ellipse WidthRequest="50" HeightRequest="20" Fill="Green" />
@@ -141,16 +141,26 @@
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
                         </CollectionView>
-                        <Label Text="Bürger" FontSize="Large" FontAttributes="Bold" HorizontalOptions="Center"/>
-                        <Button Text="Erweitern" Clicked="OnPopoutBuerger" HorizontalOptions="End"/>
+                        <Label Text="Abstimmung" FontSize="Large" FontAttributes="Bold" HorizontalOptions="Center"/>
+                        <Button Text="Erweitern" Clicked="OnPopoutElection" HorizontalOptions="End"/>
                     </StackLayout>
                     <Label Text="Was die Rolle so macht steht hoffentlich im nicht sichtbaren Berreich"/>
-                    <!--<StackLayout Orientation="Horizontal" >
-                        <Button x:Name="spouse" Text="verliebte Wählen" Clicked="OnSpouseChange"/>
-                        <Label  x:Name="spouse1" Text="{Binding Spouse1}" FontAttributes="Bold"/>
-                        <Label Text="und"/>
-                        <Label x:Name="spouse2" Text="{Binding Spouse2}" FontAttributes="Bold"/>
-                    </StackLayout>-->
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="gestorben sind:"/>
+                        <CollectionView x:Name="killedNames" Margin="0,0,0,0" SelectionMode="None" HeightRequest="30" WidthRequest="70">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Vertical" ItemSpacing="0"/>
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout Orientation="Horizontal" >
+                                        <Label Text="{Binding}" HorizontalOptions="StartAndExpand" TextColor="Black"/>
+                                    </StackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </StackLayout>
+                    
                 </StackLayout>
             </Frame>
             <Frame>
