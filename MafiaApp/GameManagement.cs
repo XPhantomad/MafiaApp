@@ -149,7 +149,20 @@ namespace MafiaApp
             result.UnionWith(playerNames);
             return result;
         }
-
+        public static async Task<string> CheckWin()
+        {
+            int mafias = (await App.PlayerDatabase.GetPlayersPresentAliveByRoleAsync(Roles.Mafia)).Count;
+            int buergers = (await App.PlayerDatabase.GetPlayersPresentAliveAsync()).Count - mafias;
+            if (mafias == 0)
+            {
+                return "Bürger";
+            } 
+            if(buergers == 0)
+            {
+                return "Mafia";
+            }
+            return null;
+        }
         public static async Task<int> ResetGameAsync()
         {
             List<PlayerItem> players = await App.PlayerDatabase.GetPlayersAsync();

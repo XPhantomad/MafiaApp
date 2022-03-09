@@ -30,6 +30,10 @@ namespace MafiaApp
         {
             return _database.QueryAsync<PlayerItem>("SELECT * FROM [PlayerItem] WHERE Present = true AND Role = ?", role);
         }
+        public Task<List<PlayerItem>> GetPlayersPresentAliveByRoleAsync(Roles role)
+        {
+            return _database.QueryAsync<PlayerItem>("SELECT * FROM [PlayerItem] WHERE Present = true AND Lives >= 1 AND Role = ?", role);
+        }
 
         public Task<int> SavePlayerAsync(PlayerItem player)
         {

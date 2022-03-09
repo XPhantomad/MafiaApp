@@ -418,6 +418,20 @@ namespace MafiaApp
                     // Calculate deaths and so on
                     HashSet<string> deathPlayer = await SetDeathsAndAbilities();
                     killedNames.ItemsSource = deathPlayer;
+                    string win = await GameManagement.CheckWin();
+                    if (win != null)
+                    {
+                        bool input = await DisplayAlert(win, "haben gewonnen!", "Neues Spiel", "Hauptmenü");
+                        if (input == false)
+                        {
+                            OnBackButtonPressed();
+                        }
+                        else
+                        {
+                            OnResetGame(sender, e);
+                        }
+                        return;
+                    }
                     item.HeightRequest = 200;
                 }
                 else
@@ -433,6 +447,9 @@ namespace MafiaApp
                 {
                     return;
                 }
+                // Election
+
+
                 round = 2;
                 await SetupNewRound();
 
@@ -442,7 +459,7 @@ namespace MafiaApp
 
         async Task<HashSet<string>> SetDeathsAndAbilities()
         {
-            if(witchSaveSwitch.IsToggled == true)
+            if(witchSaveSwitch.IsToggled && witchSaveSwitch.IsEnabled)
             {
                 witchSaveSwitch.IsEnabled = false;
                 return new HashSet<string>{ "Keiner" };
