@@ -14,19 +14,23 @@ namespace MafiaApp
     public partial class StartGamePage : ContentPage
     {
         int round = 1;
-        bool witchCanSave = true;
-        Color roleFinishedColor = Color.Chocolate;
-        Color inactiveColor = Color.Gray;
+        Color roleFinishedColor = Color.GreenYellow;
+        Color roleInactiveColor = Color.Gray;
         int numberAmor, numberMafia, numberHexe, numberBuerger, numberDetektiv;
+        private List<Frame> frames;
+        
         
         public StartGamePage()
         {
             InitializeComponent();
+            frames = new List<Frame> { amorFrame, mafiaFrame, hexeFrame, detektivFrame, electionFrame };
+            
         }
 
         protected override async void OnAppearing()
         {
             base.OnAppearing();
+            GameManagement.ResetGameAsync();
             await SetUpFirstRound();
             Console.WriteLine("Hello World");
         }
@@ -45,6 +49,7 @@ namespace MafiaApp
             numberAmor = (await App.RolesDatabase.GetRoleAsync(Roles.Amor)).Number;
             numberHexe = (await App.RolesDatabase.GetRoleAsync(Roles.Hexe)).Number;
             numberDetektiv = (await App.RolesDatabase.GetRoleAsync(Roles.Detektiv)).Number;
+            numberBuerger = (await App.RolesDatabase.GetRoleAsync(Roles.Bürger)).Number;
             if (numberAmor == 0)
             {
                 amorFrame.IsVisible = false;
@@ -86,35 +91,71 @@ namespace MafiaApp
 
         private async Task<int> SetupNewRound()
         {
-            numberMafia = (await App.RolesDatabase.GetRoleAsync(Roles.Mafia)).Number;
-            numberAmor = (await App.RolesDatabase.GetRoleAsync(Roles.Amor)).Number;
-            numberHexe = (await App.RolesDatabase.GetRoleAsync(Roles.Hexe)).Number;
-            numberDetektiv = (await App.RolesDatabase.GetRoleAsync(Roles.Detektiv)).Number;
-            numberBuerger = (await App.RolesDatabase.GetRoleAsync(Roles.Bürger)).Number;
+            round++;
             if (numberAmor != 0)
             {
-                amorNames.ItemsSource = await GameManagement.GetPlayersAsync(Roles.Amor, numberAmor);
+                List<PlayerItem> amors = await GameManagement.GetPlayersAsync(Roles.Amor, numberAmor);
+                amorNames.ItemsSource = amors;
+                if(amors.Last().Lives <= 0)
+                {
+                    amorFrame.BackgroundColor = roleInactiveColor;
+                }
             }
             if (numberMafia != 0)
             {
                 mafiaNames.ItemsSource = await GameManagement.GetPlayersAsync(Roles.Mafia, numberMafia);
+                mafiaFrame.BackgroundColor = default;
+                victim.Text = null;
             }
             if (numberHexe != 0)
             {
-                hexeNames.ItemsSource = await GameManagement.GetPlayersAsync(Roles.Hexe, numberHexe);
+                List<PlayerItem> witches = await GameManagement.GetPlayersAsync(Roles.Hexe, numberHexe);
+                hexeNames.ItemsSource = witches;
+                if (witches.Last().Lives <= 0)
+                {
+                    hexeFrame.BackgroundColor = roleInactiveColor;
+                }
+                else
+                {
+                    hexeFrame.BackgroundColor = default;
+                }
             }
             if (numberDetektiv != 0)
             {
-                detektivNames.ItemsSource = await GameManagement.GetPlayersAsync(Roles.Detektiv, numberDetektiv);
+                List<PlayerItem> detektives = await GameManagement.GetPlayersAsync(Roles.Detektiv, numberDetektiv);
+                detektivNames.ItemsSource = detektives;
+                if (detektives.Last().Lives <= 0)
+                {
+                    detektivFrame.BackgroundColor = roleInactiveColor;
+                }
+                else
+                {
+                    detektivFrame.BackgroundColor = default;
+                }
+                uncoveredName = null;
+                uncoveredRole = null;
+            }
+            if(numberBuerger != 0)
+            {
+                buergerNames.ItemsSource = await GameManagement.GetPlayersAsync(Roles.Bürger, numberBuerger);
+                onDayKilledNames.ItemsSource = null;
+                if((await GameManagement.GetPlayerNamesAsync(Roles.Bürger)).Count == 0)
+                {
+                    electionFrame.BackgroundColor = roleInactiveColor;
+                }
             }
             return 1;
         }
 
-        async void OnResetGame(object sender, EventArgs e)
-        {
-            await GameManagement.ResetGameAsync();
-            await SetUpFirstRound();
-        }
+        //async void OnResetGame(object sender, EventArgs e)
+        //{
+        //    await GameManagement.ResetGameAsync();
+        //    foreach (Frame aFrame in frames)
+        //    {
+        //        aFrame.BackgroundColor = default;
+        //    }
+        //    await SetUpFirstRound();
+        //}
 
         void CloseAllFrames()
         {
@@ -206,7 +247,7 @@ namespace MafiaApp
             {
                 if (spouse1.Text != null)
                 {
-                    if (item.BackgroundColor != inactiveColor)
+                    if (item.BackgroundColor != roleInactiveColor)
                     {
                         item.BackgroundColor = roleFinishedColor;
                     }
@@ -323,7 +364,7 @@ namespace MafiaApp
             }
             else
             {
-                if (item.BackgroundColor != inactiveColor)
+                if (item.BackgroundColor != roleInactiveColor)
                 {
                     item.BackgroundColor = roleFinishedColor; 
                 }
@@ -367,7 +408,7 @@ namespace MafiaApp
             else
             {
                 item.HeightRequest = 50;
-                if (item.BackgroundColor != inactiveColor)
+                if (item.BackgroundColor != roleInactiveColor)
                 {
                     item.BackgroundColor = roleFinishedColor;
                 }
@@ -380,8 +421,8 @@ namespace MafiaApp
             string selection = await DisplayActionSheet("Name Auswählen", "Abbrechen", null, playerNames.ToArray());
             if (selection != null && !selection.Equals("Abbrechen"))
             {
-                name.Text = selection;
-                role.Text = (await App.PlayerDatabase.GetPlayerAsync(selection)).Role.ToString();
+                uncoveredName.Text = selection;
+                uncoveredRole.Text = (await App.PlayerDatabase.GetPlayerAsync(selection)).Role.ToString();
             }
         }
 
@@ -392,8 +433,7 @@ namespace MafiaApp
             if (item.HeightRequest == 50)
             {                
                 CloseAllFrames();
-                bool allRolesFinished = amorFrame.BackgroundColor == roleFinishedColor && mafiaFrame.BackgroundColor == roleFinishedColor &&
-                                        hexeFrame.BackgroundColor == roleFinishedColor && detektivFrame.BackgroundColor == roleFinishedColor;
+                bool allRolesFinished = GetAllRolesFinished();
                 if(allRolesFinished)
                 {
                     // set remaining players to buerger
@@ -409,8 +449,7 @@ namespace MafiaApp
                         {
                             await DisplayAlert("Warnung", "Du hast noch nicht alle Namen zugewiesen", null, "Okay");
                             return;
-                        }
-                        
+                        }  
                     }
                     // Calculate deaths and so on
                     HashSet<string> deathPlayer = await SetDeathsAndAbilities();
@@ -418,15 +457,15 @@ namespace MafiaApp
                     string win = await GameManagement.CheckWin();
                     if (win != null)
                     {
-                        bool input = await DisplayAlert(win, "haben gewonnen!", "Neues Spiel", "Hauptmenü");
+                        bool input = await DisplayAlert(win, "haben gewonnen!", null, "Hauptmenü");
                         if (input == false)
                         {
                             OnBackButtonPressed();
                         }
-                        else
-                        {
-                            OnResetGame(sender, e);
-                        }
+                        //else
+                        //{
+                        //    OnResetGame(sender, e);
+                        //}
                         return;
                     }
                     item.HeightRequest = 200;
@@ -445,23 +484,21 @@ namespace MafiaApp
                     return;
                 }
                 // Set dayKills
-                List<string> onDayKilled = (List<string>)onDayKilledNames.ItemsSource;
-                await GameManagement.GetSetPlayersDeathAsync((HashSet<string>)onDayKilled.Union(onDayKilled));
+                await GameManagement.GetSetPlayersDeathAsync(ListToHashSet((List<string>)onDayKilledNames.ItemsSource));
                 string win = await GameManagement.CheckWin();
                 if (win != null)
                 {
-                    bool input2 = await DisplayAlert(win, "haben gewonnen!", "Neues Spiel", "Hauptmenü");
+                    bool input2 = await DisplayAlert(win, "haben gewonnen!", null, "Hauptmenü");
                     if (input2 == false)
                     {
                         OnBackButtonPressed();
                     }
-                    else
-                    {
-                        OnResetGame(sender, e);
-                    }
+                    //else
+                    //{
+                    //    OnResetGame(sender, e);
+                    //}
                     return;
                 }
-                round = 2;
                 await SetupNewRound();
 
                 item.HeightRequest = 50;
@@ -493,7 +530,7 @@ namespace MafiaApp
                 }
             }
             string selection = await DisplayActionSheet("Name Auswählen", "Abbrechen", "Keiner", alivePlayerNames.ToArray());
-            if(selection != null && !selection.Equals("Abbrechen"))
+            if (selection != null && !selection.Equals("Abbrechen"))
             {
                 if(onDayKilledNames.SelectedItem != null && prevItemSource != null)
                 {
@@ -502,12 +539,10 @@ namespace MafiaApp
                 }
                 if (!selection.Equals("Keiner"))
                 {
-                    
                     prevItemSource.Add(selection);            
                     onDayKilledNames.ItemsSource = prevItemSource;
                 }
             }
-            
             return 1;
         }
         async Task<HashSet<string>> SetDeathsAndAbilities()
@@ -519,10 +554,7 @@ namespace MafiaApp
             }
             else
             {
-                HashSet<string> result = new HashSet<string>
-                {
-                    victim.Text
-                };
+                HashSet<string> result = new HashSet<string> { victim.Text };
                 if (witchVictim.Text != null && witchVictim.IsEnabled)
                 {
                     result.Add(witchVictim.Text);
@@ -530,6 +562,33 @@ namespace MafiaApp
                 }
                 return await GameManagement.GetSetPlayersDeathAsync(result);
             }
+        }
+
+        HashSet<string> ListToHashSet(List<string> input)
+        {
+
+            HashSet<string> result = new HashSet<string>();
+            if (input != null) 
+            { 
+                foreach (string anItem in input)
+                {
+                    result.Add(anItem);
+                }
+            }
+            return result;
+        }
+
+        bool GetAllRolesFinished()
+        {
+            bool result = true;
+            foreach(Frame aFrame in frames)
+            {
+                if(aFrame.BackgroundColor == default && aFrame != electionFrame && aFrame.IsVisible)
+                {
+                    result = false;
+                }
+            }
+            return result;
         }
     }
 }

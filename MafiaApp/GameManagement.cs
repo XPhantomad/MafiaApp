@@ -151,8 +151,10 @@ namespace MafiaApp
         }
         public static async Task<string> CheckWin()
         {
+            List<PlayerItem> alivePlayers = await App.PlayerDatabase.GetPlayersPresentAliveAsync();
             int mafias = (await App.PlayerDatabase.GetPlayersPresentAliveByRoleAsync(Roles.Mafia)).Count;
-            int buergers = (await App.PlayerDatabase.GetPlayersPresentAliveAsync()).Count - mafias;
+            int buergers = (alivePlayers).Count - mafias;
+
             if (mafias == 0)
             {
                 return "Bürger";
@@ -160,6 +162,10 @@ namespace MafiaApp
             if(buergers == 0)
             {
                 return "Mafia";
+            }
+            if(alivePlayers[0].Spouse == alivePlayers[1].Name)
+            {
+                return "Liebespaar";
             }
             return null;
         }

@@ -6,11 +6,11 @@
 
     <ScrollView>
         <StackLayout x:Name="mainStack" Margin="10,35,10,10">
-            <Button Text="Zurücksetzen" Clicked="OnResetGame"/>
+            <Label Text="Runde: 1"/>
+            <!--<Button Text="Zurücksetzen" Clicked="OnResetGame"/>-->
             <Frame x:Name="amorFrame" BorderColor="Tomato" Padding="15" HeightRequest="50" CornerRadius="20" IsVisible="true">
                 <StackLayout Orientation="Vertical">
                     <StackLayout Orientation="Horizontal">
-                        <Ellipse WidthRequest="50" HeightRequest="20" Fill="Green" />
                         <CollectionView x:Name="amorNames" Margin="0,0,0,0" SelectionMode="Single" SelectionChanged="OnAmorSelectionChanged" HeightRequest="30" WidthRequest="70">
                             <CollectionView.ItemsLayout>
                                 <LinearItemsLayout Orientation="Vertical" ItemSpacing="4"/>
@@ -39,7 +39,6 @@
             <Frame x:Name="mafiaFrame" BorderColor="Tomato" Padding="15" HeightRequest="50" CornerRadius="20" IsVisible="true">
                 <StackLayout Orientation="Vertical">
                     <StackLayout Orientation="Horizontal">
-                        <Ellipse WidthRequest="50" HeightRequest="20" Fill="Green" />
                         <CollectionView x:Name="mafiaNames" Margin="0,0,0,0" SelectionMode="Single" SelectionChanged="OnMafiaSelectionChanged" HeightRequest="30" WidthRequest="70">
                             <CollectionView.ItemsLayout>
                                 <LinearItemsLayout Orientation="Vertical" ItemSpacing="0"/>
@@ -66,7 +65,6 @@
             <Frame x:Name="hexeFrame" BorderColor="Tomato" Padding="15" HeightRequest="50" CornerRadius="20" IsVisible="true">
                 <StackLayout Orientation="Vertical">
                     <StackLayout Orientation="Horizontal">
-                        <Ellipse WidthRequest="50" HeightRequest="20" Fill="Green" />
                         <CollectionView x:Name="hexeNames" Margin="0,0,0,0" SelectionMode="Single" SelectionChanged="OnHexeSelectionChanged" HeightRequest="30" WidthRequest="70">
                             <CollectionView.ItemsLayout>
                                 <LinearItemsLayout Orientation="Vertical" ItemSpacing="0"/>
@@ -98,7 +96,6 @@
             <Frame x:Name="detektivFrame" BorderColor="Tomato" Padding="15" HeightRequest="50" CornerRadius="20" IsVisible="true">
                 <StackLayout Orientation="Vertical">
                     <StackLayout Orientation="Horizontal">
-                        <Ellipse WidthRequest="50" HeightRequest="20" Fill="Green" />
                         <CollectionView x:Name="detektivNames" Margin="0,0,0,0" SelectionMode="Single" SelectionChanged="OnDetektivSelectionChanged" HeightRequest="30" WidthRequest="70">
                             <CollectionView.ItemsLayout>
                                 <LinearItemsLayout Orientation="Vertical" ItemSpacing="4"/>
@@ -118,16 +115,15 @@
                     <Label Text="Was die Rolle so macht steht hoffentlich im nicht sichtbaren Berreich"/>
                     <StackLayout Orientation="Horizontal" >
                         <Button x:Name="choosePerson" Text="Person Wählen" Clicked="OnChoosePerson"/>
-                        <Label  x:Name="name" FontAttributes="Bold"/>
+                        <Label  x:Name="uncoveredName" FontAttributes="Bold"/>
                         <Label Text=":"/>
-                        <Label x:Name="role" FontAttributes="Bold"/>
+                        <Label x:Name="uncoveredRole" FontAttributes="Bold"/>
                     </StackLayout>
                 </StackLayout>
             </Frame>
             <Frame x:Name="electionFrame" BorderColor="Tomato" Padding="15" HeightRequest="50" CornerRadius="20" IsVisible="true">
                 <StackLayout Orientation="Vertical">
                     <StackLayout Orientation="Horizontal">
-                        <Ellipse WidthRequest="50" HeightRequest="20" Fill="Green" />
                         <CollectionView x:Name="buergerNames" Margin="0,0,0,0" SelectionMode="None" HeightRequest="30" WidthRequest="70">
                             <CollectionView.ItemsLayout>
                                 <LinearItemsLayout Orientation="Vertical" ItemSpacing="4"/>
