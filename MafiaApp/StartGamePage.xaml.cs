@@ -28,6 +28,7 @@ namespace MafiaApp
         {
             base.OnAppearing();
             await SetUpFirstRound();
+            Console.WriteLine("Hello World");
         }
 
         protected override bool OnBackButtonPressed()
@@ -148,15 +149,11 @@ namespace MafiaApp
                 string previous = ((PlayerItem)collectionNames.SelectedItem).Name;
                 List<string> playerNames = await GameManagement.GetPlayerNamesAsync(Roles.None);
                 string selection = await DisplayActionSheet("Name Auswählen", "Abbrechen", "Keiner", playerNames.ToArray());
-                if (selection != null)
+                if (selection != null && !selection.Equals("Abbrechen"))
                 {
-                    if (selection.Equals("Keiner"))
+                    await GameManagement.SetPlayersRoleAsync(previous, Roles.None);
+                    if (!selection.Equals("Keiner"))
                     {
-                        await GameManagement.SetPlayersRoleAsync(previous, Roles.None);
-                    }
-                    else if (!selection.Equals("Abbrechen"))
-                    {
-                        await GameManagement.SetPlayersRoleAsync(previous, Roles.None);
                         await GameManagement.SetPlayersRoleAsync(selection, role);
                     }
                 }
@@ -447,9 +444,23 @@ namespace MafiaApp
                 {
                     return;
                 }
-                // Election
-
-
+                // Set dayKills
+                List<string> onDayKilled = (List<string>)onDayKilledNames.ItemsSource;
+                await GameManagement.GetSetPlayersDeathAsync((HashSet<string>)onDayKilled.Union(onDayKilled));
+                string win = await GameManagement.CheckWin();
+                if (win != null)
+                {
+                    bool input2 = await DisplayAlert(win, "haben gewonnen!", "Neues Spiel", "Hauptmenü");
+                    if (input2 == false)
+                    {
+                        OnBackButtonPressed();
+                    }
+                    else
+                    {
+                        OnResetGame(sender, e);
+                    }
+                    return;
+                }
                 round = 2;
                 await SetupNewRound();
 
@@ -457,18 +468,62 @@ namespace MafiaApp
             }
         }
 
+        async void OnDayKilledSelectionChanged(object sender, EventArgs e)
+        {
+            if(onDayKilledNames.SelectedItem != null)
+            {
+                await SelectDayKill();
+                onDayKilledNames.SelectedItem = null;
+            }
+        }
+        async void OnDayKillAdd(object sender, EventArgs e)
+        {
+            await SelectDayKill();
+        }
+        async Task<int> SelectDayKill()
+        {
+            List<string> alivePlayerNames = await GameManagement.GetPlayerNamesAsync();
+            List<string> prevItemSource = new List<string>();
+            if (onDayKilledNames.ItemsSource != null)
+            {
+                foreach(string aName in (List<string>)onDayKilledNames.ItemsSource)
+                {
+                    prevItemSource.Add(aName);
+                    alivePlayerNames.Remove(aName);
+                }
+            }
+            string selection = await DisplayActionSheet("Name Auswählen", "Abbrechen", "Keiner", alivePlayerNames.ToArray());
+            if(selection != null && !selection.Equals("Abbrechen"))
+            {
+                if(onDayKilledNames.SelectedItem != null && prevItemSource != null)
+                {
+                    prevItemSource.Remove((string)onDayKilledNames.SelectedItem);
+                    onDayKilledNames.ItemsSource = prevItemSource;
+                }
+                if (!selection.Equals("Keiner"))
+                {
+                    
+                    prevItemSource.Add(selection);            
+                    onDayKilledNames.ItemsSource = prevItemSource;
+                }
+            }
+            
+            return 1;
+        }
         async Task<HashSet<string>> SetDeathsAndAbilities()
         {
-            if(witchSaveSwitch.IsToggled && witchSaveSwitch.IsEnabled)
+            if(witchSaveSwitch.IsToggled && witchSaveSwitch.IsEnabled && witchVictim.Text == null && witchVictim.IsEnabled)
             {
                 witchSaveSwitch.IsEnabled = false;
                 return new HashSet<string>{ "Keiner" };
             }
             else
             {
-                HashSet<string> result = new HashSet<string>();
-                result.Add(victim.Text);
-                if(witchVictim.Text != null)
+                HashSet<string> result = new HashSet<string>
+                {
+                    victim.Text
+                };
+                if (witchVictim.Text != null && witchVictim.IsEnabled)
                 {
                     result.Add(witchVictim.Text);
                     witchVictim.IsEnabled = false;

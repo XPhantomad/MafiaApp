@@ -160,7 +160,32 @@
                             </CollectionView.ItemTemplate>
                         </CollectionView>
                     </StackLayout>
-                    
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Am Tag gestorbene:"/>
+                        <CollectionView x:Name="onDayKilledNames" Margin="0,0,0,0" SelectionMode="Single" SelectionChanged="OnDayKilledSelectionChanged" HeightRequest="30" WidthRequest="70">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Vertical" ItemSpacing="4"/>
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Label Text="{Binding}" HorizontalOptions="StartAndExpand" TextColor="Black"/>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                        <CollectionView x:Name="onDayKilledNames2" Margin="0,0,0,0" SelectionMode="Single"  HeightRequest="30" WidthRequest="70">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Vertical" ItemSpacing="0"/>
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout Orientation="Horizontal" >
+                                        <Label Text="{Binding}" HorizontalOptions="StartAndExpand" TextColor="Black"/>
+                                    </StackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                        <Button x:Name="dayKill" Text="Hinzufügen" Clicked="OnDayKillAdd"/>
+                    </StackLayout>
                 </StackLayout>
             </Frame>
             <Frame>
