@@ -1,0 +1,2 @@
+AdbTarget=-s 0123456789ABCDEF
+AdbOptions=

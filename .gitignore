@@ -1,9 +1,9 @@
 # Don't track content of these folders
-.vs/MafiaApp
-MafiaApp.Android/
-MafiaApp.iOS/
-MafiaApp/bin/
-MafiaApp/obj/
+# .vs/MafiaApp
+# MafiaApp.Android/
+# MafiaApp.iOS/
+# MafiaApp/bin/
+# MafiaApp/obj/
 
 # Compiled source #
 ###################
@@ -11,6 +11,7 @@ MafiaApp/obj/
 *.dll
 *.so
 *.pdb
+
 
 
 # Packages #
