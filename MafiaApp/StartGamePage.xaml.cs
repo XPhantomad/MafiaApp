@@ -457,15 +457,12 @@ namespace MafiaApp
                     string win = await GameManagement.CheckWin();
                     if (win != null)
                     {
-                        bool input = await DisplayAlert(win, "haben gewonnen!", null, "Hauptmenü");
-                        if (input == false)
+                        bool input = await DisplayAlert(win, "haben gewonnen!", "Hauptmenü", "Zurück");
+                        if (input)
                         {
                             OnBackButtonPressed();
                         }
-                        //else
-                        //{
-                        //    OnResetGame(sender, e);
-                        //}
+                        
                         return;
                     }
                     item.HeightRequest = 200;
@@ -488,8 +485,8 @@ namespace MafiaApp
                 string win = await GameManagement.CheckWin();
                 if (win != null)
                 {
-                    bool input2 = await DisplayAlert(win, "haben gewonnen!", null, "Hauptmenü");
-                    if (input2 == false)
+                    bool input2 = await DisplayAlert(win, "haben gewonnen!", "Hauptmenü", "Zurück");
+                    if (input2)
                     {
                         OnBackButtonPressed();
                     }

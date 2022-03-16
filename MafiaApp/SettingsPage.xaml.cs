@@ -82,7 +82,7 @@ namespace MafiaApp
                 rolesView.ItemsSource = await App.RolesDatabase.GetRolesAsync();
             }
             else
-                await DisplayAlert("Warnung", "Wähle zuerst eine Person aus", "Okay");
+                await DisplayAlert("Warnung", "Wähle zuerst eine Rolle aus", "Okay");
             rolesView.SelectedItem = null;
         }
 

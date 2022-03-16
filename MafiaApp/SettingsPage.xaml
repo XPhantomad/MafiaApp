@@ -9,7 +9,7 @@
             <Label Text="Spieleranzahl: "/>
             <Label x:Name="playersPresentNumberDisp"/>
             <Button x:Name="autoSwitch" Text="Auto" Clicked="OnAutoSwitch"/>
-            <Button Text="Delete Selection !!!" Clicked="OnReset"/>
+            <!--<Button Text="Delete Selection !!!" Clicked="OnReset"/>-->
             <CollectionView x:Name="rolesView" Margin="0,0,0,0" SelectionMode="Single" >
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout Orientation="Vertical" ItemSpacing="10"/>
