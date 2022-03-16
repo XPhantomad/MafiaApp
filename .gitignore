@@ -11,7 +11,7 @@
 *.dll
 *.so
 *.pdb
-*.csproj.Assembly.Reference.cache
+*.csproj.AssemblyReference.cache
 
 
 
