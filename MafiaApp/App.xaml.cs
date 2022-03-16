@@ -39,14 +39,13 @@ namespace MafiaApp
         public App()
         {
             InitializeComponent();
-
-            MainPage = new TabPage();
-            
+            MainPage = new TabPage(); 
         }
 
     
         protected override void OnStart()
         {
+            GameManagement.ResetGameAsync();
         }
 
         protected override void OnSleep()

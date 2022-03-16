@@ -153,7 +153,7 @@ namespace MafiaApp
         {
             List<PlayerItem> alivePlayers = await App.PlayerDatabase.GetPlayersPresentAliveAsync();
             int mafias = (await App.PlayerDatabase.GetPlayersPresentAliveByRoleAsync(Roles.Mafia)).Count;
-            int buergers = (alivePlayers).Count - mafias;
+            int buergers = alivePlayers.Count - mafias;
 
             if (mafias == 0)
             {
@@ -163,7 +163,7 @@ namespace MafiaApp
             {
                 return "Mafia";
             }
-            if(alivePlayers[0].Spouse == alivePlayers[1].Name)
+            if(alivePlayers[0].Spouse == alivePlayers[1].Name && alivePlayers.Count == 2)
             {
                 return "Liebespaar";
             }

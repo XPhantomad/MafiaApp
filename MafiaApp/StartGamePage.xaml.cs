@@ -13,7 +13,7 @@ namespace MafiaApp
 {
     public partial class StartGamePage : ContentPage
     {
-        int round = 1;
+        public int Round = 1;
         Color roleFinishedColor = Color.GreenYellow;
         Color roleInactiveColor = Color.Gray;
         int numberAmor, numberMafia, numberHexe, numberBuerger, numberDetektiv;
@@ -24,7 +24,6 @@ namespace MafiaApp
         {
             InitializeComponent();
             frames = new List<Frame> { amorFrame, mafiaFrame, hexeFrame, detektivFrame, electionFrame };
-            
         }
 
         protected override async void OnAppearing()
@@ -91,7 +90,8 @@ namespace MafiaApp
 
         private async Task<int> SetupNewRound()
         {
-            round++;
+            Round++;
+            roundDisp.Text = "Runde: " + Round;
             if (numberAmor != 0)
             {
                 List<PlayerItem> amors = await GameManagement.GetPlayersAsync(Roles.Amor, numberAmor);
@@ -220,7 +220,6 @@ namespace MafiaApp
             await ChooseNameAsync(detektivNames, Roles.Detektiv);
         }
 
-
         async void OnPopoutAmor(object sender, EventArgs e)
         {
             Frame item = amorFrame;
@@ -261,10 +260,8 @@ namespace MafiaApp
                     }
                 }
                 item.HeightRequest = 50;
-
             }
         }
-
         async void OnSpouseChange(object sender, EventArgs e)
         {
             List<string> playerNames = await GameManagement.GetPlayerNamesAsync();
@@ -280,11 +277,9 @@ namespace MafiaApp
             {
                 await GameManagement.SetPlayersSpouseAsync(s1, s2);
                 spouse1.Text = s1;
-                spouse2.Text = s2;
-                
+                spouse2.Text = s2;               
             }
         }
-
         async void OnPopoutMafia(object sender, EventArgs e)
         {
             Frame item = mafiaFrame;
@@ -414,7 +409,6 @@ namespace MafiaApp
                 }
             }
         }
-
         async void OnChoosePerson(object sender, EventArgs e)
         {
             List<string> playerNames = await GameManagement.GetPlayerNamesAsync();
@@ -425,7 +419,6 @@ namespace MafiaApp
                 uncoveredRole.Text = (await App.PlayerDatabase.GetPlayerAsync(selection)).Role.ToString();
             }
         }
-
         async void OnPopoutElection(object sender, EventArgs e)
         {
             Frame item = electionFrame;
@@ -437,7 +430,7 @@ namespace MafiaApp
                 if(allRolesFinished)
                 {
                     // set remaining players to buerger
-                    if (round == 1)
+                    if (Round == 1)
                     {
                         List<string> remainingNames = await GameManagement.GetPlayerNamesAsync(Roles.None);
                         if (remainingNames.Count == (await App.RolesDatabase.GetRoleAsync(Roles.Bürger)).Number)  // number of remaining Players equals number of buergers
@@ -462,7 +455,6 @@ namespace MafiaApp
                         {
                             OnBackButtonPressed();
                         }
-                        
                         return;
                     }
                     item.HeightRequest = 200;

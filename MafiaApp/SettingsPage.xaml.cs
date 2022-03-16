@@ -13,8 +13,6 @@ namespace MafiaApp
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SettingsPage : ContentPage
     {
-        int playerPresentNumberC;
-
         public SettingsPage()
         {
             InitializeComponent();
@@ -38,6 +36,10 @@ namespace MafiaApp
         }
         async void OnStartGame(object sender, EventArgs e)
         {
+            if((await App.RolesDatabase.GetRoleAsync(Roles.Mafia)).Number <= 0)
+            {
+                await DisplayAlert("Warnung", "Zahl der Mafias darf nicht 0 sein", "Okay");
+            }
             await Navigation.PushModalAsync(new StartGamePage());
         }
 
@@ -48,22 +50,21 @@ namespace MafiaApp
             //rolesView.ItemsSource = await database.GetRolesAsync();
         }
 
-        async void OnReset(object sender, EventArgs e)
-        {
-            if (rolesView.SelectedItem != null)
-            {
-                await App.RolesDatabase.DeleteRoleAsync((RolesItem)rolesView.SelectedItem);
-                rolesView.ItemsSource = await App.RolesDatabase.GetRolesAsync();
-            }
-        }
+        //async void OnReset(object sender, EventArgs e)
+        //{
+        //    if (rolesView.SelectedItem != null)
+        //    {
+        //        await App.RolesDatabase.DeleteRoleAsync((RolesItem)rolesView.SelectedItem);
+        //        rolesView.ItemsSource = await App.RolesDatabase.GetRolesAsync();
+        //    }
+        //}
 
         async void OnAbilitiesShow(object sender, EventArgs e)
         {
             if (rolesView.SelectedItem != null)
                 await DisplayAlert("Fähigkeit:", ((RolesItem)rolesView.SelectedItem).Ability, "Okay");
             else
-                await DisplayAlert("Warnung", "Wähle zuerst eine Person aus", "Okay");
-            
+                await DisplayAlert("Warnung", "Wähle zuerst eine Rolle aus", "Okay");
         }
 
         async void OnIncrease(object sender, EventArgs e) //erhöhen Bürger werden automatisch weniger

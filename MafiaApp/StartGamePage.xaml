@@ -6,7 +6,7 @@
 
     <ScrollView>
         <StackLayout x:Name="mainStack" Margin="10,35,10,10">
-            <Label Text="Runde: 1"/>
+            <Label x:Name="roundDisp" Text="Runde: 1"/>
             <!--<Button Text="Zurücksetzen" Clicked="OnResetGame"/>-->
             <Frame x:Name="amorFrame" BorderColor="Tomato" Padding="15" HeightRequest="50" CornerRadius="20" IsVisible="true">
                 <StackLayout Orientation="Vertical">
