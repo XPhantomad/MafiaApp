@@ -1,5 +1,5 @@
 # Don't track content of these folders
-# .vs/MafiaApp
+.vs/MafiaApp
 # MafiaApp.Android/
 # MafiaApp.iOS/
 # MafiaApp/bin/
@@ -11,6 +11,7 @@
 *.dll
 *.so
 *.pdb
+*.cache
 
 
 
