@@ -3,7 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MafiaApp.StartGamePage"
              Title="Runde: 1">
+    <Page.Resources>
+        <Color x:Key="FrameBorderColor">Blue</Color>
 
+    </Page.Resources>
+    
     <ScrollView>
         <StackLayout x:Name="mainStack" Margin="10,35,10,10">
             <Label x:Name="roundDisp" Text="Runde: 1"/>

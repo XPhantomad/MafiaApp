@@ -39,6 +39,7 @@ namespace MafiaApp
             if((await App.RolesDatabase.GetRoleAsync(Roles.Mafia)).Number <= 0)
             {
                 await DisplayAlert("Warnung", "Zahl der Mafias darf nicht 0 sein", "Okay");
+                return;
             }
             await Navigation.PushModalAsync(new StartGamePage());
         }

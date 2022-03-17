@@ -132,18 +132,18 @@ namespace MafiaApp
                 {
                     detektivFrame.BackgroundColor = default;
                 }
-                uncoveredName = null;
-                uncoveredRole = null;
+                uncoveredName.Text = null;
+                uncoveredRole.Text = null;
             }
-            if(numberBuerger != 0)
-            {
-                buergerNames.ItemsSource = await GameManagement.GetPlayersAsync(Roles.Bürger, numberBuerger);
-                onDayKilledNames.ItemsSource = null;
-                if((await GameManagement.GetPlayerNamesAsync(Roles.Bürger)).Count == 0)
-                {
-                    electionFrame.BackgroundColor = roleInactiveColor;
-                }
-            }
+            //if(numberBuerger != 0)
+            //{
+            //    buergerNames.ItemsSource = await GameManagement.GetPlayersAsync(Roles.Bürger, numberBuerger);
+            //    onDayKilledNames.ItemsSource = null;
+            //    if((await GameManagement.GetPlayerNamesAsync(Roles.Bürger)).Count == 0)
+            //    {
+            //        electionFrame.BackgroundColor = roleInactiveColor;
+            //    }
+            //}
             return 1;
         }
 
