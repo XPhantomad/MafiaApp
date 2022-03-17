@@ -523,14 +523,14 @@ namespace MafiaApp
             {
                 if(onDayKilledNames.SelectedItem != null && prevItemSource != null)
                 {
-                    prevItemSource.Remove((string)onDayKilledNames.SelectedItem);
-                    onDayKilledNames.ItemsSource = prevItemSource;
+                    prevItemSource.Remove((string)onDayKilledNames.SelectedItem);                    
                 }
                 if (!selection.Equals("Keiner"))
                 {
                     prevItemSource.Add(selection);            
-                    onDayKilledNames.ItemsSource = prevItemSource;
                 }
+                onDayKilledNames.ItemsSource = prevItemSource;
+
             }
             return 1;
         }
