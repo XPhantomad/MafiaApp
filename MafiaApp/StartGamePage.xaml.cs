@@ -132,8 +132,8 @@ namespace MafiaApp
                 {
                     detektivFrame.BackgroundColor = default;
                 }
-                uncoveredName = null;
-                uncoveredRole = null;
+                uncoveredName.Text = null;
+                uncoveredRole.Text = null;
             }
             if(numberBuerger != 0)
             {
