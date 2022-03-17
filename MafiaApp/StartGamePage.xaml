@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -176,3 +177,187 @@
     </ScrollView>
 
 </ContentPage>
+=======
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MafiaApp.StartGamePage"
+             Title="Runde: 1">
+    <Page.Resources>
+        <Color x:Key="FrameBorderColor">Blue</Color>
+
+    </Page.Resources>
+    
+    <ScrollView>
+        <StackLayout x:Name="mainStack" Margin="10,35,10,10">
+            <Label x:Name="roundDisp" Text="Runde: 1"/>
+            <!--<Button Text="Zurücksetzen" Clicked="OnResetGame"/>-->
+            <Frame x:Name="amorFrame" BorderColor="Tomato" Padding="15" HeightRequest="50" CornerRadius="20" IsVisible="true">
+                <StackLayout Orientation="Vertical">
+                    <StackLayout Orientation="Horizontal">
+                        <CollectionView x:Name="amorNames" Margin="0,0,0,0" SelectionMode="Single" SelectionChanged="OnAmorSelectionChanged" HeightRequest="30" WidthRequest="70">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Vertical" ItemSpacing="4"/>
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout Orientation="Horizontal" >
+                                        <Label Text="{Binding Name}" HorizontalOptions="StartAndExpand" TextColor="Black"/>
+                                        <Label Text="{Binding Lives}" HorizontalOptions="End" TextColor="Black"/>
+                                    </StackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                        <Label Text="Amor" FontSize="Large" FontAttributes="Bold" HorizontalOptions="Center"/>
+                        <Button Text="Erweitern" Clicked="OnPopoutAmor" HorizontalOptions="End"/>
+                    </StackLayout>
+                    <Label Text="Was die Rolle so macht steht hoffentlich im nicht sichtbaren Berreich"/>
+                    <StackLayout Orientation="Horizontal" >
+                        <Button x:Name="spouse" Text="Liebespaar wählen" Clicked="OnSpouseChange"/>
+                        <Label  x:Name="spouse1" Text="{Binding Spouse1}" FontAttributes="Bold"/>
+                        <Label Text="und"/>
+                        <Label x:Name="spouse2" Text="{Binding Spouse2}" FontAttributes="Bold"/>
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+            <Frame x:Name="mafiaFrame" BorderColor="Tomato" Padding="15" HeightRequest="50" CornerRadius="20" IsVisible="true">
+                <StackLayout Orientation="Vertical">
+                    <StackLayout Orientation="Horizontal">
+                        <CollectionView x:Name="mafiaNames" Margin="0,0,0,0" SelectionMode="Single" SelectionChanged="OnMafiaSelectionChanged" HeightRequest="30" WidthRequest="70">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Vertical" ItemSpacing="0"/>
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout Orientation="Horizontal" >
+                                        <Label Text="{Binding Name}" HorizontalOptions="StartAndExpand" TextColor="Black"/>
+                                        <Label Text="{Binding Lives}" HorizontalOptions="End" TextColor="Black"/>
+                                    </StackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                        <Label Text="Mafia" FontSize="Large" FontAttributes="Bold" HorizontalOptions="Center"/>
+                        <Button Text="Erweitern" Clicked="OnPopoutMafia" HorizontalOptions="End"/>
+                    </StackLayout>
+                    <Label Text="Was die Rolle so macht steht hoffentlich im nicht sichtbaren Berreich"/>
+                    <StackLayout Orientation="Horizontal" >
+                        <Label Text="Opfer Auswählen:"/>
+                        <Button x:Name="victim" Clicked="OnVictimSelect"/>
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+            <Frame x:Name="hexeFrame" BorderColor="Tomato" Padding="15" HeightRequest="50" CornerRadius="20" IsVisible="true">
+                <StackLayout Orientation="Vertical">
+                    <StackLayout Orientation="Horizontal">
+                        <CollectionView x:Name="hexeNames" Margin="0,0,0,0" SelectionMode="Single" SelectionChanged="OnHexeSelectionChanged" HeightRequest="30" WidthRequest="70">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Vertical" ItemSpacing="0"/>
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout Orientation="Horizontal" >
+                                        <Label Text="{Binding Name}" HorizontalOptions="StartAndExpand" TextColor="Black"/>
+                                        <Label Text="{Binding Lives}" HorizontalOptions="End" TextColor="Black"/>
+                                    </StackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                        <Label Text="Hexe" FontSize="Large" FontAttributes="Bold" HorizontalOptions="Center"/>
+                        <Button Text="Erweitern" Clicked="OnPopoutHexe" HorizontalOptions="End"/>
+                    </StackLayout>
+                    <Label Text="Was die Rolle so macht steht hoffentlich im nicht sichtbaren Berreich"/>
+                    <StackLayout Orientation="Horizontal" >
+                        <Label Text="Opfer:"/>
+                        <Label x:Name="showVictim"/>
+                        <Switch x:Name="witchSaveSwitch" IsToggled="false" IsEnabled="True"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="noch jemanden Töten?"/>
+                        <Button x:Name="witchVictim" Clicked="OnWitchKill" IsEnabled="True"/>
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+            <Frame x:Name="detektivFrame" BorderColor="Tomato" Padding="15" HeightRequest="50" CornerRadius="20" IsVisible="true">
+                <StackLayout Orientation="Vertical">
+                    <StackLayout Orientation="Horizontal">
+                        <CollectionView x:Name="detektivNames" Margin="0,0,0,0" SelectionMode="Single" SelectionChanged="OnDetektivSelectionChanged" HeightRequest="30" WidthRequest="70">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Vertical" ItemSpacing="4"/>
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout Orientation="Horizontal" >
+                                        <Label Text="{Binding Name}" HorizontalOptions="StartAndExpand" TextColor="Black"/>
+                                        <Label Text="{Binding Lives}" HorizontalOptions="End" TextColor="Black"/>
+                                    </StackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                        <Label Text="Detektiv" FontSize="Large" FontAttributes="Bold" HorizontalOptions="Center"/>
+                        <Button Text="Erweitern" Clicked="OnPopoutDetektiv" HorizontalOptions="End"/>
+                    </StackLayout>
+                    <Label Text="Was die Rolle so macht steht hoffentlich im nicht sichtbaren Berreich"/>
+                    <StackLayout Orientation="Horizontal" >
+                        <Button x:Name="choosePerson" Text="Person Wählen" Clicked="OnChoosePerson"/>
+                        <Label  x:Name="uncoveredName" FontAttributes="Bold"/>
+                        <Label Text=":"/>
+                        <Label x:Name="uncoveredRole" FontAttributes="Bold"/>
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+            <Frame x:Name="electionFrame" BorderColor="Tomato" Padding="15" HeightRequest="50" CornerRadius="20" IsVisible="true">
+                <StackLayout Orientation="Vertical">
+                    <StackLayout Orientation="Horizontal">
+                        <CollectionView x:Name="buergerNames" Margin="0,0,0,0" SelectionMode="None" HeightRequest="30" WidthRequest="70">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Vertical" ItemSpacing="4"/>
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout Orientation="Horizontal" >
+                                        <Label Text="{Binding Name}" HorizontalOptions="StartAndExpand" TextColor="Black"/>
+                                        <Label Text="{Binding Lives}" HorizontalOptions="End" TextColor="Black"/>
+                                    </StackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                        <Label Text="Abstimmung" FontSize="Large" FontAttributes="Bold" HorizontalOptions="Center"/>
+                        <Button Text="Erweitern" Clicked="OnPopoutElection" HorizontalOptions="End"/>
+                    </StackLayout>
+                    <Label Text="Was die Rolle so macht steht hoffentlich im nicht sichtbaren Berreich"/>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="gestorben sind:"/>
+                        <CollectionView x:Name="killedNames" Margin="0,0,0,0" SelectionMode="None" HeightRequest="30" WidthRequest="70">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Vertical" ItemSpacing="0"/>
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout Orientation="Horizontal" >
+                                        <Label Text="{Binding}" HorizontalOptions="StartAndExpand" TextColor="Black"/>
+                                    </StackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Am Tag gestorbene:"/>
+                        <CollectionView x:Name="onDayKilledNames" Margin="0,0,0,0" SelectionMode="Single" SelectionChanged="OnDayKilledSelectionChanged" HeightRequest="30" WidthRequest="70">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Vertical" ItemSpacing="4"/>
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Label Text="{Binding}" HorizontalOptions="StartAndExpand" TextColor="Black"/>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                        <Button x:Name="dayKill" Text="Hinzufügen" Clicked="OnDayKillAdd"/>
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </ScrollView>
+
+</ContentPage>
+>>>>>>> moreRoles
