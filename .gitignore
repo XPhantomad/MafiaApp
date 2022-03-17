@@ -5,7 +5,7 @@ MafiaApp.Android/obj/Debug/100/MafiaApp.Android.csproj.AssemblyReference.cache
 MafiaApp.Android/
 MafiaApp.iOS/
 # MafiaApp/bin/
-MafiaApp\obj\
+MafiaApp\obj\*
 
 # Compiled source #
 ###################
