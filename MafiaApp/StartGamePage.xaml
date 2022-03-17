@@ -4,11 +4,15 @@
              x:Class="MafiaApp.StartGamePage"
              Title="Runde: 1">
 
+    <Page.Resources>
+        <Color x:Key="FrameBorderColor">Tomato</Color>
+    </Page.Resources>
+    
     <ScrollView>
         <StackLayout x:Name="mainStack" Margin="10,35,10,10">
             <Label x:Name="roundDisp" Text="Runde: 1"/>
             <!--<Button Text="Zurücksetzen" Clicked="OnResetGame"/>-->
-            <Frame x:Name="amorFrame" BorderColor="Tomato" Padding="15" HeightRequest="50" CornerRadius="20" IsVisible="true">
+            <Frame x:Name="amorFrame" BorderColor="{StaticResource FrameBorderColor}" Padding="15" HeightRequest="50" CornerRadius="20" IsVisible="true">
                 <StackLayout Orientation="Vertical">
                     <StackLayout Orientation="Horizontal">
                         <CollectionView x:Name="amorNames" Margin="0,0,0,0" SelectionMode="Single" SelectionChanged="OnAmorSelectionChanged" HeightRequest="30" WidthRequest="70">
@@ -36,7 +40,33 @@
                     </StackLayout>
                 </StackLayout>
             </Frame>
-            <Frame x:Name="mafiaFrame" BorderColor="Tomato" Padding="15" HeightRequest="50" CornerRadius="20" IsVisible="true">
+            <Frame x:Name="pennerFrame" BorderColor="{StaticResource FrameBorderColor}" Padding="15" HeightRequest="50" CornerRadius="20" IsVisible="true">
+                <StackLayout Orientation="Vertical">
+                    <StackLayout Orientation="Horizontal">
+                        <CollectionView x:Name="pennerNames" Margin="0,0,0,0" SelectionMode="Single" SelectionChanged="OnPennerSelectionChanged" HeightRequest="30" WidthRequest="70">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Vertical" ItemSpacing="0"/>
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout Orientation="Horizontal" >
+                                        <Label Text="{Binding Name}" HorizontalOptions="StartAndExpand" TextColor="Black"/>
+                                        <Label Text="{Binding Lives}" HorizontalOptions="End" TextColor="Black"/>
+                                    </StackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                        <Label Text="Penner" FontSize="Large" FontAttributes="Bold" HorizontalOptions="Center"/>
+                        <Button Text="Erweitern" Clicked="OnPopoutPenner" HorizontalOptions="End"/>
+                    </StackLayout>
+                    <Label Text="Was die Rolle so macht steht hoffentlich im nicht sichtbaren Berreich"/>
+                    <StackLayout Orientation="Horizontal" >
+                        <Label Text="Quartier auswählen:"/>
+                        <Button x:Name="accomodation" Text="Brücke" Clicked="OnAccomodationSelect"/>
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+            <Frame x:Name="mafiaFrame" BorderColor="{StaticResource FrameBorderColor}" Padding="15" HeightRequest="50" CornerRadius="20" IsVisible="true">
                 <StackLayout Orientation="Vertical">
                     <StackLayout Orientation="Horizontal">
                         <CollectionView x:Name="mafiaNames" Margin="0,0,0,0" SelectionMode="Single" SelectionChanged="OnMafiaSelectionChanged" HeightRequest="30" WidthRequest="70">
@@ -62,7 +92,7 @@
                     </StackLayout>
                 </StackLayout>
             </Frame>
-            <Frame x:Name="hexeFrame" BorderColor="Tomato" Padding="15" HeightRequest="50" CornerRadius="20" IsVisible="true">
+            <Frame x:Name="hexeFrame" BorderColor="{StaticResource FrameBorderColor}" Padding="15" HeightRequest="50" CornerRadius="20" IsVisible="true">
                 <StackLayout Orientation="Vertical">
                     <StackLayout Orientation="Horizontal">
                         <CollectionView x:Name="hexeNames" Margin="0,0,0,0" SelectionMode="Single" SelectionChanged="OnHexeSelectionChanged" HeightRequest="30" WidthRequest="70">
@@ -93,7 +123,7 @@
                     </StackLayout>
                 </StackLayout>
             </Frame>
-            <Frame x:Name="detektivFrame" BorderColor="Tomato" Padding="15" HeightRequest="50" CornerRadius="20" IsVisible="true">
+            <Frame x:Name="detektivFrame" BorderColor="{StaticResource FrameBorderColor}" Padding="15" HeightRequest="50" CornerRadius="20" IsVisible="true">
                 <StackLayout Orientation="Vertical">
                     <StackLayout Orientation="Horizontal">
                         <CollectionView x:Name="detektivNames" Margin="0,0,0,0" SelectionMode="Single" SelectionChanged="OnDetektivSelectionChanged" HeightRequest="30" WidthRequest="70">
@@ -121,10 +151,10 @@
                     </StackLayout>
                 </StackLayout>
             </Frame>
-            <Frame x:Name="electionFrame" BorderColor="Tomato" Padding="15" HeightRequest="50" CornerRadius="20" IsVisible="true">
+            <Frame x:Name="electionFrame" BorderColor="{StaticResource FrameBorderColor}" Padding="15" HeightRequest="50" CornerRadius="20" IsVisible="true">
                 <StackLayout Orientation="Vertical">
                     <StackLayout Orientation="Horizontal">
-                        <CollectionView x:Name="buergerNames" Margin="0,0,0,0" SelectionMode="None" HeightRequest="30" WidthRequest="70">
+                        <CollectionView x:Name="buergerNames" Margin="0,0,0,0" SelectionMode="None" HeightRequest="35" WidthRequest="70">
                             <CollectionView.ItemsLayout>
                                 <LinearItemsLayout Orientation="Vertical" ItemSpacing="4"/>
                             </CollectionView.ItemsLayout>

@@ -16,7 +16,7 @@ namespace MafiaApp
         public int Round = 1;
         Color roleFinishedColor = Color.GreenYellow;
         Color roleInactiveColor = Color.Gray;
-        int numberAmor, numberMafia, numberHexe, numberBuerger, numberDetektiv;
+        int numberAmor, numberMafia, numberHexe, numberBuerger, numberDetektiv, numberPenner;
         private List<Frame> frames;
         
         
@@ -48,6 +48,7 @@ namespace MafiaApp
             numberAmor = (await App.RolesDatabase.GetRoleAsync(Roles.Amor)).Number;
             numberHexe = (await App.RolesDatabase.GetRoleAsync(Roles.Hexe)).Number;
             numberDetektiv = (await App.RolesDatabase.GetRoleAsync(Roles.Detektiv)).Number;
+            numberPenner = (await App.RolesDatabase.GetRoleAsync(Roles.Penner)).Number;
             numberBuerger = (await App.RolesDatabase.GetRoleAsync(Roles.Bürger)).Number;
             if (numberAmor == 0)
             {
@@ -57,6 +58,15 @@ namespace MafiaApp
             {
                 amorFrame.IsVisible = true;
                 amorNames.ItemsSource = await GameManagement.GetPlayersAsync(Roles.Amor, numberAmor);
+            }
+            if (numberPenner == 0)
+            {
+                pennerFrame.IsVisible = false;
+            }
+            else
+            {
+                pennerFrame.IsVisible = true;
+                pennerNames.ItemsSource = await GameManagement.GetPlayersAsync(Roles.Penner, numberPenner);
             }
             if (numberMafia == 0)
             {
@@ -99,6 +109,15 @@ namespace MafiaApp
                 if(amors.Last().Lives <= 0)
                 {
                     amorFrame.BackgroundColor = roleInactiveColor;
+                }
+            }
+            if (numberPenner != 0)
+            {
+                List<PlayerItem> penners = await GameManagement.GetPlayersAsync(Roles.Penner, numberPenner);
+                pennerNames.ItemsSource = penners;
+                if (penners.Last().Lives <= 0)
+                {
+                    pennerFrame.BackgroundColor = roleInactiveColor;
                 }
             }
             if (numberMafia != 0)
@@ -165,6 +184,10 @@ namespace MafiaApp
             {
                 OnPopoutAmor(o, e);
             }
+            if (pennerFrame.HeightRequest == 200)
+            {
+                OnPopoutPenner(o, e);
+            }
             if (mafiaFrame.HeightRequest == 200)
             {
                 OnPopoutMafia(o, e);
@@ -206,6 +229,10 @@ namespace MafiaApp
         async void OnAmorSelectionChanged(object sender, EventArgs e)
         {
             await ChooseNameAsync(amorNames, Roles.Amor);
+        }
+        async void OnPennerSelectionChanged(object sender, EventArgs e)
+        {
+            await ChooseNameAsync(pennerNames, Roles.Penner);
         }
         async void OnMafiaSelectionChanged(object sender, EventArgs e)
         {
@@ -278,6 +305,51 @@ namespace MafiaApp
                 await GameManagement.SetPlayersSpouseAsync(s1, s2);
                 spouse1.Text = s1;
                 spouse2.Text = s2;               
+            }
+        }
+        async void OnPopoutPenner(object sender, EventArgs e)
+        {
+            Frame item = pennerFrame;
+            // open
+            if (item.HeightRequest == 50)
+            {
+                CloseAllFrames();
+                if (pennerNames.ItemsSource != null)
+                {
+                    if (((List<PlayerItem>)pennerNames.ItemsSource).Last().Name.Equals("Keiner"))
+                    {
+                        await DisplayAlert("Warnung", "Du hast noch nicht alle Spieler für diese Rolle eingetragen.", "Okay");
+                    }
+                    else
+                    {
+                        item.HeightRequest = 200;
+                    }
+                }
+            }
+            // close
+            else
+            {
+                if (item.BackgroundColor != roleInactiveColor)
+                {
+                    item.BackgroundColor = roleFinishedColor;
+                }
+                item.HeightRequest = 50;
+            }
+        }
+        async void OnAccomodationSelect(object sender, EventArgs e)
+        {
+            List<string> playerNames = await GameManagement.GetPlayerNamesAsync();
+            string selection = await DisplayActionSheet("Opfer Auswählen", "Abbrechen", "Brücke", playerNames.ToArray());
+            if (selection != null)
+            {
+                if (selection.Equals("Abbrechen"))
+                {
+                    return;
+                }
+                else
+                {
+                    accomodation.Text = selection;
+                }
             }
         }
         async void OnPopoutMafia(object sender, EventArgs e)
