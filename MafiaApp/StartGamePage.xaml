@@ -12,6 +12,28 @@
         <StackLayout x:Name="mainStack" Margin="10,35,10,10">
             <Label x:Name="roundDisp" Text="Runde: 1"/>
             <!--<Button Text="Zurücksetzen" Clicked="OnResetGame"/>-->
+            <Frame x:Name="opaFrame" BorderColor="{StaticResource FrameBorderColor}" Padding="15" HeightRequest="50" CornerRadius="20" IsVisible="true">
+                <StackLayout Orientation="Vertical">
+                    <StackLayout Orientation="Horizontal">
+                        <CollectionView x:Name="opaNames" Margin="0,0,0,0" SelectionMode="Single" SelectionChanged="OnOpaSelectionChanged" HeightRequest="30" WidthRequest="70">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Vertical" ItemSpacing="0"/>
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout Orientation="Horizontal" >
+                                        <Label Text="{Binding Name}" HorizontalOptions="StartAndExpand" TextColor="Black"/>
+                                        <Label Text="{Binding Lives}" HorizontalOptions="End" TextColor="Black"/>
+                                    </StackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                        <Label Text="Opa" FontSize="Large" FontAttributes="Bold" HorizontalOptions="Center"/>
+                        <Button Text="Erweitern" Clicked="OnPopoutOpa" HorizontalOptions="End"/>
+                    </StackLayout>
+                    <Label Text="Hat in der Nacht 2 Leben"/>
+                </StackLayout>
+            </Frame>
             <Frame x:Name="amorFrame" BorderColor="{StaticResource FrameBorderColor}" Padding="15" HeightRequest="50" CornerRadius="20" IsVisible="true">
                 <StackLayout Orientation="Vertical">
                     <StackLayout Orientation="Horizontal">

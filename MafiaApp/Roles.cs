@@ -8,6 +8,7 @@
         Detektiv,
         Hexe,
         Penner,
-        Bürger
+        Bürger,
+        Opa
     }
 }

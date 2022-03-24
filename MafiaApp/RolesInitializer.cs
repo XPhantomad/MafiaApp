@@ -65,6 +65,13 @@ namespace MafiaApp
                 Ability = "kann nichts",
                 Lives = 1,
             });
+            await App.RolesDatabase.SaveRoleAsync(new RolesItem
+            {
+                Role = Roles.Opa,
+                Number = 0,
+                Ability = "kann nichts",
+                Lives = 2,
+            });
 
             return 1;
         }
@@ -77,7 +84,7 @@ namespace MafiaApp
             {
                 rolesNumber += aRolesItem.Number;
             }
-            if(playerNumber != rolesNumber)
+            if (playerNumber != rolesNumber)
             {
                 foreach(RolesItem aRolesItem in roles)
                 {
