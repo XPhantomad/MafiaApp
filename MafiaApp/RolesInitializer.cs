@@ -25,8 +25,7 @@ namespace MafiaApp
                 Role = Roles.Bürger,
                 Number = 0,
                 Ability = "kann nichts",
-                Lives = 1,
-                Active = true,
+                Lives = 1, 
             });
 
             await App.RolesDatabase.SaveRoleAsync(new RolesItem
@@ -35,7 +34,6 @@ namespace MafiaApp
                 Number = 0,
                 Ability = "kann was",
                 Lives = 1,
-                Active = true,
             });
 
             await App.RolesDatabase.SaveRoleAsync(new RolesItem
@@ -44,7 +42,6 @@ namespace MafiaApp
                 Number = 0,
                 Ability = "kann nichts",
                 Lives = 1,
-                Active = true,
             });
 
             await App.RolesDatabase.SaveRoleAsync(new RolesItem
@@ -53,7 +50,6 @@ namespace MafiaApp
                 Number = 0,
                 Ability = "kann nichts",
                 Lives = 1,
-                Active = true,
             });
             await App.RolesDatabase.SaveRoleAsync(new RolesItem
             {
@@ -61,7 +57,6 @@ namespace MafiaApp
                 Number = 0,
                 Ability = "kann nichts",
                 Lives = 1,
-                Active = true,
             });
             await App.RolesDatabase.SaveRoleAsync(new RolesItem
             {
@@ -69,7 +64,6 @@ namespace MafiaApp
                 Number = 0,
                 Ability = "kann nichts",
                 Lives = 1,
-                Active = true,
             });
 
             return 1;

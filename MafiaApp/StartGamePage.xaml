@@ -31,7 +31,7 @@
                         <Label Text="Amor" FontSize="Large" FontAttributes="Bold" HorizontalOptions="Center"/>
                         <Button Text="Erweitern" Clicked="OnPopoutAmor" HorizontalOptions="End"/>
                     </StackLayout>
-                    <Label Text="Was die Rolle so macht steht hoffentlich im nicht sichtbaren Berreich"/>
+                    <Label Text="Bestimmt ein Liebespaar."/>
                     <StackLayout Orientation="Horizontal" >
                         <Button x:Name="spouse" Text="Liebespaar wählen" Clicked="OnSpouseChange"/>
                         <Label  x:Name="spouse1" Text="{Binding Spouse1}" FontAttributes="Bold"/>
@@ -59,7 +59,7 @@
                         <Label Text="Penner" FontSize="Large" FontAttributes="Bold" HorizontalOptions="Center"/>
                         <Button Text="Erweitern" Clicked="OnPopoutPenner" HorizontalOptions="End"/>
                     </StackLayout>
-                    <Label Text="Was die Rolle so macht steht hoffentlich im nicht sichtbaren Berreich"/>
+                    <Label Text="Sucht sich ein Quartier zum Übernachten oder schläft unter der Brücke."/>
                     <StackLayout Orientation="Horizontal" >
                         <Label Text="Quartier auswählen:"/>
                         <Button x:Name="accomodation" Text="Brücke" Clicked="OnAccomodationSelect"/>
@@ -85,7 +85,7 @@
                         <Label Text="Mafia" FontSize="Large" FontAttributes="Bold" HorizontalOptions="Center"/>
                         <Button Text="Erweitern" Clicked="OnPopoutMafia" HorizontalOptions="End"/>
                     </StackLayout>
-                    <Label Text="Was die Rolle so macht steht hoffentlich im nicht sichtbaren Berreich"/>
+                    <Label Text="Wählt ein Opfer aus."/>
                     <StackLayout Orientation="Horizontal" >
                         <Label Text="Opfer Auswählen:"/>
                         <Button x:Name="victim" Clicked="OnVictimSelect"/>
@@ -111,7 +111,7 @@
                         <Label Text="Hexe" FontSize="Large" FontAttributes="Bold" HorizontalOptions="Center"/>
                         <Button Text="Erweitern" Clicked="OnPopoutHexe" HorizontalOptions="End"/>
                     </StackLayout>
-                    <Label Text="Was die Rolle so macht steht hoffentlich im nicht sichtbaren Berreich"/>
+                    <Label Text="Darf pro Spiel einmal eine Person retten und eine Person töten"/>
                     <StackLayout Orientation="Horizontal" >
                         <Label Text="Opfer:"/>
                         <Label x:Name="showVictim"/>
@@ -142,7 +142,7 @@
                         <Label Text="Detektiv" FontSize="Large" FontAttributes="Bold" HorizontalOptions="Center"/>
                         <Button Text="Erweitern" Clicked="OnPopoutDetektiv" HorizontalOptions="End"/>
                     </StackLayout>
-                    <Label Text="Was die Rolle so macht steht hoffentlich im nicht sichtbaren Berreich"/>
+                    <Label Text="Wählt einen Spieler aus, von dem er die Gesinnung erfährt"/>
                     <StackLayout Orientation="Horizontal" >
                         <Button x:Name="choosePerson" Text="Person Wählen" Clicked="OnChoosePerson"/>
                         <Label  x:Name="uncoveredName" FontAttributes="Bold"/>
@@ -154,7 +154,7 @@
             <Frame x:Name="electionFrame" BorderColor="{StaticResource FrameBorderColor}" Padding="15" HeightRequest="50" CornerRadius="20" IsVisible="true">
                 <StackLayout Orientation="Vertical">
                     <StackLayout Orientation="Horizontal">
-                        <CollectionView x:Name="buergerNames" Margin="0,0,0,0" SelectionMode="None" HeightRequest="35" WidthRequest="70">
+                        <CollectionView x:Name="buergerNames" Margin="0,0,0,0" SelectionMode="None" HeightRequest="40" WidthRequest="70">
                             <CollectionView.ItemsLayout>
                                 <LinearItemsLayout Orientation="Vertical" ItemSpacing="4"/>
                             </CollectionView.ItemsLayout>
@@ -170,10 +170,10 @@
                         <Label Text="Abstimmung" FontSize="Large" FontAttributes="Bold" HorizontalOptions="Center"/>
                         <Button Text="Erweitern" Clicked="OnPopoutElection" HorizontalOptions="End"/>
                     </StackLayout>
-                    <Label Text="Was die Rolle so macht steht hoffentlich im nicht sichtbaren Berreich"/>
+                    <Label Text="Es wird eine Person bestimmt, die sterben muss."/>
                     <StackLayout Orientation="Horizontal">
                         <Label Text="gestorben sind:"/>
-                        <CollectionView x:Name="killedNames" Margin="0,0,0,0" SelectionMode="None" HeightRequest="30" WidthRequest="70">
+                        <CollectionView x:Name="killedNames" Margin="0,0,0,0" SelectionMode="None" HeightRequest="40" WidthRequest="70">
                             <CollectionView.ItemsLayout>
                                 <LinearItemsLayout Orientation="Vertical" ItemSpacing="0"/>
                             </CollectionView.ItemsLayout>

@@ -119,6 +119,7 @@ namespace MafiaApp
                 {
                     pennerFrame.BackgroundColor = roleInactiveColor;
                 }
+                accomodation.Text = "Brücke";
             }
             if (numberMafia != 0)
             {
@@ -339,7 +340,7 @@ namespace MafiaApp
         async void OnAccomodationSelect(object sender, EventArgs e)
         {
             List<string> playerNames = await GameManagement.GetPlayerNamesAsync();
-            string selection = await DisplayActionSheet("Opfer Auswählen", "Abbrechen", "Brücke", playerNames.ToArray());
+            string selection = await DisplayActionSheet("Quartier auswählen", "Abbrechen", "Brücke", playerNames.ToArray());
             if (selection != null)
             {
                 if (selection.Equals("Abbrechen"))
@@ -348,6 +349,7 @@ namespace MafiaApp
                 }
                 else
                 {
+                    await GameManagement.SetAccomodationAsync(selection);
                     accomodation.Text = selection;
                 }
             }
@@ -518,6 +520,7 @@ namespace MafiaApp
                     }
                     // Calculate deaths and so on
                     HashSet<string> deathPlayer = await SetDeathsAndAbilities();
+                    await GameManagement.SetAccomodationAsync(null);
                     killedNames.ItemsSource = deathPlayer;
                     string win = await GameManagement.CheckWin();
                     if (win != null)
