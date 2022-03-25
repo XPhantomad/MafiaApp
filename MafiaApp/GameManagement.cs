@@ -19,7 +19,7 @@ namespace MafiaApp
             // Fill up with "Keiner"
             for (int i = 0; i < (number - n); i++)
             {
-                player.Add(new PlayerItem { Name = "Keiner"});
+                player.Add(new PlayerItem { Name = "Keiner" });
             }
             return player;
         }
@@ -71,7 +71,7 @@ namespace MafiaApp
         public static async Task<int> SetPlayersRoleAsync(string name, Roles role)
         {
             PlayerItem player = await App.PlayerDatabase.GetPlayerAsync(name);
-            if(player != null)
+            if (player != null)
             {
                 player.Role = role;
                 if (!role.Equals(Roles.None))
@@ -81,11 +81,11 @@ namespace MafiaApp
                 await App.PlayerDatabase.UpdatePlayerAsync(player);
                 return 1;
             }
-            return 0;       
+            return 0;
         }
         public static async Task<int> SetPlayersRoleAsync(List<string> names, Roles role)
         {
-            foreach(string aName in names)
+            foreach (string aName in names)
             {
                 await SetPlayersRoleAsync(aName, role);
             }
@@ -105,7 +105,7 @@ namespace MafiaApp
             // Set new Spouse
             PlayerItem spouse1 = await App.PlayerDatabase.GetPlayerAsync(name1);
             PlayerItem spouse2 = await App.PlayerDatabase.GetPlayerAsync(name2);
-            if(spouse1 != null)
+            if (spouse1 != null)
             {
                 spouse1.Spouse = name2;
                 await App.PlayerDatabase.UpdatePlayerAsync(spouse1);
@@ -129,7 +129,7 @@ namespace MafiaApp
             }
 
             // set new Accomodation
-            if ( accomodationName != null) {
+            if (accomodationName != null) {
                 if (!accomodationName.Equals("Brücke"))
                 {
                     PlayerItem player = await App.PlayerDatabase.GetPlayerAsync(accomodationName);
@@ -149,7 +149,7 @@ namespace MafiaApp
             List<PlayerItem> player = await App.PlayerDatabase.GetPlayersPresentAliveAsync();
             foreach (PlayerItem aPlayerItem in player)
             {
-                if(aPlayerItem.Accomodates)
+                if (aPlayerItem.Accomodates)
                 {
                     result = true;
                 }
@@ -166,13 +166,13 @@ namespace MafiaApp
             {
                 if (aPlayerItem.Role.Equals(Roles.Penner))
                 {
-                    aPlayerItem.Lives -= 1;
+                    aPlayerItem.Lives = 0;
                     result.Add(aPlayerItem.Name);
-                    if(aPlayerItem.Spouse != null)
+                    if (aPlayerItem.Spouse != null)
                     {
                         result.Add(aPlayerItem.Spouse);
                         PlayerItem spouse = await App.PlayerDatabase.GetPlayerAsync(aPlayerItem.Spouse);
-                        spouse.Lives -= 1;
+                        spouse.Lives = 0;
                         await App.PlayerDatabase.UpdatePlayerAsync(spouse);
                     }
                     await App.PlayerDatabase.UpdatePlayerAsync(aPlayerItem);
@@ -181,48 +181,111 @@ namespace MafiaApp
             return result;
         }
 
-        //private static async Task<string> SetPlayersLive(string name)
-        //{
-        //    PlayerItem player = await App.PlayerDatabase.GetPlayerAsync(name);
-        //    player.Lives -= 1;
-        //    return name;
-        //}
-
-
-        public static async Task<HashSet<string>> GetSetPlayersDeathAsync(HashSet<string> playerNames)
+        // Decrease Playes lives, return name only if player dies
+        private static async Task<string> DecreasePlayersLiveAsync(string name)
         {
-            HashSet<string> result = new HashSet<string>();
-            foreach(string aName in playerNames)
+            PlayerItem player = await App.PlayerDatabase.GetPlayerAsync(name);
+            if (!player.Role.Equals(Roles.Penner) || !await GetAccomodationAsync())
             {
-                PlayerItem player = await App.PlayerDatabase.GetPlayerAsync(aName);
-                if (!player.Role.Equals(Roles.Penner))
+                player.Lives -= 1;
+                await App.PlayerDatabase.UpdatePlayerAsync(player);
+            }
+            return player.Lives <= 0 ? name : null;
+        }
+
+
+        //public static async Task<HashSet<string>> GetSetPlayersDeathAsync(HashSet<string> playerNames)
+        //{
+        //    HashSet<string> result = new HashSet<string>();
+        //    foreach (string aName in playerNames)
+        //    {
+        //        PlayerItem player = await App.PlayerDatabase.GetPlayerAsync(aName);
+        //        if (!player.Role.Equals(Roles.Penner))
+        //        {
+        //            player.Lives -= 1;
+        //            if (player.Spouse != null)
+        //            {
+        //                result.Add(player.Spouse);
+        //                PlayerItem spouse = await App.PlayerDatabase.GetPlayerAsync(player.Spouse);
+        //                spouse.Lives -= 1;
+        //                if (spouse.Accomodates == true)
+        //                {
+        //                    result.UnionWith(await KillPennerAsync());
+        //                }
+        //                await App.PlayerDatabase.UpdatePlayerAsync(spouse);
+        //            }
+        //            if (player.Accomodates == true)
+        //            {
+        //                result.UnionWith(await KillPennerAsync());
+        //            }
+        //            await App.PlayerDatabase.UpdatePlayerAsync(player);
+        //        }
+        //        if (player.Role.Equals(Roles.Penner) && (await GetAccomodationAsync()) == false)
+        //        {
+        //            result.UnionWith(await KillPennerAsync());
+        //        }
+        //    }
+        //    result.UnionWith(playerNames);
+        //    return result;
+        //}
+        public static async Task<HashSet<string>> GetSetPlayersDeathNightAsync(HashSet<string> playerNames)
+        {
+            HashSet<string> deadPlayers = new HashSet<string>();
+            foreach (string aName in playerNames) 
+            {
+                string name = await DecreasePlayersLiveAsync(aName);
+                if (name != null) 
                 {
-                    player.Lives -= 1;
-                    if (player.Spouse != null)
-                    {
-                        result.Add(player.Spouse);
-                        PlayerItem spouse = await App.PlayerDatabase.GetPlayerAsync(player.Spouse);
-                        spouse.Lives -= 1;
-                        if (spouse.Accomodates == true)
-                        {
-                            result.UnionWith(await KillPennerAsync());
-                        }
-                        await App.PlayerDatabase.UpdatePlayerAsync(spouse);
-                    }
-                    if(player.Accomodates == true)
+                    deadPlayers.Add(name);
+                }
+            }
+            HashSet<string> result = new HashSet<string>();
+
+            foreach (string aName in deadPlayers)
+            {
+                result.Add(aName);
+                PlayerItem player = await App.PlayerDatabase.GetPlayerAsync(aName);
+                // Spouse
+                if (player.Spouse != null)
+                {
+                    result.Add(player.Spouse);
+                    PlayerItem spouse = await App.PlayerDatabase.GetPlayerAsync(player.Spouse);
+                    spouse.Lives = 0;
+                    // Spouse Accomodates
+                    if (spouse.Accomodates)
                     {
                         result.UnionWith(await KillPennerAsync());
                     }
-                    await App.PlayerDatabase.UpdatePlayerAsync(player);
+                    await App.PlayerDatabase.UpdatePlayerAsync(spouse);
                 }
-                if (player.Role.Equals(Roles.Penner) && (await GetAccomodationAsync()) == false)
+                // Accomodates
+                if (player.Accomodates)
                 {
                     result.UnionWith(await KillPennerAsync());
                 }
+                await App.PlayerDatabase.UpdatePlayerAsync(player);
             }
-            result.UnionWith(playerNames);
             return result;
         }
+
+        public static async Task<int> GetSetPlayersDeathDayAsync(HashSet<string> playerNames)
+        {
+            foreach (string aName in playerNames)
+            {
+                PlayerItem player = await App.PlayerDatabase.GetPlayerAsync(aName);
+                player.Lives = 0;
+                await App.PlayerDatabase.UpdatePlayerAsync(player);
+                // Spouse
+                if (player.Spouse != null)
+                {
+                    PlayerItem spouse = await App.PlayerDatabase.GetPlayerAsync(player.Spouse);
+                    spouse.Lives = 0;
+                    await App.PlayerDatabase.UpdatePlayerAsync(spouse);
+                }             
+            }
+            return 1;
+        }
+
         public static async Task<string> CheckWin()
         {
             List<PlayerItem> alivePlayers = await App.PlayerDatabase.GetPlayersPresentAliveAsync();

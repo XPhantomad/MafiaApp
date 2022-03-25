@@ -608,7 +608,7 @@ namespace MafiaApp
                     return;
                 }
                 // Set dayKills
-                await GameManagement.GetSetPlayersDeathAsync(ListToHashSet((List<string>)onDayKilledNames.ItemsSource));
+                await GameManagement.GetSetPlayersDeathDayAsync(ListToHashSet((List<string>)onDayKilledNames.ItemsSource));
                 string win = await GameManagement.CheckWin();
                 if (win != null)
                 {
@@ -684,7 +684,7 @@ namespace MafiaApp
                     result.Add(witchVictim.Text);
                     witchVictim.IsEnabled = false;
                 }
-                return await GameManagement.GetSetPlayersDeathAsync(result);
+                return await GameManagement.GetSetPlayersDeathNightAsync(result);
             }
         }
 
