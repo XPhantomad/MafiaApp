@@ -231,15 +231,15 @@ namespace MafiaApp
             {
                 OnPopoutJaeger(o, e);
             }
-            if (amorFrame.HeightRequest == 200)
+            if (amorFrame.HeightRequest == 150)
             {
                 OnPopoutAmor(o, e);
             }
-            if (pennerFrame.HeightRequest == 200)
+            if (pennerFrame.HeightRequest == 150)
             {
                 OnPopoutPenner(o, e);
             }
-            if (mafiaFrame.HeightRequest == 200)
+            if (mafiaFrame.HeightRequest == 150)
             {
                 OnPopoutMafia(o, e);
             }
@@ -247,7 +247,7 @@ namespace MafiaApp
             {
                 OnPopoutHexe(o, e);
             }
-            if (detektivFrame.HeightRequest == 200)
+            if (detektivFrame.HeightRequest == 150)
             {
                 OnPopoutDetektiv(o, e);
             }
@@ -256,7 +256,6 @@ namespace MafiaApp
                 OnPopoutElection(o, e);
             }
         }
-
         async Task<int> ChooseNameAsync(CollectionView collectionNames, Roles role)
         {
             if (collectionNames.SelectedItem != null)
@@ -306,22 +305,21 @@ namespace MafiaApp
             await ChooseNameAsync(detektivNames, Roles.Detektiv);
         }
 
-        async void OnPopoutOpa(object sender, EventArgs e)
+        async Task<int> OnPopoutOptionalRole(Frame item, CollectionView names, int heightOpened)
         {
-            Frame item = opaFrame;
             // open
             if (item.HeightRequest == 50)
             {
                 CloseAllFrames();
-                if (opaNames.ItemsSource != null)
+                if (names.ItemsSource != null)
                 {
-                    if (((List<PlayerItem>)opaNames.ItemsSource).Last().Name.Equals("Keiner"))
+                    if (((List<PlayerItem>)names.ItemsSource).Last().Name.Equals("Keiner"))
                     {
                         await DisplayAlert("Warnung", "Du hast noch nicht alle Spieler für diese Rolle eingetragen.", "Okay");
                     }
                     else
                     {
-                        item.HeightRequest = 100;
+                        item.HeightRequest = heightOpened;
                     }
                 }
             }
@@ -334,35 +332,15 @@ namespace MafiaApp
                 }
                 item.HeightRequest = 50;
             }
+            return 1;
+        }
+        async void OnPopoutOpa(object sender, EventArgs e)
+        {
+            await OnPopoutOptionalRole(opaFrame, opaNames, 100);
         }
         async void OnPopoutJaeger(object sender, EventArgs e)
         {
-            Frame item = jaegerFrame;
-            // open
-            if (item.HeightRequest == 50)
-            {
-                CloseAllFrames();
-                if (jaegerNames.ItemsSource != null)
-                {
-                    if (((List<PlayerItem>)jaegerNames.ItemsSource).Last().Name.Equals("Keiner"))
-                    {
-                        await DisplayAlert("Warnung", "Du hast noch nicht alle Spieler für diese Rolle eingetragen.", "Okay");
-                    }
-                    else
-                    {
-                        item.HeightRequest = 100;
-                    }
-                }
-            }
-            // close
-            else
-            {
-                if (item.BackgroundColor != roleInactiveColor)
-                {
-                    item.BackgroundColor = roleFinishedColor;
-                }
-                item.HeightRequest = 50;
-            }
+            await OnPopoutOptionalRole(jaegerFrame, jaegerNames, 100);
         }
         async void OnPopoutAmor(object sender, EventArgs e)
         {
@@ -370,8 +348,6 @@ namespace MafiaApp
             // open
             if (item.HeightRequest == 50)
             {
-                //List<PlayerItem> names = ((List<PlayerItem>)amorNames.ItemsSource);
-                //bool containsKeiner = names.Last<PlayerItem>().Name.Equals("Keiner");
                 CloseAllFrames();
                 if (amorNames.ItemsSource != null)
                 {
@@ -381,7 +357,7 @@ namespace MafiaApp
                     }                
                     else
                     {
-                        item.HeightRequest = 200;
+                        item.HeightRequest = 150;
                     }
                 }
             }
@@ -426,32 +402,7 @@ namespace MafiaApp
         }
         async void OnPopoutPenner(object sender, EventArgs e)
         {
-            Frame item = pennerFrame;
-            // open
-            if (item.HeightRequest == 50)
-            {
-                CloseAllFrames();
-                if (pennerNames.ItemsSource != null)
-                {
-                    if (((List<PlayerItem>)pennerNames.ItemsSource).Last().Name.Equals("Keiner"))
-                    {
-                        await DisplayAlert("Warnung", "Du hast noch nicht alle Spieler für diese Rolle eingetragen.", "Okay");
-                    }
-                    else
-                    {
-                        item.HeightRequest = 200;
-                    }
-                }
-            }
-            // close
-            else
-            {
-                if (item.BackgroundColor != roleInactiveColor)
-                {
-                    item.BackgroundColor = roleFinishedColor;
-                }
-                item.HeightRequest = 50;
-            }
+            await OnPopoutOptionalRole(pennerFrame, pennerNames, 150);
         }
         async void OnAccomodationSelect(object sender, EventArgs e)
         {
@@ -485,7 +436,7 @@ namespace MafiaApp
                     }
                     else
                     {
-                        item.HeightRequest = 200;
+                        item.HeightRequest = 150;
                     }
                 }
             }
@@ -515,11 +466,7 @@ namespace MafiaApp
             string selection = await DisplayActionSheet("Opfer Auswählen", "Abbrechen", null, playerNames.ToArray());
             if (selection != null)
             {
-                if (selection.Equals("Abbrechen"))
-                {
-                    return;
-                }
-                else
+                if (!selection.Equals("Abbrechen"))
                 {
                     victim.Text = showVictim.Text = selection;
                 }
@@ -586,7 +533,7 @@ namespace MafiaApp
                     }
                     else
                     {
-                        item.HeightRequest = 200;
+                        item.HeightRequest = 150;
                     }
                 }
             }
