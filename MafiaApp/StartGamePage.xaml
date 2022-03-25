@@ -34,6 +34,28 @@
                     <Label Text="Hat in der Nacht 2 Leben"/>
                 </StackLayout>
             </Frame>
+            <Frame x:Name="jaegerFrame" BorderColor="{StaticResource FrameBorderColor}" Padding="15" HeightRequest="50" CornerRadius="20" IsVisible="true">
+                <StackLayout Orientation="Vertical">
+                    <StackLayout Orientation="Horizontal">
+                        <CollectionView x:Name="jaegerNames" Margin="0,0,0,0" SelectionMode="Single" SelectionChanged="OnJaegerSelectionChanged" HeightRequest="30" WidthRequest="70">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Vertical" ItemSpacing="0"/>
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout Orientation="Horizontal" >
+                                        <Label Text="{Binding Name}" HorizontalOptions="StartAndExpand" TextColor="Black"/>
+                                        <Label Text="{Binding Lives}" HorizontalOptions="End" TextColor="Black"/>
+                                    </StackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                        <Label Text="Jäger" FontSize="Large" FontAttributes="Bold" HorizontalOptions="Center"/>
+                        <Button Text="Erweitern" Clicked="OnPopoutJaeger" HorizontalOptions="End"/>
+                    </StackLayout>
+                    <Label Text="Nimmt bei seienm Tod einen anderen Spieler mit in den Tod."/>
+                </StackLayout>
+            </Frame>
             <Frame x:Name="amorFrame" BorderColor="{StaticResource FrameBorderColor}" Padding="15" HeightRequest="50" CornerRadius="20" IsVisible="true">
                 <StackLayout Orientation="Vertical">
                     <StackLayout Orientation="Horizontal">

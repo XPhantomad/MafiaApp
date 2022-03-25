@@ -16,7 +16,7 @@ namespace MafiaApp
         public int Round = 1;
         Color roleFinishedColor = Color.GreenYellow;
         Color roleInactiveColor = Color.Gray;
-        int numberAmor, numberMafia, numberHexe, numberBuerger, numberDetektiv, numberPenner, numberOpa;
+        int numberAmor, numberMafia, numberHexe, numberBuerger, numberDetektiv, numberPenner, numberOpa, numberJaeger;
         private List<Frame> frames;
         
         
@@ -50,6 +50,7 @@ namespace MafiaApp
             numberDetektiv = (await App.RolesDatabase.GetRoleAsync(Roles.Detektiv)).Number;
             numberPenner = (await App.RolesDatabase.GetRoleAsync(Roles.Penner)).Number;
             numberOpa = (await App.RolesDatabase.GetRoleAsync(Roles.Opa)).Number;
+            numberJaeger = (await App.RolesDatabase.GetRoleAsync(Roles.Jäger)).Number;
             numberBuerger = (await App.RolesDatabase.GetRoleAsync(Roles.Bürger)).Number;
             if (numberOpa == 0)
             {
@@ -59,6 +60,15 @@ namespace MafiaApp
             {
                 opaFrame.IsVisible = true;
                 opaNames.ItemsSource = await GameManagement.GetPlayersAsync(Roles.Opa, numberOpa);
+            }
+            if (numberJaeger == 0)
+            {
+                jaegerFrame.IsVisible = false;
+            }
+            else
+            {
+                jaegerFrame.IsVisible = true;
+                jaegerNames.ItemsSource = await GameManagement.GetPlayersAsync(Roles.Jäger, numberJaeger);
             }
             if (numberAmor == 0)
             {
@@ -119,6 +129,15 @@ namespace MafiaApp
                 if (opas.Last().Lives <= 0)
                 {
                     opaFrame.BackgroundColor = roleInactiveColor;
+                }
+            }
+            if (numberJaeger != 0)
+            {
+                List<PlayerItem> jaegers = await GameManagement.GetPlayersAsync(Roles.Jäger, numberJaeger);
+                jaegerNames.ItemsSource = jaegers;
+                if (jaegers.Last().Lives <= 0)
+                {
+                    jaegerFrame.BackgroundColor = roleInactiveColor;
                 }
             }
             if (numberAmor != 0)
@@ -204,9 +223,13 @@ namespace MafiaApp
         {
             object o = new object();
             EventArgs e = new EventArgs();
-            if (opaFrame.HeightRequest == 200)
+            if (opaFrame.HeightRequest == 100)
             {
                 OnPopoutOpa(o, e);
+            }
+            if (jaegerFrame.HeightRequest == 100)
+            {
+                OnPopoutJaeger(o, e);
             }
             if (amorFrame.HeightRequest == 200)
             {
@@ -258,6 +281,10 @@ namespace MafiaApp
         {
             await ChooseNameAsync(opaNames, Roles.Opa);
         }
+        async void OnJaegerSelectionChanged(object sender, EventArgs e)
+        {
+            await ChooseNameAsync(jaegerNames, Roles.Jäger);
+        }
         async void OnAmorSelectionChanged(object sender, EventArgs e)
         {
             await ChooseNameAsync(amorNames, Roles.Amor);
@@ -294,7 +321,36 @@ namespace MafiaApp
                     }
                     else
                     {
-                        item.HeightRequest = 200;
+                        item.HeightRequest = 100;
+                    }
+                }
+            }
+            // close
+            else
+            {
+                if (item.BackgroundColor != roleInactiveColor)
+                {
+                    item.BackgroundColor = roleFinishedColor;
+                }
+                item.HeightRequest = 50;
+            }
+        }
+        async void OnPopoutJaeger(object sender, EventArgs e)
+        {
+            Frame item = jaegerFrame;
+            // open
+            if (item.HeightRequest == 50)
+            {
+                CloseAllFrames();
+                if (jaegerNames.ItemsSource != null)
+                {
+                    if (((List<PlayerItem>)jaegerNames.ItemsSource).Last().Name.Equals("Keiner"))
+                    {
+                        await DisplayAlert("Warnung", "Du hast noch nicht alle Spieler für diese Rolle eingetragen.", "Okay");
+                    }
+                    else
+                    {
+                        item.HeightRequest = 100;
                     }
                 }
             }

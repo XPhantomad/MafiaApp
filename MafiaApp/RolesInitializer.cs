@@ -72,6 +72,13 @@ namespace MafiaApp
                 Ability = "kann nichts",
                 Lives = 2,
             });
+            await App.RolesDatabase.SaveRoleAsync(new RolesItem
+            {
+                Role = Roles.Jäger,
+                Number = 0,
+                Ability = "kann nichts",
+                Lives = 1,
+            });
 
             return 1;
         }

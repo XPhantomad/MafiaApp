@@ -9,6 +9,7 @@
         Hexe,
         Penner,
         Bürger,
-        Opa
+        Opa,
+        Jäger,
     }
 }
