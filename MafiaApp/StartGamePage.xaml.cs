@@ -29,16 +29,23 @@ namespace MafiaApp
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            GameManagement.ResetGameAsync();
+            await GameManagement.ResetGameAsync();
             await SetUpFirstRound();
             Console.WriteLine("Hello World");
         }
 
         protected override bool OnBackButtonPressed()
         {
-            Navigation.PopModalAsync();
-            //TODO: Reset all
-            GameManagement.ResetGameAsync();
+            // to get alert in not async method
+            Device.BeginInvokeOnMainThread(async () => {
+                bool input = await DisplayAlert("Warnung", "Willst du das Spiel wirklich beenden?", "Ja", "Nein");
+                if (input)
+                {
+                    //TODO: Reset all
+                    await GameManagement.ResetGameAsync();
+                    await Navigation.PopModalAsync();
+                }
+            });
             return true;
         }
 
