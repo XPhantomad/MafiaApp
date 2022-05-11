@@ -9,6 +9,8 @@
     ".NETStandard,Version=v2.0/": {
       "MafiaApp/1.0.0": {
         "dependencies": {
+          "Microsoft.AppCenter.Analytics": "4.5.1",
+          "Microsoft.AppCenter.Crashes": "4.5.1",
           "NETStandard.Library": "2.0.3",
           "Xamarin.Essentials": "1.5.3.2",
           "Xamarin.Forms": "4.8.0.1451",
@@ -16,6 +18,36 @@
         },
         "runtime": {
           "MafiaApp.dll": {}
+        }
+      },
+      "Microsoft.AppCenter/4.5.1": {
+        "runtime": {
+          "lib/netstandard1.0/Microsoft.AppCenter.dll": {
+            "assemblyVersion": "0.0.0.0",
+            "fileVersion": "4.5.1.0"
+          }
+        }
+      },
+      "Microsoft.AppCenter.Analytics/4.5.1": {
+        "dependencies": {
+          "Microsoft.AppCenter": "4.5.1"
+        },
+        "runtime": {
+          "lib/netstandard1.0/Microsoft.AppCenter.Analytics.dll": {
+            "assemblyVersion": "0.0.0.0",
+            "fileVersion": "4.5.1.0"
+          }
+        }
+      },
+      "Microsoft.AppCenter.Crashes/4.5.1": {
+        "dependencies": {
+          "Microsoft.AppCenter": "4.5.1"
+        },
+        "runtime": {
+          "lib/netstandard1.0/Microsoft.AppCenter.Crashes.dll": {
+            "assemblyVersion": "0.0.0.0",
+            "fileVersion": "4.5.1.0"
+          }
         }
       },
       "Microsoft.NETCore.Platforms/1.1.0": {},
@@ -142,6 +174,27 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "Microsoft.AppCenter/4.5.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ISpYsz9log3yba/7vdgI3s9UdHjxlW22j2lBlHLPpjjYYzU44eG5VLblIXqhOdSvAM5KT0fYdEOpE7LnX3t22g==",
+      "path": "microsoft.appcenter/4.5.1",
+      "hashPath": "microsoft.appcenter.4.5.1.nupkg.sha512"
+    },
+    "Microsoft.AppCenter.Analytics/4.5.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-N/qq1N99q8vFjvWDrh/9lJXIE5Hwo7GW5I5LMKephHvxJMNDxWReSFDpUxXLI8OPLO9dDrPhVQBHhPxA0dtafg==",
+      "path": "microsoft.appcenter.analytics/4.5.1",
+      "hashPath": "microsoft.appcenter.analytics.4.5.1.nupkg.sha512"
+    },
+    "Microsoft.AppCenter.Crashes/4.5.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-OoxCR5gBrOYms1g9S0eHRnPIDfUftew9wAPZ/UHCI6o61rVZ9eVmCQZlhImZ42e/zsWlE97K4jUYXjnJ80uuig==",
+      "path": "microsoft.appcenter.crashes/4.5.1",
+      "hashPath": "microsoft.appcenter.crashes.4.5.1.nupkg.sha512"
     },
     "Microsoft.NETCore.Platforms/1.1.0": {
       "type": "package",

@@ -2,6 +2,9 @@
 using System.IO;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 
 namespace MafiaApp
 {
@@ -45,7 +48,14 @@ namespace MafiaApp
     
         protected override void OnStart()
         {
+            AppCenter.Start("android=fede8a38-1fc2-4d75-8c2c-919523e75124;" +
+                  "uwp=fede8a38-1fc2-4d75-8c2c-919523e75124;" +
+                  "ios=fede8a38-1fc2-4d75-8c2c-919523e75124;" +
+                  "macos=fede8a38-1fc2-4d75-8c2c-919523e75124;",
+                  typeof(Analytics), typeof(Crashes));
+
             GameManagement.ResetGameAsync();
+
         }
 
         protected override void OnSleep()
