@@ -1,7 +1,8 @@
 # Don't track content of these folders
 .vs/
 MafiaApp/obj/Debug/netstandard2.0/MafiaApp.csproj.AssemblyReference.cache
-MafiaApp.Android/obj/
+MafiaApp.Android/obj/Debug/
+MafiaApp.Android/obj/.cache/
 #MafiaApp.Android/
 MafiaApp.iOS/
 # MafiaApp/bin/
