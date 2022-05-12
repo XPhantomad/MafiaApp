@@ -24,7 +24,7 @@ namespace MafiaApp
             {
                 Role = Roles.Bürger,
                 Number = 0,
-                Ability = "kann nichts",
+                Ability = "Lauscht in der Nacht aufmerksam nach auffälligen Geräuschen.",
                 Lives = 1, 
             });
 
@@ -32,7 +32,7 @@ namespace MafiaApp
             {
                 Role = Roles.Mafia,
                 Number = 0,
-                Ability = "kann was",
+                Ability = "Wählt in jeder Nacht ein Opfer aus.",
                 Lives = 1,
             });
 
@@ -40,7 +40,7 @@ namespace MafiaApp
             {
                 Role = Roles.Hexe,
                 Number = 0,
-                Ability = "kann nichts",
+                Ability = "Darf pro Spiel einmal eine Person retten und einmal eine Person töten.",
                 Lives = 1,
             });
 
@@ -48,35 +48,35 @@ namespace MafiaApp
             {
                 Role = Roles.Amor,
                 Number = 0,
-                Ability = "kann nichts",
+                Ability = "Bestimmt am Anfang des Spieles ein Liebespaar für das gesamte Spiel.",
                 Lives = 1,
             });
             await App.RolesDatabase.SaveRoleAsync(new RolesItem
             {
                 Role = Roles.Detektiv,
                 Number = 0,
-                Ability = "kann nichts",
+                Ability = "Wählt am Ende jeder Nacht einen Spieler aus, von dem er die Gesinnung erfährt.",
                 Lives = 1,
             });
             await App.RolesDatabase.SaveRoleAsync(new RolesItem
             {
                 Role = Roles.Penner,
                 Number = 0,
-                Ability = "kann nichts",
+                Ability = "Sucht sich in der Nacht ein Quartier zum Übernachten oder schläft unter der Brücke.",
                 Lives = 1,
             });
             await App.RolesDatabase.SaveRoleAsync(new RolesItem
             {
                 Role = Roles.Opa,
                 Number = 0,
-                Ability = "kann nichts",
+                Ability = "Hat in der Nacht Zwei Leben.",
                 Lives = 2,
             });
             await App.RolesDatabase.SaveRoleAsync(new RolesItem
             {
                 Role = Roles.Jäger,
                 Number = 0,
-                Ability = "kann nichts",
+                Ability = "Nimmt bei seinem Tod einen anderen Spieler mit in den Tod.",
                 Lives = 1,
             });
 
